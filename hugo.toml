@@ -1,0 +1,4 @@
+baseURL = "https://example.com/"
+languageCode = "ru-ru"
+title = "Квартирник"
+theme = "ananke"
