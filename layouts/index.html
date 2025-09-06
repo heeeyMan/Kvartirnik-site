@@ -18,9 +18,9 @@
         (index ($pastKvartirniki.ByDate.Reverse) 0)
         nil }}
 
-<!-- Динамический заголовок -->
+      <!-- Динамический заголовок -->
 {{ if $nearestFutureKvartirnik }}
-  <h1 class="f1 tc mb3">Квартирник — {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }}</h1>
+  <h1 class="f1 tc mb3">Дата: {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }}</h1>
   <h1 class="f1 tc mb3">Начало в {{ $nearestFutureKvartirnik.Params.time }}</h1>
   {{ if $nearestFutureKvartirnik.Params.location }}
     <h2 class="f2 tc mb3" style="color: #718096;">
@@ -28,7 +28,7 @@
     </h2>
   {{ end }}
   <div class="tc mb4">
-    <a href="#registration" class="dib ph4 pv3 bg-blue white br2 f3 fw6 no-underline hover-bg-dark-blue">
+    <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
       Зарегистрироваться
     </a>
   </div>
