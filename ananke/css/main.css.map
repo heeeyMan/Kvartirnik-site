@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/Users/alexandervasin/Documents/projects/siite/Kvartirnik-site",
+	"sourceRoot": "/Users/alexandervasin/Documents/projects/kvat/Kvartirnik-site",
 	"sources": [
 		"ananke/css/main.css"
 	],
