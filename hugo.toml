@@ -30,6 +30,6 @@ theme = "ananke"
     weight = 2
 
   [[menu.main]]
-    name = "О проекте"
+    name = "О нас"
     url = "/about/"
     weight = 3

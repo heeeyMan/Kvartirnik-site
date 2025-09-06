@@ -1,9 +1,6 @@
 {{ define "main" }}
 <div class="pa3 pa4-ns w-100 w-70-ns center">
   
-  <!-- Заголовок -->
-  <p class="f1 tc mb4">Актуальные мероприятия</p>
-  
   <!-- Блок с актуальным квартирником -->
   {{ $kvartirniki := where site.RegularPages "Section" "kvartirniki" }}
   {{ $now := now }}
@@ -21,11 +18,20 @@
         (index ($pastKvartirniki.ByDate.Reverse) 0)
         nil }}
 
+    <!-- Динамический заголовок -->
+    {{ if $nearestFutureKvartirnik }}
+      <h1 class="f1 tc mb4">Квартирник — {{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}</h1>
+    {{ else if $lastPastKvartirnik }}
+      <h1 class="f1 tc mb4">Камин</h1>
+    {{ else }}
+      <h1 class="f1 tc mb4">Камин</h1>
+    {{ end }}
+
     {{ if $nearestFutureKvartirnik }}
       <!-- Есть будущие квартирники - показываем с сообщением "уже скоро" -->
       <section class="main-event">
         <div class="upcoming-message mb4">
-          <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
+          <h2 class="f2 tc mb2">Уже скоро состоится наш очередной квартирник!</h2>
           <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
         </div>
         
@@ -43,6 +49,9 @@
               <h3 class="f3 ma0 mb2">{{ $nearestFutureKvartirnik.Title }}</h3>
               <div class="event-date mb2">
                 {{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}
+                {{ with $nearestFutureKvartirnik.Params.time }}
+                  • <span class="event-time">{{ . }}</span>
+                {{ end }}
                 <span class="status-badge future">Предстоит</span>
               </div>
               <p class="event-excerpt ma0">
@@ -57,7 +66,7 @@
       <!-- Нет будущих, но есть прошедшие - показываем сообщение и последний -->
       <section class="main-event">
         <div class="no-upcoming-events mb4">
-          <p class="f4 tc ma0">В ближайшее время квартирники не запланированы :(</p>
+          <h2 class="f2 tc mb2">В ближайшее время квартирники не запланированы</h2>
           <p class="f4 tc ma0">А пока посмотрите, как прошел наш последний квартирник</p>
         </div>
         
@@ -75,6 +84,9 @@
               <h3 class="f3 ma0 mb2">{{ $lastPastKvartirnik.Title }}</h3>
               <div class="event-date mb2">
                 {{ $lastPastKvartirnik.Date.Format "2 January 2006" }}
+                {{ with $lastPastKvartirnik.Params.time }}
+                  • <span class="event-time">{{ . }}</span>
+                {{ end }}
                 <span class="status-badge past">Состоялся</span>
               </div>
               <p class="event-excerpt ma0">
@@ -88,6 +100,8 @@
 
   {{ else }}
     <!-- Нет никаких квартирников вообще -->
+    <h1 class="f1 tc mb4">Камин</h1>
+    
     <div class="no-events tc pa5">
       <h2 class="f2 mb3">В ближайшее время квартирники не запланированы</h2>
       <p class="f4 mb4">Следите за обновлениями в наших социальных сетях</p>
