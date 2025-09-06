@@ -26,7 +26,7 @@ theme = "ananke"
 
   [[menu.main]]
     name = "Архив"
-    url = "/kvartirniki/"
+    url = "/history/"
     weight = 2
 
   [[menu.main]]

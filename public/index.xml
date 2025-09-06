@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Квартирник — 15 августа 2025 on КАМИН</title>
+    <title>Камин | Нижний Новгород on КАМИН</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content in Квартирник — 15 августа 2025 on КАМИН</description>
+    <description>Recent content in Камин | Нижний Новгород on КАМИН</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
     <lastBuildDate>Sun, 20 Jul 2025 19:00:00 +0300</lastBuildDate>
@@ -14,13 +14,6 @@
       <pubDate>Sun, 20 Jul 2025 19:00:00 +0300</pubDate>
       <guid>http://localhost:1313/kvartirniki/2025-07-20/</guid>
       <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Pervyy Kvartirnik</title>
-      <link>http://localhost:1313/posts/pervyy-kvartirnik/</link>
-      <pubDate>Thu, 03 Jul 2025 22:57:13 +0300</pubDate>
-      <guid>http://localhost:1313/posts/pervyy-kvartirnik/</guid>
-      <description></description>
     </item>
     <item>
       <title>О проекте</title>
@@ -35,6 +28,13 @@
       <pubDate>Sat, 26 Apr 2025 19:00:00 +0300</pubDate>
       <guid>http://localhost:1313/kvartirniki/2025-04-26/</guid>
       <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>История квартирников</title>
+      <link>http://localhost:1313/history/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/history/</guid>
+      <description>&lt;p&gt;Все наши квартирники в одном месте.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
