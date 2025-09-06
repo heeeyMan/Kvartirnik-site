@@ -1,0 +1,103 @@
+{{ define "main" }}
+<div class="pa3 pa4-ns w-100 w-70-ns center">
+  
+  <!-- Заголовок -->
+  <p class="f1 tc mb4">Актуальные мероприятия</p>
+  
+  <!-- Блок с актуальным квартирником -->
+  {{ $kvartirniki := where site.RegularPages "Section" "kvartirniki" }}
+  {{ $now := now }}
+  
+  {{ if $kvartirniki }}
+    <!-- Находим ближайший будущий квартирник -->
+    {{ $futureKvartirniki := where $kvartirniki "Date" "ge" $now }}
+    {{ $nearestFutureKvartirnik := cond (gt (len $futureKvartirniki) 0) 
+        (index ($futureKvartirniki.ByDate) 0) 
+        nil }}
+    
+    <!-- Находим последний прошедший квартирник -->
+    {{ $pastKvartirniki := where $kvartirniki "Date" "lt" $now }}
+    {{ $lastPastKvartirnik := cond (gt (len $pastKvartirniki) 0)
+        (index ($pastKvartirniki.ByDate.Reverse) 0)
+        nil }}
+
+    {{ if $nearestFutureKvartirnik }}
+      <!-- Есть будущие квартирники - показываем с сообщением "уже скоро" -->
+      <section class="main-event">
+        <div class="upcoming-message mb4">
+          <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
+          <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
+        </div>
+        
+        <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="link black dim">
+          <div class="event-card">
+            <div class="event-image">
+              {{ with $nearestFutureKvartirnik.Params.featured_image }}
+                <img src="{{ . }}" alt="{{ $nearestFutureKvartirnik.Title }}" class="w-100">
+              {{ else }}
+                <div class="placeholder-image">Фото афиши</div>
+              {{ end }}
+            </div>
+            
+            <div class="event-content">
+              <h3 class="f3 ma0 mb2">{{ $nearestFutureKvartirnik.Title }}</h3>
+              <div class="event-date mb2">
+                {{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}
+                <span class="status-badge future">Предстоит</span>
+              </div>
+              <p class="event-excerpt ma0">
+                {{ $nearestFutureKvartirnik.Summary | plainify | truncate 120 }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </section>
+
+    {{ else if $lastPastKvartirnik }}
+      <!-- Нет будущих, но есть прошедшие - показываем сообщение и последний -->
+      <section class="main-event">
+        <div class="no-upcoming-events mb4">
+          <p class="f4 tc ma0">В ближайшее время квартирники не запланированы :(</p>
+          <p class="f4 tc ma0">А пока посмотрите, как прошел наш последний квартирник</p>
+        </div>
+        
+        <a href="{{ $lastPastKvartirnik.RelPermalink }}" class="link black dim">
+          <div class="event-card">
+            <div class="event-image">
+              {{ with $lastPastKvartirnik.Params.featured_image }}
+                <img src="{{ . }}" alt="{{ $lastPastKvartirnik.Title }}" class="w-100">
+              {{ else }}
+                <div class="placeholder-image">Фото афиши</div>
+              {{ end }}
+            </div>
+            
+            <div class="event-content">
+              <h3 class="f3 ma0 mb2">{{ $lastPastKvartirnik.Title }}</h3>
+              <div class="event-date mb2">
+                {{ $lastPastKvartirnik.Date.Format "2 January 2006" }}
+                <span class="status-badge past">Состоялся</span>
+              </div>
+              <p class="event-excerpt ma0">
+                {{ $lastPastKvartirnik.Summary | plainify | truncate 120 }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </section>
+    {{ end }}
+
+  {{ else }}
+    <!-- Нет никаких квартирников вообще -->
+    <div class="no-events tc pa5">
+      <h2 class="f2 mb3">В ближайшее время квартирники не запланированы</h2>
+      <p class="f4 mb4">Следите за обновлениями в наших социальных сетях</p>
+      <div class="event-placeholder">
+        <div class="placeholder-icon">🎵</div>
+        <p>Скоро здесь появится информация о новых мероприятиях</p>
+      </div>
+    </div>
+  {{ end }}
+
+</div>
+{{ end }}
+

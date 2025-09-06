@@ -1,6 +1,6 @@
 baseURL = "https://example.com/"
 languageCode = "ru-ru"
-title = "Квартирник"
+title = "КАМИН"
 theme = "ananke"
 [params]
   featured_image = "/images/RS-88.jpg"
@@ -25,16 +25,11 @@ theme = "ananke"
     weight = 1
 
   [[menu.main]]
-    name = "Текущий квартирник"
-    url = "/current/"
-    weight = 2
-
-  [[menu.main]]
     name = "Архив"
     url = "/kvartirniki/"
-    weight = 3
+    weight = 2
 
   [[menu.main]]
     name = "О проекте"
     url = "/about/"
-    weight = 4
+    weight = 3
