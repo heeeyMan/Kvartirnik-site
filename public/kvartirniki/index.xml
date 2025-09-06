@@ -6,14 +6,21 @@
     <description>Recent content in Kvartirnikis on Квартирник</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
-    <lastBuildDate>Thu, 03 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jul 2025 19:00:00 +0300</lastBuildDate>
     <atom:link href="http://localhost:1313/kvartirniki/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Квартирник 3 июля 2025</title>
-      <link>http://localhost:1313/kvartirniki/2025-07-03/</link>
-      <pubDate>Thu, 03 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/kvartirniki/2025-07-03/</guid>
-      <description>&lt;p&gt;Прошел тёплый вечер с участием:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&amp;ldquo;Rocking Band&amp;rdquo;&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;Acoustic Duo&amp;rdquo;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Фото и видео:&#xA;&lt;a href=&#34;#&#34;&gt;Смотреть альбом&lt;/a&gt;+++&#xA;date = &amp;lsquo;2025-07-03T23:31:13+03:00&amp;rsquo;&#xA;draft = true&#xA;title = &amp;lsquo;2025 07 03&amp;rsquo;&#xA;+++&lt;/p&gt;</description>
+      <title>Квартирник в Башне мага</title>
+      <link>http://localhost:1313/kvartirniki/2025-07-20/</link>
+      <pubDate>Sun, 20 Jul 2025 19:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/kvartirniki/2025-07-20/</guid>
+      <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Квартирник в Музее</title>
+      <link>http://localhost:1313/kvartirniki/2025-04-26/</link>
+      <pubDate>Sat, 26 Apr 2025 19:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/kvartirniki/2025-04-26/</guid>
+      <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

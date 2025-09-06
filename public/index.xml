@@ -16,6 +16,13 @@
       <description>&lt;h2 id=&#34;программа-вечера&#34;&gt;Программа вечера&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;Время&lt;/th&gt;&#xA;          &lt;th&gt;Исполнитель&lt;/th&gt;&#xA;          &lt;th&gt;Формат&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;18:00&lt;/td&gt;&#xA;          &lt;td&gt;Иван Петров&lt;/td&gt;&#xA;          &lt;td&gt;Авторская песня&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;18:20&lt;/td&gt;&#xA;          &lt;td&gt;Анна Смирнова&lt;/td&gt;&#xA;          &lt;td&gt;Джаз-вокал&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;18:40&lt;/td&gt;&#xA;          &lt;td&gt;Перерыв&lt;/td&gt;&#xA;          &lt;td&gt;Чай и печенье&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;19:00&lt;/td&gt;&#xA;          &lt;td&gt;Группа &amp;ldquo;Синица&amp;rdquo;&lt;/td&gt;&#xA;          &lt;td&gt;Акустика&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;📸 После концерта — фото и видеоотчёт.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Квартирник в Башне мага</title>
+      <link>http://localhost:1313/kvartirniki/2025-07-20/</link>
+      <pubDate>Sun, 20 Jul 2025 19:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/kvartirniki/2025-07-20/</guid>
+      <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Pervyy Kvartirnik</title>
       <link>http://localhost:1313/posts/pervyy-kvartirnik/</link>
       <pubDate>Thu, 03 Jul 2025 22:57:13 +0300</pubDate>
@@ -23,18 +30,18 @@
       <description></description>
     </item>
     <item>
-      <title>Квартирник 3 июля 2025</title>
-      <link>http://localhost:1313/kvartirniki/2025-07-03/</link>
-      <pubDate>Thu, 03 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/kvartirniki/2025-07-03/</guid>
-      <description>&lt;p&gt;Прошел тёплый вечер с участием:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&amp;ldquo;Rocking Band&amp;rdquo;&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;Acoustic Duo&amp;rdquo;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Фото и видео:&#xA;&lt;a href=&#34;#&#34;&gt;Смотреть альбом&lt;/a&gt;+++&#xA;date = &amp;lsquo;2025-07-03T23:31:13+03:00&amp;rsquo;&#xA;draft = true&#xA;title = &amp;lsquo;2025 07 03&amp;rsquo;&#xA;+++&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>О проекте</title>
       <link>http://localhost:1313/about/</link>
       <pubDate>Thu, 03 Jul 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/about/</guid>
       <description>&lt;p&gt;Добро пожаловать на сайт квартирников!&lt;br&gt;&#xA;Здесь мы делимся музыкой, встречами и теплом.&lt;/p&gt;&#xA;&lt;p&gt;Контакты: @example в Telegram.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Квартирник в Музее</title>
+      <link>http://localhost:1313/kvartirniki/2025-04-26/</link>
+      <pubDate>Sat, 26 Apr 2025 19:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/kvartirniki/2025-04-26/</guid>
+      <description>&lt;h2 id=&#34;о-мероприятии&#34;&gt;О мероприятии&lt;/h2&gt;&#xA;&lt;p&gt;Приглашаем вас на уютный акустический вечер в загородной атмосфере.&lt;/p&gt;&#xA;&lt;p&gt;Живая музыка у костра, поэтические чтения и душевные разговоры.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

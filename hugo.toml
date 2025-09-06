@@ -7,6 +7,16 @@ theme = "ananke"
   featured_image_home = "/images/RS-88.jpg"
   featured_image_class = "cover bg-center"
   cover_dimming_class = "bg-black-40"
+  current_kvartirnik = "2025-10-05"  # Дата активного квартирник
+  custom_css = ["css/custom.css"]
+  
+
+[frontmatter]
+  lastmod = ['lastmod', ':git', 'date']
+
+[build]
+  writeStats = true
+
 [menu]
 
   [[menu.main]]
