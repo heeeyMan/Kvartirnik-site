@@ -2,7 +2,11 @@ baseURL = "https://example.com/"
 languageCode = "ru-ru"
 title = "Квартирник"
 theme = "ananke"
-
+[params]
+  featured_image = "/images/RS-88.jpg"
+  featured_image_home = "/images/RS-88.jpg"
+  featured_image_class = "cover bg-center"
+  cover_dimming_class = "bg-black-40"
 [menu]
 
   [[menu.main]]
