@@ -60,15 +60,22 @@
     </h2>
   {{ end }}
   
-  <!-- Кнопка регистрации -->
+  <!-- Кнопка регистрации / текст при закрытой регистрации -->
   <div class="tc mb4">
-    {{ $deadline := time $nearestFutureKvartirnik.Params.deadline_reg_date }}
-    {{ if lt now $deadline }}
-      <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
+    {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
+      {{ $deadline := time . }}
+      {{ if lt now $deadline }}
+        <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
+          Зарегистрироваться
+        </a>
+      {{ else }}
+        <p class="f2 tc reg-finish fw6">Регистрация завершена</p>
+      {{ end }}
+    {{ else }}
+      <!-- Если в .Params нет deadline_reg_date, показываем кнопку по умолчанию -->
+      <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
         Зарегистрироваться
       </a>
-    {{ else }}
-      <p class="f2 tc reg-finish fw6">Регистрация завершена</p>
     {{ end }}
   </div>
 {{ else }}
@@ -78,22 +85,28 @@
 
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     {{ if $nearestFutureKvartirnik }}
-      <!-- Есть будущие квартирники - показываем с сообщением "уже скоро" -->
       <section class="main-event">
 
-        {{ $deadline := time $nearestFutureKvartirnik.Params.deadline_reg_date }}
-    {{ if lt now $deadline }}
-      <div class="upcoming-message mb4">
-          <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
-          <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
-        </div>
-    {{ else }}
-      <div class="upcoming-message mb4">
-          <p class="f4 tc ma0">Но мы будем рады, если вы придете!
-            <br>(даже если нет регистрации ... только псссс ...)</p>
-        </div>
-    {{ end }}
-        
+        {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
+          {{ $deadline := time . }}
+          {{ if lt now $deadline }}
+            <div class="upcoming-message mb4">
+              <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
+              <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
+            </div>
+          {{ else }}
+            <div class="upcoming-message mb4">
+              <p class="f4 tc ma0">Но мы будем рады, если вы придёте!
+                <br>(даже если регистрация закрыта ...)</p>
+            </div>
+          {{ end }}
+        {{ else }}
+          <div class="upcoming-message mb4">
+            <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
+            <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
+          </div>
+        {{ end }}
+
         <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="link black dim">
           <div class="event-card">
             <div class="event-image">
@@ -122,7 +135,6 @@
       </section>
 
     {{ else if $lastPastKvartirnik }}
-      <!-- Нет будущих, но есть прошедшие - показываем сообщение и последний -->
       <section class="main-event">
         <div class="no-upcoming-events mb4">
           <p class="f4 tc ma0">В ближайшее время квартирники не запланированы :(</p>
@@ -173,18 +185,17 @@
 
 </div>
 
-<!-- ===== СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ===== -->
+<!-- ===== Стили ===== -->
 <style>
-#calendar-modal {
-  transition: opacity 0.3s ease;
-}
-
-/* Стили для hover-эффектов ссылок */
 .hover-black-70:hover {
   color: #8B4513 !important;
 }
 .hover-black-70:hover svg {
   fill: #8B4513 !important;
 }
+.reg-finish {
+  color: darkred;
+}
 </style>
 {{ end }}
+
