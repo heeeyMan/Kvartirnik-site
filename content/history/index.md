@@ -1,5 +1,5 @@
 ---
-title: "История квартирников"
+title: "Наши квартирники"
 type: "history"
 layout: "history"
 draft: false

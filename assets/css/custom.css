@@ -1,3 +1,30 @@
+/* Стили для страницы О нас */
+.underline-center {
+  width: 60px;
+  height: 3px;
+  background: #8B4513;
+  margin: 0 auto;
+}
+
+.organizer-photo img {
+  transition: transform 0.3s ease;
+}
+
+.organizer-photo img:hover {
+  transform: scale(1.05);
+}
+
+.bg-washed-blue {
+  background-color: #f0f8ff;
+}
+
+.bg-brown {
+  background-color: #8B4513;
+}
+
+.hover-bg-dark-brown:hover {
+  background-color: #654321;
+}
 /* Стили для кнопки регистрации */
 .hover-bg-dark-blue:hover {
   background-color: #cca107;
@@ -95,9 +122,14 @@
 /* Сетка квартирников */
 .kvartirniki-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 3rem;
   margin: 3rem 0;
+}
+
+/* Коричневый цвет текста*/
+.brown-text {
+  color: #50280b; /* Классический коричневый */
 }
 
 /* Карточка квартирника */
@@ -382,8 +414,8 @@
 }
 
 .event-image {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   min-width: 70px;
   min-height: 70px;
   overflow: hidden;

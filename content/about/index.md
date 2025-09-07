@@ -1,10 +1,7 @@
 ---
-title: "О проекте"
-date: 2025-07-03
-featured_image: "/images/RS-88.jpg"
+title: "О нашем квартирнике"
+description: "Узнайте о нашей истории, философии и команде"
+date: 2024-01-20
+draft: false
+featured_image: "/images/RS-141.jpg"
 ---
-
-Добро пожаловать на сайт квартирников!  
-Здесь мы делимся музыкой, встречами и теплом.
-
-Контакты: @example в Telegram.
