@@ -1,3 +1,197 @@
+/* Стили для фотогалереи */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.photo-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.photo-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Адаптивность для фотогалереи */
+@media (max-width: 768px) {
+  .photos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .photo-item img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .photo-item img {
+    height: 120px;
+  }
+}
+
+/* Дополнительные стили для красоты */
+.kvartirnik-article {
+  max-width: 1000px;
+}
+
+.photos-section {
+  margin: 3rem 0;
+}
+
+.photos-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2rem;
+}
+/* Стили для страницы квартирника */
+.page-kvartirnik {
+    background-color: #f8f9fa;
+}
+
+.kvartirnik-article {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.kvartirnik-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 1rem;
+}
+
+.kvartirnik-title {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.kvartirnik-meta {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.kvartirnik-time {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid #dee2e6;
+}
+
+.kvartirnik-content {
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.kvartirnik-place,
+.kvartirnik-participants,
+.kvartirnik-photos {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.kvartirnik-place h2,
+.kvartirnik-participants h2,
+.kvartirnik-photos h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.address {
+    font-style: italic;
+    color: #6c757d;
+}
+
+.participants-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.participant {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+}
+
+.participant-name {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.songs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.song {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.song:last-child {
+    border-bottom: none;
+}
+
+.photos-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.photo:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .kvartirnik-article {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .photos-gallery {
+        grid-template-columns: 1fr;
+    }
+}
 /* Стили для страницы О нас */
 .underline-center {
   width: 60px;
@@ -22,6 +216,10 @@
   background-color: #8B4513;
 }
 
+.bg-chats-brown {
+  background-color: #fffdfb;
+}
+
 .hover-bg-dark-brown:hover {
   background-color: #654321;
 }
@@ -30,6 +228,10 @@
   background-color: #cc8707;
 }
 
+/* Регистрация завершена */
+.reg-finish {
+    color: #7d7a6c;
+}
 /* В процессе - зеленый */
 .bg-yellow {
   background: linear-gradient(135deg, #bf8509 0%, #a38502 100%);

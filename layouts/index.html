@@ -62,9 +62,14 @@
   
   <!-- Кнопка регистрации -->
   <div class="tc mb4">
-    <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
-      Зарегистрироваться
-    </a>
+    {{ $deadline := time $nearestFutureKvartirnik.Params.deadline_reg_date }}
+    {{ if lt now $deadline }}
+      <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
+        Зарегистрироваться
+      </a>
+    {{ else }}
+      <p class="f2 tc reg-finish fw6">Регистрация завершена</p>
+    {{ end }}
   </div>
 {{ else }}
   <!-- Заголовок когда нет будущих мероприятий -->
@@ -75,10 +80,19 @@
     {{ if $nearestFutureKvartirnik }}
       <!-- Есть будущие квартирники - показываем с сообщением "уже скоро" -->
       <section class="main-event">
-        <div class="upcoming-message mb4">
+
+        {{ $deadline := time $nearestFutureKvartirnik.Params.deadline_reg_date }}
+    {{ if lt now $deadline }}
+      <div class="upcoming-message mb4">
           <p class="f4 tc ma0">Уже скоро состоится наш очередной квартирник!</p>
           <p class="f4 tc ma0">Не пропустите самое интересное событие этого сезона</p>
         </div>
+    {{ else }}
+      <div class="upcoming-message mb4">
+          <p class="f4 tc ma0">Но мы будем рады, если вы придете!
+            <br>(даже если нет регистрации ... только псссс ...)</p>
+        </div>
+    {{ end }}
         
         <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="link black dim">
           <div class="event-card">
@@ -158,124 +172,6 @@
   {{ end }}
 
 </div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ В КАЛЕНДАРЬ ===== -->
-<div id="calendar-modal" class="fixed top-0 left-0 w-100 h-100 bg-black-70 z-999" style="display: none;">
-  <div class="fixed top-50 left-50 bg-white br3 pa4 shadow-4" style="transform: translate(-50%, -50%); max-width: 400px;">
-    <h3 class="f3 mb3">Добавить в календарь</h3>
-    <p class="f5 mb3">Выберите способ добавления мероприятия:</p>
-    
-    <div class="flex flex-wrap">
-      <!-- Ссылка на Google Календарь -->
-      <a id="google-calendar" class="dib pa3 mb2 mr2 bg-blue white br2 no-underline f6 hover-bg-dark-blue" target="_blank">
-        Google Календарь
-      </a>
-      <!-- Ссылка на Outlook -->
-      <a id="outlook-calendar" class="dib pa3 mb2 mr2 bg-dark-blue white br2 no-underline f6 hover-bg-blue" target="_blank">
-        Outlook
-      </a>
-      <!-- Скачивание .ics файла -->
-      <a id="ics-download" class="dib pa3 mb2 bg-green white br2 no-underline f6 hover-bg-dark-green">
-        Скачать .ics
-      </a>
-    </div>
-    
-    <!-- Кнопка закрытия -->
-    <button onclick="closeCalendarModal()" class="db w-100 pa2 mt3 bg-gray white br2 f6">Закрыть</button>
-  </div>
-</div>
-
-<!-- ===== JavaScript ДЛЯ РАБОТЫ С КАЛЕНДАРЕМ ===== -->
-<script>
-// Функция для открытия модального окна добавления в календарь
-function addToCalendar(title, dateString, time, location) {
-  console.log('addToCalendar called with:', {title, dateString, time, location});
-  
-  try {
-    // Форматируем дату и время
-    const eventDate = new Date(dateString);
-    console.log('Parsed date:', eventDate);
-    
-    if (time && time.includes(':')) {
-      const [hours, minutes] = time.split(':');
-      eventDate.setHours(parseInt(hours), parseInt(minutes));
-      console.log('Time set to:', hours, minutes);
-    }
-    
-    const endDate = new Date(eventDate);
-    endDate.setHours(eventDate.getHours() + 2); // +2 часа длительность
-    
-    // Форматируем для Google Calendar
-    const startGoogle = eventDate.toISOString().replace(/-|:|\.\d+/g, '');
-    const endGoogle = endDate.toISOString().replace(/-|:|\.\d+/g, '');
-    
-    // Создаем ссылки для разных календарей
-    const googleLink = `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(title)}&dates=${startGoogle}/${endGoogle}&details=${encodeURIComponent('Квартирник')}&location=${encodeURIComponent(location)}`;
-    const outlookLink = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}&startdt=${eventDate.toISOString()}&enddt=${endDate.toISOString()}&location=${encodeURIComponent(location)}`;
-    
-    console.log('Google link:', googleLink);
-    
-    // Устанавливаем ссылки в кнопки
-    document.getElementById('google-calendar').href = googleLink;
-    document.getElementById('outlook-calendar').href = outlookLink;
-    
-    // Создаем .ics файл для скачивания
-    const icsContent = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'BEGIN:VEVENT',
-      `SUMMARY:${title}`,
-      `DTSTART:${formatICSTime(eventDate)}`,
-      `DTEND:${formatICSTime(endDate)}`,
-      `LOCATION:${location}`,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\n');
-    
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const icsUrl = URL.createObjectURL(blob);
-    document.getElementById('ics-download').href = icsUrl;
-    document.getElementById('ics-download').download = `${title}.ics`;
-    
-    // Показываем модальное окно
-    document.getElementById('calendar-modal').style.display = 'block';
-    
-  } catch (error) {
-    console.error('Error in addToCalendar:', error);
-    alert('Произошла ошибка при добавлении в календарь');
-  }
-}
-
-// Вспомогательная функция для форматирования времени в формате ICS
-function formatICSTime(date) {
-  return date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, -1) + 'Z';
-}
-
-// Функция закрытия модального окна
-function closeCalendarModal() {
-  document.getElementById('calendar-modal').style.display = 'none';
-}
-
-// Закрытие по клику вне окна
-document.getElementById('calendar-modal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeCalendarModal();
-  }
-});
-
-// Закрытие по клавише ESC
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeCalendarModal();
-  }
-});
-
-// Проверяем, что функции доступны глобально
-console.log('Calendar functions loaded:', {
-  addToCalendar: typeof addToCalendar,
-  closeCalendarModal: typeof closeCalendarModal
-});
-</script>
 
 <!-- ===== СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ===== -->
 <style>

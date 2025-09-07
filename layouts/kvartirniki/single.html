@@ -1,0 +1,441 @@
+{{ define "main" }}
+<div class="pa4 pa5-ns">
+  <article class="kvartirnik-article measure-wide center">
+    
+    <!-- Кнопка Назад -->
+    <div class="mb4">
+      <button class="back-btn f6 ph3 pv2 br2 bn pointer" 
+              onclick="goBack()"
+              style="background-color: #ffffff; color: rgb(0, 0, 0); border: none;">
+        ← Назад
+      </button>
+    </div>
+    
+    <!-- Программа -->
+    {{ if .Params.program }}
+    <section class="program-section mb5">
+      <h2 class="f3 mb3" style="color: #34495e;">📅 Программа вечера</h2>
+      <div class="program-list">
+        {{ range .Params.program }}
+        <div class="program-item flex items-center mb2">
+          <span class="program-time f5 b mr3" style="min-width: 60px; color: #2c3e50;">{{ .time }}</span>
+          <span class="program-title f5">{{ .title }}</span>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+    
+    <!-- Участники с раскрывающимся списком -->
+    {{ if .Params.participants }}
+    <section class="participants-section mb5">
+      <h2 class="f3 mb4" style="color: #34495e;">🎤 Участники</h2>
+      <div class="participants-list">
+        <!-- Первые три участника (всегда видимые) -->
+        {{ range first 3 .Params.participants }}
+        <div class="participant-card pa3 mb3 br3 shadow-1">
+          <div class="participant-header flex items-center justify-between">
+            <h3 class="f4 mb0" style="color: #2c3e50;">{{ .name }}</h3>
+            <span class="f6 gray">{{ .instrument }}</span>
+          </div>
+          
+          <div class="songs-container">
+            <ul class="songs-list list pl0 mt2">
+              {{ range .songs }}
+              <li class="song-item mb1 f6">🎵 {{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
+        
+        <!-- Остальные участники (скрытые) -->
+        {{ if gt (len .Params.participants) 3 }}
+        <div class="participants-collapsible" style="display: none;">
+          {{ range after 3 .Params.participants }}
+          <div class="participant-card pa3 mb3 br3 shadow-1">
+            <div class="participant-header flex items-center justify-between">
+              <h3 class="f4 mb0" style="color: #2c3e50;">{{ .name }}</h3>
+              <span class="f6 gray">{{ .instrument }}</span>
+            </div>
+            
+            <div class="songs-container">
+              <ul class="songs-list list pl0 mt2">
+                {{ range .songs }}
+                <li class="song-item mb1 f6">🎵 {{ . }}</li>
+                {{ end }}
+              </ul>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        
+        <!-- Кнопка показать/скрыть -->
+        <div class="tc mt2">
+          <button class="show-more-participants-btn f6 ph4 pv2 br2 bn pointer" 
+                  onclick="toggleParticipants(this)"
+                  style="background-color: #3498db; color: white;"
+                  data-hidden-count="{{ sub (len .Params.participants) 3 }}">
+            Показать ещё {{ sub (len .Params.participants) 3 }} участников ▼
+          </button>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Фотографии -->
+    {{ if .Params.photos }}
+    <section class="kvartirnik-photos mb5">
+      <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
+      <div class="photos-grid" id="photosContainer" data-photos='{{ .Params.photos | jsonify }}'>
+        {{ range $index, $photo := .Params.photos }}
+        <div class="photo-item">
+          <img src="{{ $photo }}" 
+               alt="Фото с квартирника {{ $.Title }}" 
+               class="db w-100 br3 photo-thumbnail"
+               onclick="openModal({{ $photo | jsonify }}, {{ $index }})">
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+  </article>
+</div>
+
+<!-- Модальное окно для фотографий -->
+<div id="photoModal" class="modal" style="display: none;">
+  <span class="modal-close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImage">
+  <div class="modal-caption" id="modalCaption"></div>
+  
+  <!-- Навигация -->
+  <a class="modal-prev" onclick="changePhoto(-1)">&#10094;</a>
+  <a class="modal-next" onclick="changePhoto(1)">&#10095;</a>
+</div>
+
+<!-- Стили для участников и фотогалереи -->
+<style>
+/* Стили для кнопки Назад */
+.back-btn {
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-btn:hover {
+  background-color: #5a6268 !important;
+  transform: translateX(-2px);
+}
+
+.participant-card {
+  background: white;
+  border-left: 4px solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.participant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.participant-header {
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.song-item {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.song-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.song-item:last-child {
+  border-bottom: none;
+}
+
+.show-more-participants-btn {
+  transition: all 0.3s ease;
+}
+
+.show-more-participants-btn:hover {
+  background-color: #2980b9 !important;
+  transform: translateY(-2px);
+}
+
+.participants-collapsible {
+  transition: all 0.3s ease;
+}
+
+/* Стили для фотогалереи */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.photo-thumbnail {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.photo-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.photo-item:hover .photo-thumbnail {
+  transform: scale(1.1);
+}
+
+/* Стили для модального окна */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  display: block;
+  margin: 0 auto;
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: #ccc;
+}
+
+.modal-caption {
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.modal-prev,
+.modal-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.3s;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}
+
+.modal-prev:hover,
+.modal-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-prev {
+  left: 20px;
+}
+
+.modal-next {
+  right: 20px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    max-height: 2000px;
+    transform: translateY(0);
+  }
+}
+
+.participants-collapsible.show {
+  display: block !important;
+  animation: slideDown 0.5s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .photos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .photo-thumbnail {
+    height: 150px;
+  }
+  
+  .modal-content {
+    max-width: 95%;
+  }
+  
+  .modal-prev,
+  .modal-next {
+    font-size: 24px;
+    padding: 12px;
+  }
+  
+  .modal-close {
+    font-size: 30px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .photo-thumbnail {
+    height: 120px;
+  }
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+// Функция для кнопки Назад
+function goBack() {
+  window.history.back();
+}
+
+// Для участников
+function toggleParticipants(button) {
+  const container = button.parentElement.previousElementSibling;
+  const isExpanded = container.classList.contains('show');
+  const hiddenCount = button.getAttribute('data-hidden-count');
+  
+  if (isExpanded) {
+    container.classList.remove('show');
+    button.textContent = 'Показать ещё ' + hiddenCount + ' участников ▼';
+    button.style.backgroundColor = '#3498db';
+  } else {
+    container.classList.add('show');
+    button.textContent = 'Скрыть ▲';
+    button.style.backgroundColor = '#e74c3c';
+  }
+}
+
+// Для фотогалереи
+let currentPhotoIndex = 0;
+let photos = [];
+
+function openModal(photoSrc, index) {
+  const modal = document.getElementById('photoModal');
+  const modalImg = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+  
+  // Получаем photos из data-атрибута
+  const photosContainer = document.getElementById('photosContainer');
+  if (photosContainer && !photos.length) {
+    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+  }
+  
+  currentPhotoIndex = index;
+  modal.style.display = 'block';
+  modalImg.src = photoSrc;
+  modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
+  
+  // Блокируем прокрутку страницы
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('photoModal');
+  modal.style.display = 'none';
+  
+  // Восстанавливаем прокрутку
+  document.body.style.overflow = 'auto';
+}
+
+function changePhoto(direction) {
+  if (!photos.length) return;
+  
+  currentPhotoIndex += direction;
+  
+  // Зацикливаем навигацию
+  if (currentPhotoIndex >= photos.length) {
+    currentPhotoIndex = 0;
+  } else if (currentPhotoIndex < 0) {
+    currentPhotoIndex = photos.length - 1;
+  }
+  
+  const modalImg = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+  
+  modalImg.src = photos[currentPhotoIndex];
+  modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
+}
+
+// Закрытие модального окна по клику вне изображения
+document.getElementById('photoModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
+
+// Закрытие по клавише ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+  if (e.key === 'ArrowLeft') {
+    changePhoto(-1);
+  }
+  if (e.key === 'ArrowRight') {
+    changePhoto(1);
+  }
+});
+</script>
+{{ end }}
