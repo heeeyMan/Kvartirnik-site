@@ -143,7 +143,16 @@
 
 
 
-  <h1 class="f1 tc mb3">Дата: 05.10.2025 / 19:00</h1>
+  
+  <h1 class="f1 tc mb3" style="color: #5a1700;">
+    <a href="https://calendar.google.com/calendar/r/eventedit?text=%D0%9A%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%BD%D0%B8%D0%BA&#43;%D0%B2&#43;%D0%A5%D0%B8%D1%82%D1%80%D1%8B%D0%B9&#43;%D0%BB%D0%B8%D1%81&details=Квартирник 05.10.2025 в 19%3a00&location=%D0%94%D0%B0%D1%87%D0%B0&#43;%D0%BD%D0%B0&#43;%D0%BE%D0%B7%D0%B5%D1%80%D0%B5"
+       target="_blank"
+       class="no-underline hover-black-70"
+       style="color: #5a1700 !important; cursor: pointer; text-decoration: none;">
+      05.10.2025 | 19:00
+    </a>
+  </h1>
+  
   
   
     <h2 class="f2 tc mb3" style="color: #5a1700;">
@@ -154,9 +163,11 @@
            style="color: #5a1700 !important;">
       
       
+          
           <svg class="dib mr2" fill="currentColor" viewBox="0 0 24 24" style="width: 62px; height: 62px; vertical-align: middle;">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
+          
           
           <span style="font-family: 'Courier New', monospace; font-weight: normal;">
             Дача на озере
@@ -168,6 +179,7 @@
     </h2>
   
   
+  
   <div class="tc mb4">
     <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
       Зарегистрироваться
@@ -175,6 +187,7 @@
   </div>
 
 
+    
     
       
       <section class="main-event">
@@ -213,6 +226,139 @@
   
 
 </div>
+
+
+<div id="calendar-modal" class="fixed top-0 left-0 w-100 h-100 bg-black-70 z-999" style="display: none;">
+  <div class="fixed top-50 left-50 bg-white br3 pa4 shadow-4" style="transform: translate(-50%, -50%); max-width: 400px;">
+    <h3 class="f3 mb3">Добавить в календарь</h3>
+    <p class="f5 mb3">Выберите способ добавления мероприятия:</p>
+    
+    <div class="flex flex-wrap">
+      
+      <a id="google-calendar" class="dib pa3 mb2 mr2 bg-blue white br2 no-underline f6 hover-bg-dark-blue" target="_blank">
+        Google Календарь
+      </a>
+      
+      <a id="outlook-calendar" class="dib pa3 mb2 mr2 bg-dark-blue white br2 no-underline f6 hover-bg-blue" target="_blank">
+        Outlook
+      </a>
+      
+      <a id="ics-download" class="dib pa3 mb2 bg-green white br2 no-underline f6 hover-bg-dark-green">
+        Скачать .ics
+      </a>
+    </div>
+    
+    
+    <button onclick="closeCalendarModal()" class="db w-100 pa2 mt3 bg-gray white br2 f6">Закрыть</button>
+  </div>
+</div>
+
+
+<script>
+
+function addToCalendar(title, dateString, time, location) {
+  console.log('addToCalendar called with:', {title, dateString, time, location});
+  
+  try {
+    
+    const eventDate = new Date(dateString);
+    console.log('Parsed date:', eventDate);
+    
+    if (time && time.includes(':')) {
+      const [hours, minutes] = time.split(':');
+      eventDate.setHours(parseInt(hours), parseInt(minutes));
+      console.log('Time set to:', hours, minutes);
+    }
+    
+    const endDate = new Date(eventDate);
+    endDate.setHours(eventDate.getHours() + 2); 
+    
+    
+    const startGoogle = eventDate.toISOString().replace(/-|:|\.\d+/g, '');
+    const endGoogle = endDate.toISOString().replace(/-|:|\.\d+/g, '');
+    
+    
+    const googleLink = `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(title)}&dates=${startGoogle}/${endGoogle}&details=${encodeURIComponent('Квартирник')}&location=${encodeURIComponent(location)}`;
+    const outlookLink = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}&startdt=${eventDate.toISOString()}&enddt=${endDate.toISOString()}&location=${encodeURIComponent(location)}`;
+    
+    console.log('Google link:', googleLink);
+    
+    
+    document.getElementById('google-calendar').href = googleLink;
+    document.getElementById('outlook-calendar').href = outlookLink;
+    
+    
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'BEGIN:VEVENT',
+      `SUMMARY:${title}`,
+      `DTSTART:${formatICSTime(eventDate)}`,
+      `DTEND:${formatICSTime(endDate)}`,
+      `LOCATION:${location}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\n');
+    
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const icsUrl = URL.createObjectURL(blob);
+    document.getElementById('ics-download').href = icsUrl;
+    document.getElementById('ics-download').download = `${title}.ics`;
+    
+    
+    document.getElementById('calendar-modal').style.display = 'block';
+    
+  } catch (error) {
+    console.error('Error in addToCalendar:', error);
+    alert('Произошла ошибка при добавлении в календарь');
+  }
+}
+
+
+function formatICSTime(date) {
+  return date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, -1) + 'Z';
+}
+
+
+function closeCalendarModal() {
+  document.getElementById('calendar-modal').style.display = 'none';
+}
+
+
+document.getElementById('calendar-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeCalendarModal();
+  }
+});
+
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeCalendarModal();
+  }
+});
+
+
+console.log('Calendar functions loaded:', {
+  addToCalendar: typeof addToCalendar,
+  closeCalendarModal: typeof closeCalendarModal
+});
+</script>
+
+
+<style>
+#calendar-modal {
+  transition: opacity 0.3s ease;
+}
+
+ 
+.hover-black-70:hover {
+  color: #8B4513 !important;
+}
+.hover-black-70:hover svg {
+  fill: #8B4513 !important;
+}
+</style>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
