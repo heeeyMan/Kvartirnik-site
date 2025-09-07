@@ -1,5 +1,5 @@
 ---
-title: "Наши квартирники"
+title: "Наши мероприятия"
 type: "history"
 layout: "history"
 draft: false

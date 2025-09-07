@@ -18,15 +18,37 @@
         (index ($pastKvartirniki.ByDate.Reverse) 0)
         nil }}
 
-      <!-- Динамический заголовок -->
+<!-- Динамический заголовок -->
 {{ if $nearestFutureKvartirnik }}
-  <h1 class="f1 tc mb3">Дата: {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }}</h1>
-  <h1 class="f1 tc mb3">Начало в {{ $nearestFutureKvartirnik.Params.time }}</h1>
+  <h1 class="f1 tc mb3">Дата: {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }} / {{ $nearestFutureKvartirnik.Params.time }}</h1>
+  
   {{ if $nearestFutureKvartirnik.Params.location }}
-    <h2 class="f2 tc mb3" style="color: #5a3900;">
-      Место: {{ $nearestFutureKvartirnik.Params.location }}
+    <h2 class="f2 tc mb3" style="color: #5a1700;">
+      {{ if $nearestFutureKvartirnik.Params.yandex_maps_link }}
+        <a href="{{ $nearestFutureKvartirnik.Params.yandex_maps_link }}" 
+           target="_blank" 
+           class="no-underline black hover-black-70 flex items-center justify-center"
+           style="color: #5a1700 !important;">
+      {{ else }}
+        <div class="flex items-center justify-center">
+      {{ end }}
+      
+          <svg class="dib mr2" fill="currentColor" viewBox="0 0 24 24" style="width: 62px; height: 62px; vertical-align: middle;">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          
+          <span style="font-family: 'Courier New', monospace; font-weight: normal;">
+            {{ $nearestFutureKvartirnik.Params.location }}
+          </span>
+      
+      {{ if $nearestFutureKvartirnik.Params.yandex_maps_link }}
+        </a>
+      {{ else }}
+        </div>
+      {{ end }}
     </h2>
   {{ end }}
+  
   <div class="tc mb4">
     <a href="#registration" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
       Зарегистрироваться

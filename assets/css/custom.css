@@ -27,12 +27,12 @@
 }
 /* Стили для кнопки регистрации */
 .hover-bg-dark-blue:hover {
-  background-color: #cca107;
+  background-color: #cc8707;
 }
 
 /* В процессе - зеленый */
 .bg-yellow {
-  background: linear-gradient(135deg, #bf8509 0%, #a2860c 100%);
+  background: linear-gradient(135deg, #bf8509 0%, #a38502 100%);
 }
 
 .dib {
