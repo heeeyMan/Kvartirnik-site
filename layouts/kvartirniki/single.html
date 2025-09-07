@@ -94,7 +94,7 @@
           <img src="{{ $photo }}" 
                alt="Фото с квартирника {{ $.Title }}" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal({{ $photo | jsonify }}, {{ $index }})">
+               onclick="openModal({{ $index }})">
         </div>
         {{ end }}
       </div>
@@ -371,20 +371,18 @@ function toggleParticipants(button) {
 let currentPhotoIndex = 0;
 let photos = [];
 
-function openModal(photoSrc, index) {
+function openModal(index) {
+  // Всегда получаем актуальные данные из data-атрибута
+  const photosContainer = document.getElementById('photosContainer');
+  photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+  
+  currentPhotoIndex = index;
   const modal = document.getElementById('photoModal');
   const modalImg = document.getElementById('modalImage');
   const modalCaption = document.getElementById('modalCaption');
   
-  // Получаем photos из data-атрибута
-  const photosContainer = document.getElementById('photosContainer');
-  if (photosContainer && !photos.length) {
-    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
-  }
-  
-  currentPhotoIndex = index;
   modal.style.display = 'block';
-  modalImg.src = photoSrc;
+  modalImg.src = photos[currentPhotoIndex];
   modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
   
   // Блокируем прокрутку страницы
@@ -400,7 +398,11 @@ function closeModal() {
 }
 
 function changePhoto(direction) {
-  if (!photos.length) return;
+  if (!photos.length) {
+    // Переинициализируем photos если массив пустой
+    const photosContainer = document.getElementById('photosContainer');
+    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+  }
   
   currentPhotoIndex += direction;
   
@@ -437,5 +439,20 @@ document.addEventListener('keydown', function(e) {
     changePhoto(1);
   }
 });
+
+// Предзагрузка изображений для плавной работы
+function preloadImages() {
+  const photosContainer = document.getElementById('photosContainer');
+  if (photosContainer) {
+    const photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+    photos.forEach(photo => {
+      const img = new Image();
+      img.src = photo;
+    });
+  }
+}
+
+// Запускаем предзагрузку после загрузки страницы
+window.addEventListener('load', preloadImages);
 </script>
 {{ end }}

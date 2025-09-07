@@ -292,42 +292,42 @@
           <img src="/images/DSC05034.JPG" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/DSC05034.JPG\&#34;&#34;,  0 )">
+               onclick="openModal( 0 )">
         </div>
         
         <div class="photo-item">
           <img src="/images/DSC05725.JPG" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/DSC05725.JPG\&#34;&#34;,  1 )">
+               onclick="openModal( 1 )">
         </div>
         
         <div class="photo-item">
           <img src="/images/RS-94.jpg" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/RS-94.jpg\&#34;&#34;,  2 )">
+               onclick="openModal( 2 )">
         </div>
         
         <div class="photo-item">
           <img src="/images/RS-88.jpg" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/RS-88.jpg\&#34;&#34;,  3 )">
+               onclick="openModal( 3 )">
         </div>
         
         <div class="photo-item">
           <img src="/images/RS-141.jpg" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/RS-141.jpg\&#34;&#34;,  4 )">
+               onclick="openModal( 4 )">
         </div>
         
         <div class="photo-item">
           <img src="/images/Natali.jpg" 
                alt="Фото с квартирника Квартирник в Башня Мага" 
                class="db w-100 br3 photo-thumbnail"
-               onclick="openModal(&#34;\&#34;/images/Natali.jpg\&#34;&#34;,  5 )">
+               onclick="openModal( 5 )">
         </div>
         
       </div>
@@ -604,20 +604,18 @@ function toggleParticipants(button) {
 let currentPhotoIndex = 0;
 let photos = [];
 
-function openModal(photoSrc, index) {
+function openModal(index) {
+  
+  const photosContainer = document.getElementById('photosContainer');
+  photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+  
+  currentPhotoIndex = index;
   const modal = document.getElementById('photoModal');
   const modalImg = document.getElementById('modalImage');
   const modalCaption = document.getElementById('modalCaption');
   
-  
-  const photosContainer = document.getElementById('photosContainer');
-  if (photosContainer && !photos.length) {
-    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
-  }
-  
-  currentPhotoIndex = index;
   modal.style.display = 'block';
-  modalImg.src = photoSrc;
+  modalImg.src = photos[currentPhotoIndex];
   modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
   
   
@@ -633,7 +631,11 @@ function closeModal() {
 }
 
 function changePhoto(direction) {
-  if (!photos.length) return;
+  if (!photos.length) {
+    
+    const photosContainer = document.getElementById('photosContainer');
+    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+  }
   
   currentPhotoIndex += direction;
   
@@ -670,6 +672,21 @@ document.addEventListener('keydown', function(e) {
     changePhoto(1);
   }
 });
+
+
+function preloadImages() {
+  const photosContainer = document.getElementById('photosContainer');
+  if (photosContainer) {
+    const photos = JSON.parse(photosContainer.getAttribute('data-photos'));
+    photos.forEach(photo => {
+      const img = new Image();
+      img.src = photo;
+    });
+  }
+}
+
+
+window.addEventListener('load', preloadImages);
 </script>
 
     </main>
