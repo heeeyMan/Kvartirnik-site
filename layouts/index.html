@@ -183,6 +183,30 @@
     </div>
   {{ end }}
 
+  <!-- ===== КНОПКИ СОЦСЕТЕЙ ===== -->
+  <div class="social-buttons tc mt5 pt4">
+    <h3 class="f3 mb3 social-header">Мы в социальных сетях</h3>
+    <div class="flex justify-center">
+      <!-- Кнопка ВКонтакте -->
+      <a href="https://vk.com/guitarniks_nn" target="_blank" class="social-button vk ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
+        <img src="images/utils/vk-icon.svg" alt="ВКонтакте" class="dib mr2" style="width: 24px; height: 24px;">
+        <span class="fw6">Группа ВК</span>
+      </a>
+      
+      <!-- Кнопка Telegram группы -->
+      <a href="https://t.me/guitarniks_nn" target="_blank" class="social-button telegram ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
+        <img src="images/utils/telegram-icon.svg" alt="Telegram" class="dib mr2" style="width: 24px; height: 24px;">
+        <span class="fw6">Telegram группа</span>
+      </a>
+      
+      <!-- Кнопка Telegram админа -->
+      <a href="https://t.me/mr_deprecated" target="_blank" class="social-button telegram-admin ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
+        <img src="images/utils/telegram-icon.svg" alt="Telegram" class="dib mr2" style="width: 24px; height: 24px;">
+        <span class="fw6">Написать админу</span>
+      </a>
+    </div>
+  </div>
+
 </div>
 
 <!-- ===== Стили ===== -->
@@ -195,6 +219,21 @@
 }
 .reg-finish {
   color: darkred;
+}
+.social-header {
+  color: rgb(139, 90, 0);
+}
+.social-buttons {
+  border-top: 2px solid #eee;
+}
+.social-button {
+  color: #333;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+}
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 </style>
 {{ end }}
