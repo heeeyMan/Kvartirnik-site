@@ -42,8 +42,8 @@
           {{ if .Params.yandex_maps_link }}
           <a href="{{ .Params.yandex_maps_link }}" 
              target="_blank" 
-             class="f6 ph3 pv2 dib white bg-blue br2 no-underline pointer"
-             style="background-color: #3498db !important; transition: all 0.3s ease;">
+             class="f6 ph3 pv2 dib white bg-brown br2 no-underline pointer"
+             style="background-color: #8c5706 !important; transition: all 0.3s ease;">
             Открыть в Яндекс.Картах
           </a>
           {{ end }}
@@ -115,7 +115,7 @@
         <div class="tc mt2">
           <button class="show-more-participants-btn f6 ph4 pv2 br2 bn pointer" 
                   onclick="toggleParticipants(this)"
-                  style="background-color: #3498db; color: white;"
+                  style="background-color: #854e22; color: white;"
                   data-hidden-count="{{ sub (len .Params.participants) 3 }}">
             Показать ещё {{ sub (len .Params.participants) 3 }} участников ▼
           </button>
@@ -154,7 +154,7 @@
         <div class="tc mt4">
           <button class="show-more-photos-btn f6 ph4 pv2 br2 bn pointer" 
                   onclick="togglePhotos(this)"
-                  style="background-color: #3498db; color: white;"
+                  style="background-color: #854e22; color: white;"
                   data-hidden-count="{{ sub (len .Params.photos) 9 }}"
                   data-expanded="false">
             Показать ещё {{ sub (len .Params.photos) 9 }} фотографий ▼
@@ -221,7 +221,7 @@
 }
 
 .location-section a:hover {
-  background-color: #2980b9 !important;
+  background-color: #b76111 !important;
   transform: translateY(-1px);
 }
 
@@ -240,7 +240,7 @@
   position: absolute;
   width: 18px;
   height: 18px;
-  background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+  background: linear-gradient(135deg, #dea30e, #654000);
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   top: 0;
@@ -269,7 +269,7 @@
   position: relative;
   margin-right: 8px;
   vertical-align: middle;
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(135deg, #fa9b0c, #795100);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -281,11 +281,11 @@
   left: 0;
   right: 0;
   height: 6px;
-  background: #e74c3c;
+  background: #ec8600;
 }
 
 .icon-calendar::after {
-  content: '15';
+  content: '32';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -298,7 +298,7 @@
 /* СТАРЫЕ СТИЛИ ДЛЯ КАРТОЧЕК УЧАСТНИКОВ */
 .participant-card {
   background: white;
-  border-left: 4px solid #3498db;
+  border-left: 4px solid #e17800;
   transition: all 0.3s ease;
 }
 
@@ -333,7 +333,7 @@
 }
 
 .show-more-participants-btn:hover {
-  background-color: #2980b9 !important;
+  background-color: #936c23 !important;
   transform: translateY(-2px);
 }
 
@@ -403,7 +403,7 @@
 }
 
 .show-more-photos-btn:hover {
-  background-color: #2980b9 !important;
+  background-color: #936c23 !important;
   transform: translateY(-2px);
 }
 

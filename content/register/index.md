@@ -1,5 +1,5 @@
 ---
 title: "Регистрация на квартирник"
 type: "register"
-featured_image: "/images/RS-141.jpg"
+featured_image: "/images/headers/RS-141.jpg"
 ---
