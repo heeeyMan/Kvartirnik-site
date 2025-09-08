@@ -1,4 +1,5 @@
 {{ define "main" }}
+<!-- Основной контейнер с белым фоном и центрированием содержимого -->
 <div class="pa3 pa4-ns w-100 w-100-ns center" style="background: white; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
   
   <!-- Контейнер для Яндекс формы -->
@@ -28,7 +29,7 @@
   <!-- Сообщение о статусе формы -->
   <p id="formMessage" class="f4 tc mb1 mt1" style="display:none;"></p>
 
-  <!-- Резервная ссылка с уменьшенными отступами в 3 раза -->
+  <!-- Резервная ссылка с уменьшенными отступами -->
   <div class="tc mt1">
     <p class="f5 mb1">Если форма не загружается, воспользуйтесь прямой ссылкой:</p>
     <a href="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f" 
@@ -254,7 +255,7 @@ iframe {
 
 /* Улучшенные стили для кнопки */
 .bg-blue {
-  background: linear-gradient(135deg, #1e6fba 0%, #2b8cc4 100%);
+  background: linear-gradient(135deg, #bab5ad 0%, #888683 100%);
   transition: all 0.3s ease;
 }
 
@@ -274,15 +275,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/* Строгое центрирование всего контента */
-.center {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
 </style>
 
 {{ end }}
-
