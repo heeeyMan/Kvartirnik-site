@@ -10,6 +10,47 @@
         ← Назад
       </button>
     </div>
+
+    <!-- Блоки Дата и время, Место -->
+    <div class="info-sections flex flex-wrap mb5" style="gap: 2rem;">
+      <!-- Дата и время -->
+      {{ if .Params.date }}
+      <section class="date-time-section pa3 br3 shadow-1" style="background: white; min-width: 250px; flex: 1;">
+        <h2 class="f4 mb3 tc" style="color: #34495e;">
+          <span class="icon-calendar"></span> Дата и время
+        </h2>
+        <div class="tc">
+          <p class="f5 b mb1" style="color: #2c3e50;">{{ dateFormat "02 January 2006" .Params.date }}</p>
+          <p class="f5" style="color: #7f8c8d;">
+            {{ if .Params.time }}{{ .Params.time }}{{ else }}{{ dateFormat "15:04" .Params.date }}{{ end }}
+          </p>
+        </div>
+      </section>
+      {{ end }}
+
+      <!-- Место -->
+      {{ if .Params.location }}
+      <section class="location-section pa3 br3 shadow-1" style="background: white; min-width: 250px; flex: 1;">
+        <h2 class="f4 mb3 tc" style="color: #34495e;">
+          <span class="custom-location-icon"></span> Место
+        </h2>
+        <div class="tc">
+          <p class="f5 b mb1" style="color: #2c3e50;">{{ .Params.location }}</p>
+          {{ if .Params.address }}
+          <p class="f6 mb2" style="color: #7f8c8d;">{{ .Params.address }}</p>
+          {{ end }}
+          {{ if .Params.yandex_maps_link }}
+          <a href="{{ .Params.yandex_maps_link }}" 
+             target="_blank" 
+             class="f6 ph3 pv2 dib white bg-blue br2 no-underline pointer"
+             style="background-color: #3498db !important; transition: all 0.3s ease;">
+            Открыть в Яндекс.Картах
+          </a>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+    </div>
     
     <!-- Программа -->
     {{ if .Params.program }}
@@ -82,21 +123,52 @@
         {{ end }}
       </div>
     </section>
+    {{ else }}
+    <!-- Сообщение, когда участников нет -->
+    <section class="participants-section mb5">
+      <h2 class="f3 mb4" style="color: #34495e;">🎤 Участники</h2>
+      <div class="tc pa5 bg-light-gray br3">
+        <p class="f4 gray i">Идет набор участников</p>
+      </div>
+    </section>
     {{ end }}
 
     <!-- Фотографии -->
     {{ if .Params.photos }}
     <section class="kvartirnik-photos mb5">
       <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
-      <div class="photos-grid" id="photosContainer" data-photos='{{ .Params.photos | jsonify }}'>
-        {{ range $index, $photo := .Params.photos }}
-        <div class="photo-item">
-          <img src="{{ $photo }}" 
-               alt="Фото с квартирника {{ $.Title }}" 
-               class="db w-100 br3 photo-thumbnail"
-               onclick="openModal({{ $index }})">
+      <div class="photos-container">
+        <div class="photos-grid" id="photosGrid" data-photos='{{ .Params.photos | jsonify }}'>
+          {{ range $index, $photo := .Params.photos }}
+          <div class="photo-item {{ if ge $index 9 }}photos-hidden{{ end }}">
+            <img src="{{ $photo }}" 
+                 alt="Фото с квартирника {{ $.Title }}" 
+                 class="db w-100 br3 photo-thumbnail"
+                 onclick="openModal({{ $index }})">
+          </div>
+          {{ end }}
+        </div>
+        
+        <!-- Кнопка показать/скрыть для фотографий -->
+        {{ if gt (len .Params.photos) 9 }}
+        <div class="tc mt4">
+          <button class="show-more-photos-btn f6 ph4 pv2 br2 bn pointer" 
+                  onclick="togglePhotos(this)"
+                  style="background-color: #3498db; color: white;"
+                  data-hidden-count="{{ sub (len .Params.photos) 9 }}"
+                  data-expanded="false">
+            Показать ещё {{ sub (len .Params.photos) 9 }} фотографий ▼
+          </button>
         </div>
         {{ end }}
+      </div>
+    </section>
+    {{ else }}
+    <!-- Сообщение, когда фотографий нет -->
+    <section class="kvartirnik-photos mb5">
+      <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
+      <div class="tc pa5 bg-light-gray br3">
+        <p class="f4 gray i">Фотографий пока чт нет</p>
       </div>
     </section>
     {{ end }}
@@ -130,6 +202,100 @@
   transform: translateX(-2px);
 }
 
+/* Стили для блоков Дата и Место */
+.info-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.date-time-section, .location-section {
+  background: white;
+  transition: all 0.3s ease;
+  border: 1px solid #e1e8ed;
+}
+
+.date-time-section:hover, .location-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+}
+
+.location-section a:hover {
+  background-color: #2980b9 !important;
+  transform: translateY(-1px);
+}
+
+/* Красивый значок локации */
+.custom-location-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.custom-location-icon::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.custom-location-icon::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  top: 5px;
+  left: 5px;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+/* Значок календаря */
+.icon-calendar {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.icon-calendar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #e74c3c;
+}
+
+.icon-calendar::after {
+  content: '15';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* СТАРЫЕ СТИЛИ ДЛЯ КАРТОЧЕК УЧАСТНИКОВ */
 .participant-card {
   background: white;
   border-left: 4px solid #3498db;
@@ -175,11 +341,23 @@
   transition: all 0.3s ease;
 }
 
-/* Стили для фотогалереи */
+/* Стили для сообщения о наборе участников */
+.bg-light-gray {
+  background-color: #f8f9fa;
+}
+
+/* НОВЫЕ СТИЛИ ДЛЯ ФОТОГАЛЕРЕИ */
+.photos-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .photos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .photo-item {
@@ -189,11 +367,12 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   cursor: pointer;
+  aspect-ratio: 4/3;
 }
 
 .photo-thumbnail {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
   transition: all 0.3s ease;
 }
@@ -205,6 +384,27 @@
 
 .photo-item:hover .photo-thumbnail {
   transform: scale(1.1);
+}
+
+/* Скрытые фотографии */
+.photos-hidden {
+  display: none;
+}
+
+.photos-grid.expanded .photos-hidden {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Кнопка показать/скрыть фотографии */
+.show-more-photos-btn {
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.show-more-photos-btn:hover {
+  background-color: #2980b9 !important;
+  transform: translateY(-2px);
 }
 
 /* Стили для модального окна */
@@ -305,14 +505,26 @@
 }
 
 /* Адаптивность */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .photos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-sections {
+    flex-direction: column;
     gap: 1rem;
   }
   
-  .photo-thumbnail {
-    height: 150px;
+  .date-time-section, .location-section {
+    min-width: auto;
+  }
+  
+  .photos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
   
   .modal-content {
@@ -333,12 +545,12 @@
 
 @media (max-width: 480px) {
   .photos-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 0.75rem;
   }
   
-  .photo-thumbnail {
-    height: 120px;
+  .photo-item {
+    aspect-ratio: 3/2;
   }
 }
 </style>
@@ -367,13 +579,34 @@ function toggleParticipants(button) {
   }
 }
 
-// Для фотогалереи
+// Для фотогалереи - показать/скрыть дополнительные фото
+function togglePhotos(button) {
+  const photosGrid = document.getElementById('photosGrid');
+  const isExpanded = photosGrid.classList.contains('expanded');
+  const hiddenCount = button.getAttribute('data-hidden-count');
+  
+  if (isExpanded) {
+    photosGrid.classList.remove('expanded');
+    button.textContent = 'Показать ещё ' + hiddenCount + ' фотографий ▼';
+    button.style.backgroundColor = '#3498db';
+    button.setAttribute('data-expanded', 'false');
+    
+    // Плавная прокрутка к началу галереи
+    photosGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    photosGrid.classList.add('expanded');
+    button.textContent = 'Скрыть фотографии ▲';
+    button.style.backgroundColor = '#e74c3c';
+    button.setAttribute('data-expanded', 'true');
+  }
+}
+
+// Для модального окна фотогалереи
 let currentPhotoIndex = 0;
 let photos = [];
 
 function openModal(index) {
-  // Всегда получаем актуальные данные из data-атрибута
-  const photosContainer = document.getElementById('photosContainer');
+  const photosContainer = document.getElementById('photosGrid');
   photos = JSON.parse(photosContainer.getAttribute('data-photos'));
   
   currentPhotoIndex = index;
@@ -399,8 +632,7 @@ function closeModal() {
 
 function changePhoto(direction) {
   if (!photos.length) {
-    // Переинициализируем photos если массив пустой
-    const photosContainer = document.getElementById('photosContainer');
+    const photosContainer = document.getElementById('photosGrid');
     photos = JSON.parse(photosContainer.getAttribute('data-photos'));
   }
   
@@ -442,7 +674,7 @@ document.addEventListener('keydown', function(e) {
 
 // Предзагрузка изображений для плавной работы
 function preloadImages() {
-  const photosContainer = document.getElementById('photosContainer');
+  const photosContainer = document.getElementById('photosGrid');
   if (photosContainer) {
     const photos = JSON.parse(photosContainer.getAttribute('data-photos'));
     photos.forEach(photo => {
