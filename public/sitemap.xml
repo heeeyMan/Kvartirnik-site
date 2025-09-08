@@ -3,13 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/kvartirniki/</loc>
-    <lastmod>2025-10-05T19:00:00+03:00</lastmod>
+    <lastmod>2025-08-16T19:00:00+03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-10-05T19:00:00+03:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/kvartirniki/2025-10-05/</loc>
-    <lastmod>2025-10-05T19:00:00+03:00</lastmod>
+    <lastmod>2025-08-16T19:00:00+03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/kvartirniki/2025-08-16/</loc>
     <lastmod>2025-08-16T19:00:00+03:00</lastmod>
@@ -19,6 +16,9 @@
   </url><url>
     <loc>http://localhost:1313/kvartirniki/2025-04-26/</loc>
     <lastmod>2025-04-26T18:00:00+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/kvartirniki/2025-10-05/</loc>
+    <lastmod>2025-01-05T19:00:00+03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2024-01-20T00:00:00+00:00</lastmod>

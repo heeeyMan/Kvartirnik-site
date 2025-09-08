@@ -1,5 +1,6 @@
 ---
 title: "Наши мероприятия"
+description: "Вспомним предыдущие встречи и расскажем о новых"
 type: "history"
 layout: "history"
 draft: false

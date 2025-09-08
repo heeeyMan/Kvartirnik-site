@@ -80,7 +80,7 @@
   </div>
 {{ else }}
   <!-- Заголовок когда нет будущих мероприятий -->
-  <h1 class="f1 tc mb4">Актуальные события</h1>
+  <h1 class="f1 tc mb4" style="color: rgb(192, 143, 6);">Актуальных событий нет</h1>
 {{ end }}
 
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
@@ -97,7 +97,7 @@
           {{ else }}
             <div class="upcoming-message mb4">
               <p class="f4 tc ma0">Но мы будем рады, если вы придёте!
-                <br>(даже если регистрация закрыта ...)</p>
+                <br>(даже без регистрации ... только пссс ...)</p>
             </div>
           {{ end }}
         {{ else }}
@@ -137,8 +137,8 @@
     {{ else if $lastPastKvartirnik }}
       <section class="main-event">
         <div class="no-upcoming-events mb4">
-          <p class="f4 tc ma0">В ближайшее время квартирники не запланированы :(</p>
-          <p class="f4 tc ma0">А пока посмотрите, как прошел наш последний квартирник</p>
+          <p class="f4 tc ma0">В ближайшее время мероприятия не запланированы :(</p>
+          <p class="f4 tc ma0">А пока посмотрите, как прошла наша крайняя встреча</p>
         </div>
         
         <a href="{{ $lastPastKvartirnik.RelPermalink }}" class="link black dim">
