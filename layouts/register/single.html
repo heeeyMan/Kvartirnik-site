@@ -1,35 +1,39 @@
 {{ define "main" }}
-<div class="pa3 pa4-ns w-100 w-90-ns center">
-  <p id="formMessage" class="f4 tc mb4" style="display:none;"></p>
-
+<div class="pa3 pa4-ns w-100 w-100-ns center" style="background: white; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  
   <!-- Контейнер для Яндекс формы -->
-  <div class="bg-near-white pa3 br3 shadow-4 tc">
+  <div class="pa3 br3 tc" style="display: flex; justify-content: center; align-items: center; flex-direction: column; background: white; width: 100%;">
     <!-- Официальный код Яндекс.Форм -->
     <script src="https://forms.yandex.ru/_static/embed.js"></script>
-    <iframe 
-      src="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f?iframe=1" 
-      frameborder="0" 
-      name="ya-form-68bd7ba5d046889d65bd631f" 
-      width="100%" 
-      height="800"
-      style="border: none; border-radius: 8px; min-height: 700px;"
-      onload="window.onYandexFormLoad()"
-      onerror="window.onYandexFormError()"
-    ></iframe>
+    <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+      <iframe 
+        src="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f?iframe=1" 
+        frameborder="0" 
+        name="ya-form-68bd7ba5d046889d65bd631f" 
+        width="100%" 
+        height="100"
+        style="border: none; border-radius: 8px; min-height: 500px; display: block; margin: 0 auto;"
+        onload="window.onYandexFormLoad()"
+        onerror="window.onYandexFormError()"
+      ></iframe>
+    </div>
 
     <!-- Индикатор загрузки -->
-    <div id="loadingIndicator" class="mt3">
+    <div id="loadingIndicator" class="mt3" style="text-align: center;">
       <div class="spinner" style="font-size: 2rem; color: #5a1700;">⏳</div>
       <p class="f4 mt2">Загрузка формы регистрации...</p>
     </div>
   </div>
 
-  <!-- Резервная ссылка -->
-  <div class="tc mt4">
-    <p class="f5 mb2">Если форма не загружается, воспользуйтесь прямой ссылкой:</p>
+  <!-- Сообщение о статусе формы -->
+  <p id="formMessage" class="f4 tc mb1 mt1" style="display:none;"></p>
+
+  <!-- Резервная ссылка с уменьшенными отступами в 3 раза -->
+  <div class="tc mt1">
+    <p class="f5 mb1">Если форма не загружается, воспользуйтесь прямой ссылкой:</p>
     <a href="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f" 
        target="_blank" 
-       class="ph4 pv3 bg-blue white br2 f5 fw6 no-underline dib">
+       class="ph3 pv2 bg-blue white br2 f5 fw6 no-underline dib">
       📋 Открыть форму регистрации в новом окне
     </a>
   </div>
@@ -61,9 +65,9 @@ function adjustIframeHeight() {
   
   // Увеличиваем высоту для мобильных устройств
   if (window.innerWidth < 768) {
-    iframe.style.height = '900px';
+    iframe.style.height = '1000px';
   } else {
-    iframe.style.height = '800px';
+    iframe.style.height = '900px';
   }
 }
 
@@ -83,12 +87,12 @@ function showMessage(text, type = 'info') {
   };
   
   messageElement.style.color = colors[type] || 'black';
-  messageElement.style.padding = '16px';
-  messageElement.style.borderRadius = '8px';
-  messageElement.style.margin = '20px 0';
-  messageElement.style.fontSize = '1.1rem';
+  messageElement.style.padding = '6px';
+  messageElement.style.borderRadius = '4px';
+  messageElement.style.margin = '5px 0';
+  messageElement.style.fontSize = '0.9rem';
   messageElement.style.backgroundColor = type === 'info' ? '#f0f9ff' : 'transparent';
-  messageElement.style.border = `2px solid ${colors[type]}30`;
+  messageElement.style.border = `1px solid ${colors[type]}30`;
   
   if (type === 'success') {
     setTimeout(() => {
@@ -139,14 +143,6 @@ function updateStats() {
   }
 }
 
-function clearStats() {
-  if (confirm('Очистить всю статистику?')) {
-    localStorage.removeItem('form_events');
-    updateStats();
-    showMessage('Статистика очищена', 'success');
-  }
-}
-
 // Слушаем сообщения от Яндекс.Форм
 window.addEventListener('message', function(event) {
   try {
@@ -167,7 +163,7 @@ window.addEventListener('message', function(event) {
         case 'formHeightChange':
           const iframe = document.querySelector('iframe');
           if (iframe && event.data.height) {
-            iframe.style.height = Math.max(event.data.height, 700) + 'px';
+            iframe.style.height = Math.max(event.data.height, 800) + 'px';
           }
           break;
       }
@@ -189,29 +185,6 @@ window.addEventListener('resize', adjustIframeHeight);
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 Яндекс.Форма инициализирована');
   updateStats();
-  
-  // Глобальные функции для консоли
-  window.getFormStats = function() {
-    const events = JSON.parse(localStorage.getItem('form_events') || '[]');
-    console.log('📊 Статистика формы:', events);
-    return events;
-  };
-  
-  window.reloadForm = function() {
-    const iframe = document.querySelector('iframe');
-    if (iframe) {
-      iframe.src = iframe.src;
-      showMessage('Форма перезагружается...', 'info');
-    }
-  };
-  
-  window.adjustIframeSize = function(height = 800) {
-    const iframe = document.querySelector('iframe');
-    if (iframe) {
-      iframe.style.height = height + 'px';
-      showMessage(`Высота формы установлена: ${height}px`, 'info');
-    }
-  };
 });
 
 // Функция для ручной отправки события
@@ -223,16 +196,8 @@ function trackManualSubmission() {
 
 <style>
 /* Базовые стили */
-.bg-near-white {
-  background-color: #fafafa;
-}
-
 .br3 {
   border-radius: 16px;
-}
-
-.shadow-4 {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Анимация спиннера */
@@ -248,50 +213,37 @@ function trackManualSubmission() {
 
 /* Адаптивность */
 @media (max-width: 1200px) {
-  .w-90-ns {
-    width: 95% !important;
+  .w-100-ns {
+    width: 100% !important;
   }
 }
 
 @media (max-width: 768px) {
   .pa4-ns {
-    padding: 1rem;
+    padding: 0.5rem;
   }
   
   iframe {
-    height: 900px !important;
-    min-height: 800px !important;
-  }
-  
-  h1.f2 {
-    font-size: 1.8rem !important;
+    height: 1000px !important;
+    min-height: 900px !important;
   }
 }
 
 @media (max-width: 480px) {
   iframe {
-    height: 1000px !important;
-    min-height: 900px !important;
+    height: 1100px !important;
+    min-height: 1000px !important;
   }
   
-  h1.f2 {
-    font-size: 1.6rem !important;
-  }
-  
-  .ph4.pv3 {
-    padding: 0.75rem 1.5rem !important;
+  .ph3.pv2 {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.9rem !important;
   }
 }
 
 /* Плавные переходы */
 #formMessage, #loadingIndicator {
   transition: all 0.3s ease;
-}
-
-/* Стили для статистики */
-.bg-light-gray {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 2px dashed #dee2e6;
 }
 
 /* Улучшенные стили для iframe */
@@ -307,14 +259,30 @@ iframe {
 }
 
 .bg-blue:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(43, 140, 196, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(43, 140, 196, 0.3);
 }
 
 /* Улучшенный спиннер */
 #loadingIndicator {
-  padding: 2rem;
+  padding: 0.5rem;
+}
+
+/* Стиль для body чтобы весь фон был белым */
+body {
+  background: white !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Строгое центрирование всего контента */
+.center {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 </style>
 
 {{ end }}
+
