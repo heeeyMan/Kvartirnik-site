@@ -20,14 +20,13 @@
     <loc>http://localhost:1313/kvartirniki/2025-04-26/</loc>
     <lastmod>2025-04-26T18:00:00+03:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
-    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
   </url><url>
     <loc>http://localhost:1313/history/</loc>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
   </url><url>
     <loc>http://localhost:1313/register/</loc>
   </url>
