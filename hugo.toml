@@ -3,24 +3,48 @@ languageCode = "ru-ru"
 title = "КАМИН"
 theme = "ananke"
 
-# Добавляем эту строку для отображения будущих страниц
+# Отображать будущие страницы (для анонсов квартирников)
 buildFuture = true
 
+# ==========================
+#   ПАРАМЕТРЫ САЙТА
+# ==========================
 [params]
+  description = "Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника."
   featured_image = "/images/RS-88.jpg"
   featured_image_home = "/images/RS-88.jpg"
   featured_image_class = "cover bg-center"
   cover_dimming_class = "bg-black-40"
-  current_kvartirnik = "2025-10-05"  # Дата активного квартирник
+  current_kvartirnik = "2025-10-05"  # Дата активного квартирника
   custom_css = ["css/custom.css"]
-  
+  twitterCard = "summary_large_image"
 
+  # Главное изображение (по умолчанию для соцсетей и SEO)
+  images = ["/images/RS-88.jpg"]
+
+  # Метаданные
+  [params.meta]
+    author = "КАМИН — творческое пространство"
+    keywords = "квартирник Нижний Новгород, музыка, поэзия, театр, искусство, творческий вечер"
+    og_type = "website"
+    og_site_name = "КАМИН"
+    og_locale = "ru_RU"
+
+# ==========================
+#   ФРОНТМАТТЕР
+# ==========================
 [frontmatter]
   lastmod = ['lastmod', ':git', 'date']
 
+# ==========================
+#   СТАТИСТИКА СБОРКИ
+# ==========================
 [build]
   writeStats = true
 
+# ==========================
+#   МЕНЮ
+# ==========================
 [menu]
 
   [[menu.main]]

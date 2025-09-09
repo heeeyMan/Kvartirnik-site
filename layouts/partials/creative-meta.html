@@ -1,0 +1,22 @@
+{{/* Специфические meta-теги для разных типов творчества */}}
+{{ if eq .Type "kvartirniki" }}
+  <meta property="og:type" content="event">
+  <meta property="event:start_time" content="{{ .Date.Format "2006-01-02T15:04:05" }}">
+{{ end }}
+
+{{ if in .Params.categories "музыка" }}
+  <meta property="og:audio" content="{{ .Params.audio_url }}">
+{{ end }}
+
+{{ if in .Params.categories "поэзия" }}
+  <meta property="og:type" content="article">
+  <meta property="article:section" content="Поэзия">
+{{ end }}
+
+{{ if in .Params.categories "театр" }}
+  <meta property="og:type" content="performance">
+{{ end }}
+
+{{ if in .Params.categories "искусство" }}
+  <meta property="og:type" content="art">
+{{ end }}

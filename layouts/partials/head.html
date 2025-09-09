@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ if .IsHome }}{{ site.Title }} — {{ site.Params.description }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ site.Params.description }}{{ end }}">
+
+  <!-- Подключение основных стилей -->
+  {{ $styles := resources.Get "css/custom.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{ "images/utils/vk-icon.svg" | absURL }}" type="image/svg+xml">
+
+  <!-- Подключение расширенных мета-тегов -->
+  {{ partial "head-additions.html" . }}
+</head>
+<body>
