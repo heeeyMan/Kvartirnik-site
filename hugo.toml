@@ -6,6 +6,12 @@ theme = "ananke"
 # Добавляем эту строку для отображения будущих страниц
 buildFuture = true
 
+[deployment]
+[[deployment.targets]]
+name = "github-pages"
+URL = "github://token=$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@github.com/heeeyMan/Kvartirnik-site.git"
+branch = "gh-pages"
+
 [params]
   featured_image = "/images/RS-88.jpg"
   featured_image_home = "/images/RS-88.jpg"
