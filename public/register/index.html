@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Регистрация на квартирник | КАМИН</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.147.9">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+  
+    <link rel="stylesheet" href="/css/custom.css">
+  
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/register/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/register/">
+  <meta property="og:site_name" content="КАМИН">
+  <meta property="og:title" content="Регистрация на квартирник">
+  <meta property="og:locale" content="ru_ru">
+  <meta property="og:type" content="article">
+
+  <meta itemprop="name" content="Регистрация на квартирник">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Регистрация на квартирник">
+
+	
+<link rel="stylesheet" href="http://localhost:1313/css/custom.min.a395ec88539771f2857ae2c42105f1a6535bc853435da6bf88c4987247b1ebf2.css" integrity="sha256-o5XsiFOXcfKFeuLEIQXxplNbyFNDXaa/iMSYckex6/I=">
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+
+  
+  
+  <header class="cover bg-center" style="background-image: url('http://localhost:1313/images/headers/RS-141.jpg');">
+    
+    <div class="bg-black-40">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        КАМИН
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/" title="Главная page">
+              Главная
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/history/" title="Архив page">
+              Архив
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/about/" title="О нас page">
+              О нас
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+          Регистрация на квартирник
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+
+<div class="pa3 pa4-ns w-100 w-100-ns center" style="background: white; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  
+  
+  <div class="pa3 br3 tc" style="display: flex; justify-content: center; align-items: center; flex-direction: column; background: white; width: 100%;">
+    
+    <script src="https://forms.yandex.ru/_static/embed.js"></script>
+    <div style="width: 100%; max-width: 600px; margin: 0 auto;">
+      <iframe 
+        src="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f?iframe=1" 
+        frameborder="0" 
+        name="ya-form-68bd7ba5d046889d65bd631f" 
+        width="100%" 
+        height="100"
+        style="border: none; border-radius: 8px; min-height: 500px; display: block; margin: 0 auto;"
+        onload="window.onYandexFormLoad()"
+        onerror="window.onYandexFormError()"
+      ></iframe>
+    </div>
+
+    
+    <div id="loadingIndicator" class="mt3" style="text-align: center;">
+      <div class="spinner" style="font-size: 2rem; color: #5a1700;">⏳</div>
+      <p class="f4 mt2">Загрузка формы регистрации...</p>
+    </div>
+  </div>
+
+  
+  <p id="formMessage" class="f4 tc mb1 mt1" style="display:none;"></p>
+
+  
+  <div class="tc mt1">
+    <p class="f5 mb1">Если форма не загружается, воспользуйтесь прямой ссылкой:</p>
+    <a href="https://forms.yandex.ru/u/68bd7ba5d046889d65bd631f" 
+       target="_blank" 
+       class="ph3 pv2 bg-blue white br2 f5 fw6 no-underline dib">
+      📋 Открыть форму регистрации в новом окне
+    </a>
+  </div>
+
+<script>
+
+window.onYandexFormLoad = function() {
+  console.log('✅ Яндекс.Форма загружена');
+  hideLoadingIndicator();
+  showMessage('Форма готова к заполнению', 'success');
+  
+  
+  saveFormEvent('form_loaded');
+  
+  
+  adjustIframeHeight();
+};
+
+window.onYandexFormError = function() {
+  console.error('❌ Ошибка загрузки Яндекс.Формы');
+  showMessage('Ошибка загрузки формы. Используйте резервную ссылку.', 'error');
+  hideLoadingIndicator();
+};
+
+
+function adjustIframeHeight() {
+  const iframe = document.querySelector('iframe');
+  if (!iframe) return;
+  
+  
+  if (window.innerWidth < 768) {
+    iframe.style.height = '1000px';
+  } else {
+    iframe.style.height = '900px';
+  }
+}
+
+
+function showMessage(text, type = 'info') {
+  const messageElement = document.getElementById('formMessage');
+  if (!messageElement) return;
+  
+  messageElement.textContent = text;
+  messageElement.style.display = 'block';
+  
+  const colors = {
+    success: '#38a169',
+    error: '#e53e3e',
+    warning: '#dd6b20',
+    info: '#3182ce'
+  };
+  
+  messageElement.style.color = colors[type] || 'black';
+  messageElement.style.padding = '6px';
+  messageElement.style.borderRadius = '4px';
+  messageElement.style.margin = '5px 0';
+  messageElement.style.fontSize = '0.9rem';
+  messageElement.style.backgroundColor = type === 'info' ? '#f0f9ff' : 'transparent';
+  messageElement.style.border = `1px solid ${colors[type]}30`;
+  
+  if (type === 'success') {
+    setTimeout(() => {
+      messageElement.style.display = 'none';
+    }, 5000);
+  }
+}
+
+function hideLoadingIndicator() {
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'none';
+  }
+}
+
+
+function saveFormEvent(eventType) {
+  try {
+    const events = JSON.parse(localStorage.getItem('form_events') || '[]');
+    events.push({
+      type: eventType,
+      timestamp: new Date().toISOString(),
+      date: new Date().toLocaleDateString('ru-RU'),
+      time: new Date().toLocaleTimeString('ru-RU')
+    });
+    
+    localStorage.setItem('form_events', JSON.stringify(events));
+    updateStats();
+    
+  } catch (error) {
+    console.warn('⚠️ Ошибка сохранения события:', error);
+  }
+}
+
+function updateStats() {
+  try {
+    const events = JSON.parse(localStorage.getItem('form_events') || '[]');
+    const submissions = events.filter(event => event.type === 'form_submit');
+    const loads = events.filter(event => event.type === 'form_loaded');
+    
+    const statsText = document.getElementById('statsText');
+    if (statsText) {
+      statsText.textContent = `Загрузок: ${loads.length} | Отправок: ${submissions.length}`;
+    }
+    
+  } catch (error) {
+    console.warn('⚠️ Ошибка обновления статистики:', error);
+  }
+}
+
+
+window.addEventListener('message', function(event) {
+  try {
+    
+    if (event.origin !== 'https://forms.yandex.ru') return;
+    
+    console.log('📨 Сообщение от Яндекс.Форм:', event.data);
+    
+    if (event.data && typeof event.data === 'object') {
+      switch (event.data.type) {
+        case 'formSubmit':
+          showMessage('✅ Регистрация прошла успешно! Спасибо за участие!', 'success');
+          saveFormEvent('form_submit');
+          break;
+        case 'formError':
+          showMessage('❌ Ошибка при отправке формы. Попробуйте еще раз.', 'error');
+          break;
+        case 'formHeightChange':
+          const iframe = document.querySelector('iframe');
+          if (iframe && event.data.height) {
+            iframe.style.height = Math.max(event.data.height, 800) + 'px';
+          }
+          break;
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️ Ошибка обработки сообщения:', error);
+  }
+});
+
+
+setTimeout(() => {
+  hideLoadingIndicator();
+}, 15000);
+
+
+window.addEventListener('resize', adjustIframeHeight);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 Яндекс.Форма инициализирована');
+  updateStats();
+});
+
+
+function trackManualSubmission() {
+  saveFormEvent('form_submit');
+  showMessage('✅ Регистрация записана!', 'success');
+}
+</script>
+
+<style>
+ 
+.br3 {
+  border-radius: 16px;
+}
+
+ 
+.spinner {
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+ 
+@media (max-width: 1200px) {
+  .w-100-ns {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .pa4-ns {
+    padding: 0.5rem;
+  }
+  
+  iframe {
+    height: 1000px !important;
+    min-height: 900px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  iframe {
+    height: 1100px !important;
+    min-height: 1000px !important;
+  }
+  
+  .ph3.pv2 {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+ 
+#formMessage, #loadingIndicator {
+  transition: all 0.3s ease;
+}
+
+ 
+iframe {
+  transition: height 0.3s ease;
+  background: white;
+}
+
+ 
+.bg-blue {
+  background: linear-gradient(135deg, #bab5ad 0%, #888683 100%);
+  transition: all 0.3s ease;
+}
+
+.bg-blue:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(43, 140, 196, 0.3);
+}
+
+ 
+#loadingIndicator {
+  padding: 0.5rem;
+}
+
+ 
+body {
+  background: white !important;
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="http://localhost:1313/" >
+    &copy;  КАМИН 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
