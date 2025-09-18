@@ -40,12 +40,14 @@
           <p class="f6 mb2" style="color: #7f8c8d;">{{ .Params.address }}</p>
           {{ end }}
           {{ if .Params.yandex_maps_link }}
-          <a href="{{ .Params.yandex_maps_link }}" 
-             target="_blank" 
-             class="f6 ph3 pv2 dib white bg-brown br2 no-underline pointer"
-             style="background-color: #8c5706 !important; transition: all 0.3s ease;">
-            Открыть в Яндекс.Картах
-          </a>
+            <a href="{{ .Params.yandex_maps_link }}" 
+              target="_blank" 
+              class="f6 ph3 pv2 dib br2 no-underline pointer"
+              style="color: #8B4513 !important; background-color: #ffffff !important; border: 1px solid #8B4513; transition: all 0.3s ease;"
+              onmouseover="this.style.backgroundColor='#8B4513'; this.style.color='white'"
+              onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#8B4513'">
+              Открыть в Яндекс.Картах
+            </a>
           {{ end }}
         </div>
       </section>
@@ -125,12 +127,15 @@
     </section>
     {{ else }}
     <!-- Сообщение, когда участников нет -->
-    <section class="participants-section mb5">
-      <h2 class="f3 mb3 tc" style="color: #34495e;">🎤 Участники</h2>
-      <div class="tc pa5 bg-light-gray br3">
-        <p class="f4 gray i">Идет набор участников</p>
-      </div>
-    </section>
+<section class="participants-section mb5">
+  <h2 class="f3 mb3 tc" style="color: #34495e;">🎤 Участники</h2>
+  <div class="tc pa5 bg-light-gray br3">
+    <p class="f4 gray i mb4">Открыта регистрация для участников и зрителей</p>
+    <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
+          Зарегистрироваться
+        </a>
+  </div>
+</section>
     {{ end }}
 
     <!-- Формат мероприятия -->
