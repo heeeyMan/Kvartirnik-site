@@ -7,5 +7,22 @@
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="theme-color" content="#ffffff">
 
+<!-- Schema.org разметка для логотипа сайта (для поисковой выдачи) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "{{ .Site.BaseURL }}",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description | default .Site.Title }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "logo": "{{ .Site.BaseURL }}android-chrome-512x512.png"
+}
+</script>
+
 {{ $customStyle := resources.Get "css/custom.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $customStyle.Permalink }}" integrity="{{ $customStyle.Data.Integrity }}">
