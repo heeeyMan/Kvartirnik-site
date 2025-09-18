@@ -70,7 +70,7 @@
     <!-- Участники с раскрывающимся списком -->
     {{ if .Params.participants }}
     <section class="participants-section mb5">
-      <h2 class="f3 mb4" style="color: #34495e;">🎤 Участники</h2>
+      <h2 class="f3 mb4 tc" style="color: #34495e;">🎤 Участники</h2>
       <div class="participants-list">
         <!-- Первые три участника (всегда видимые) -->
         {{ range first 3 .Params.participants }}
@@ -126,12 +126,26 @@
     {{ else }}
     <!-- Сообщение, когда участников нет -->
     <section class="participants-section mb5">
-      <h2 class="f3 mb4" style="color: #34495e;">🎤 Участники</h2>
+      <h2 class="f3 mb3 tc" style="color: #34495e;">🎤 Участники</h2>
       <div class="tc pa5 bg-light-gray br3">
         <p class="f4 gray i">Идет набор участников</p>
       </div>
     </section>
     {{ end }}
+
+    <!-- Формат мероприятия -->
+    <section class="event-format-section mb5">
+      <h2 class="f4 mb3 tc" style="color: #34495e;">
+        <span class="icon-format"></span> Формат мероприятия
+      </h2>
+      <div class="event-format-content pa3 br3 shadow-1" style="background: white; line-height: 1.6; color: #2c3e50;">
+        {{ if .Params.eventFormat }}
+          {{ .Params.eventFormat | markdownify }}
+        {{ else }}
+          <p class="f4 gray i tc">Формат пока не определен</p>
+        {{ end }}
+      </div>
+    </section>
 
     <!-- Фотографии -->
     {{ if .Params.photos }}
@@ -201,6 +215,51 @@
   background-color: #5a6268 !important;
   transform: translateX(-2px);
 }
+
+/* Стиль для иконки формата мероприятия */
+.icon-format {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #4a90e2, #003f7f);
+  border-radius: 4px;
+}
+
+.icon-format::before {
+  content: '📖';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: white;
+}
+
+/* Стили для списка в формате мероприятия */
+.event-format-content ul {
+  list-style: none;      /* убираем стандартные кружки */
+  padding-left: 0;       /* убираем отступ */
+  margin: 0;
+}
+
+.event-format-content li {
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1rem;
+}
+
+.event-format-content li::before {
+  content: "🎵";         /* иконка вместо буллета */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+}
+
 
 /* Стили для блоков Дата и Место */
 .info-sections {

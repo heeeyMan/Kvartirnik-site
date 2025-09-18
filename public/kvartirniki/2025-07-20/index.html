@@ -217,7 +217,7 @@
     
     
     <section class="participants-section mb5">
-      <h2 class="f3 mb4" style="color: #34495e;">🎤 Участники</h2>
+      <h2 class="f3 mb4 tc" style="color: #34495e;">🎤 Участники</h2>
       <div class="participants-list">
         
         
@@ -496,6 +496,18 @@
     
 
     
+    <section class="event-format-section mb5">
+      <h2 class="f4 mb3 tc" style="color: #34495e;">
+        <span class="icon-format"></span> Формат мероприятия
+      </h2>
+      <div class="event-format-content pa3 br3 shadow-1" style="background: white; line-height: 1.6; color: #2c3e50;">
+        
+          <p class="f4 gray i tc">Формат пока не определен</p>
+        
+      </div>
+    </section>
+
+    
     
     <section class="kvartirnik-photos mb5">
       <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
@@ -688,6 +700,29 @@
   background-color: #5a6268 !important;
   transform: translateX(-2px);
 }
+
+ 
+.icon-format {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #4a90e2, #003f7f);
+  border-radius: 4px;
+}
+
+.icon-format::before {
+  content: '📖';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: white;
+}
+
 
  
 .info-sections {
