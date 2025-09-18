@@ -59,13 +59,13 @@
     <section class="program-section mb5">
       <h2 class="f3 mb3 tc" style="color: #34495e;">📅 Программа вечера</h2>
       <div class="program-list flex flex-column items-center">
-  {{ range .Params.program }}
-  <div class="program-item flex items-center mb2" style="max-width: 400px; width: 100%;">
-    <span class="program-time f5 b mr3" style="min-width: 60px; color: #2c3e50;">{{ .time }}</span>
-    <span class="program-title f5">{{ .title }}</span>
-  </div>
-  {{ end }}
-</div>
+        {{ range .Params.program }}
+        <div class="program-item flex items-center mb2" style="max-width: 400px; width: 60%;">
+          <span class="program-time f5 b mr3" style="min-width: 60px; color: #2c3e50;">{{ .time }}</span>
+          <span class="program-title f5">{{ .title }}</span>
+        </div>
+        {{ end }}
+      </div>
     </section>
     {{ end }}
     
