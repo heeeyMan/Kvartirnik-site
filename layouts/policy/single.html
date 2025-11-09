@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="policy-page">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +10,23 @@
     <link rel="stylesheet" href="{{ .Site.Params.customCSS }}">
   {{ end }}
 </head>
-<body class="policy-page">
-  <main style="max-width:800px; margin:3rem auto; padding:0 1rem;">
+<body>
+  <main style="max-width:800px; margin:0 auto; padding:2rem 1rem;">
+    <h1>{{ .Title }}</h1>
     <article>
       {{ .Content }}
     </article>
   </main>
+
+  <script>
+    // Удаляем header только на этой странице
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header, .site-header, nav.bg-black');
+      if (header) {
+        header.remove();
+      }
+    });
+  </script>
 </body>
 </html>
 
