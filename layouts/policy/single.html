@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru" class="policy-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  <meta name="description" content="{{ .Description }}">
+  <link rel="icon" href="/favicon.ico">
+  {{ if .Site.Params.customCSS }}
+    <link rel="stylesheet" href="{{ .Site.Params.customCSS }}">
+  {{ end }}
+</head>
+<body class="policy-page">
+  <main style="max-width:800px; margin:3rem auto; padding:0 1rem;">
+    <article>
+      {{ .Content }}
+    </article>
+  </main>
+</body>
+</html>
+

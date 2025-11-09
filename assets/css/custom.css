@@ -1,3 +1,12 @@
+/* Скрыть header на страницах с layout policy */
+body.policy-page .site-header {
+  display: none !important;
+}
+
+body.policy-page main {
+  margin-top: 0 !important;
+  padding-top: 2rem;
+}
 /* Стили для фотогалереи */
 .photos-grid {
   display: grid;
