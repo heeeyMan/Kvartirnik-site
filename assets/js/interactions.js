@@ -238,11 +238,116 @@
   }
 
   // =========================================================================
+  // 4. Scroll Progress Bar
+  // =========================================================================
+  function initScrollProgress() {
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    document.body.appendChild(bar);
+
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }, { passive: true });
+  }
+
+  // =========================================================================
+  // 5. Parallax Header Image
+  // =========================================================================
+  function initHeaderParallax() {
+    var header = document.querySelector('.site-header');
+    if (!header || prefersReducedMotion) return;
+
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset;
+      var headerH = header.offsetHeight;
+      if (scrollTop < headerH) {
+        header.style.backgroundPositionY = (scrollTop * 0.4) + 'px';
+      }
+    }, { passive: true });
+  }
+
+  // =========================================================================
+  // 6. Back to Top Button
+  // =========================================================================
+  function initBackToTop() {
+    var btn = document.createElement('button');
+    btn.className = 'back-to-top';
+    btn.setAttribute('aria-label', 'Наверх');
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>';
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 600) {
+        btn.classList.add('back-to-top--visible');
+      } else {
+        btn.classList.remove('back-to-top--visible');
+      }
+    }, { passive: true });
+
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // =========================================================================
+  // 7. Animated Counters
+  // =========================================================================
+  function initCounters() {
+    var counters = document.querySelectorAll('.counter-value');
+    if (!counters.length) return;
+
+    var animated = false;
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          counters.forEach(function(counter) {
+            var target = parseInt(counter.getAttribute('data-target'), 10);
+            var duration = 2000;
+            var start = 0;
+            var startTime = null;
+
+            function step(timestamp) {
+              if (!startTime) startTime = timestamp;
+              var progress = Math.min((timestamp - startTime) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              counter.textContent = Math.floor(eased * target);
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              } else {
+                counter.textContent = target + '+';
+              }
+            }
+
+            if (prefersReducedMotion) {
+              counter.textContent = target + '+';
+            } else {
+              requestAnimationFrame(step);
+            }
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    var section = document.querySelector('.counters-section');
+    if (section) observer.observe(section);
+  }
+
+  // =========================================================================
   // Initialise everything on DOMContentLoaded
   // =========================================================================
   document.addEventListener('DOMContentLoaded', function () {
     initCustomCursor();
     initTiltCards();
     initTextReveal();
+    initScrollProgress();
+    initHeaderParallax();
+    initBackToTop();
+    initCounters();
   });
 })();
