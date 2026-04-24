@@ -27,6 +27,7 @@
 }
 html {
   scroll-behavior: smooth;
+  color-scheme: light only;
 }
 body {
   margin: 0;
@@ -362,9 +363,9 @@ body::before {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     padding: 1rem;
     gap: 0.25rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -395,9 +396,9 @@ body::before {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     padding: 1rem;
     gap: 0.25rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -2266,126 +2267,6 @@ body::before {
 /* ========================
    Dark Theme
    ======================== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #c4793a;
-    --color-primary-dark: #a06030;
-    --color-primary-darker: #e8a76a;
-    --color-primary-accent: #d4905a;
-    --color-heading: #c8cdd2;
-    --color-text: #b8bfc6;
-    --color-muted: #8a929a;
-    --color-btn: #c4793a;
-    --color-btn-hover: #d4905a;
-    --color-accent: #e8a050;
-    --color-bg-warm: #1a1a1a;
-    --color-bg-cream: #1e1e1e;
-    --color-border: #333;
-    --color-border-light: #2a2a2a;
-  }
-
-  body {
-    background-color: #141414;
-    color: var(--color-text);
-  }
-
-  .site-footer {
-    background: #111;
-  }
-
-  /* Cards and surfaces */
-  .kv-info-card,
-  .kv-participant-card,
-  .kv-format-card,
-  .kv-empty-state,
-  .archive-card,
-  .about-member,
-  .about-social,
-  .register-form-card,
-  .page-404-card,
-  .hero-empty-card,
-  .past-event-card {
-    background: var(--color-bg-cream);
-    border-color: var(--color-border);
-  }
-
-  /* Header overlay darker in dark mode */
-  .site-header-overlay {
-    background: rgba(0, 0, 0, 0.6);
-  }
-
-  /* Buttons */
-  .kv-back-btn,
-  .kv-show-more-btn,
-  .register-social-btn,
-  .register-fallback-btn,
-  .about-social-btn {
-    background: var(--color-bg-cream);
-    border-color: var(--color-border);
-    color: var(--color-text);
-  }
-
-  .kv-song-tag,
-  .archive-card-arrow {
-    background: #252525;
-    border-color: var(--color-border);
-  }
-
-  /* Photos */
-  .photo-item {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Modal adjustments */
-  .modal-overlay {
-    background: rgba(0, 0, 0, 0.9);
-  }
-
-  /* Timeline */
-  .kv-timeline-dot {
-    background: #1a1a1a;
-  }
-
-  /* Info icon */
-  .kv-info-icon,
-  .about-circle {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Team photos */
-  .about-member-photo {
-    border-color: #333;
-  }
-
-  /* Hero card */
-  .hero-card {
-    background: var(--color-bg-cream);
-    border-color: var(--color-border);
-  }
-
-  /* Social links */
-  .social-link-item {
-    background: var(--color-bg-cream);
-    border-color: var(--color-border);
-    color: var(--color-text);
-  }
-
-  /* Form iframe */
-  .register-form-wrap iframe {
-    background: var(--color-bg-cream);
-    filter: invert(0.88) hue-rotate(180deg);
-  }
-
-  /* Misc text overrides */
-  .hero-card-description,
-  .past-event-title,
-  .archive-card-title {
-    color: var(--color-text);
-  }
-  .hero-card-more {
-    color: var(--color-primary);
-  }
-}
 
 /* ========================
    Art-Space Enhancements
@@ -2663,32 +2544,6 @@ body::before {
   background: var(--color-bg-cream);
 }
 
-/* --- Dark theme adjustments for new features --- */
-@media (prefers-color-scheme: dark) {
-  .section-dark {
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .cursor-dot {
-    background: var(--color-accent);
-  }
-  .cursor-ring {
-    border-color: var(--color-accent);
-  }
-  .full-bleed::after {
-    background: linear-gradient(
-      to bottom,
-      rgba(20, 20, 20, 0.3) 0%,
-      transparent 20%,
-      transparent 80%,
-      rgba(20, 20, 20, 0.3) 100%
-    );
-  }
-  .section-number {
-    color: var(--color-accent);
-    opacity: 0.04;
-  }
-}
 
 /* --- Scroll Progress Bar --- */
 .scroll-progress {
@@ -2895,31 +2750,6 @@ body::before {
   background-size: 100% 2px;
 }
 
-/* --- Dark theme for new features --- */
-@media (prefers-color-scheme: dark) {
-  .scroll-progress {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  }
-  .back-to-top {
-    background: var(--color-bg-cream);
-    color: var(--color-accent);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  }
-  .back-to-top:hover {
-    background: var(--color-accent);
-    color: white;
-  }
-  .counters-section {
-    border-color: var(--color-border);
-  }
-  .about-quote-mark {
-    color: var(--color-accent);
-  }
-  .about-quote-text {
-    color: var(--color-text);
-  }
-}
 
 /* --- Reduced motion for new features --- */
 @media (prefers-reduced-motion: reduce) {
