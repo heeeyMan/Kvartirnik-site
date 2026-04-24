@@ -417,7 +417,7 @@ body::before {
 .text-body { color: var(--color-text); }
 .text-muted-custom { color: var(--color-muted); }
 .text-primary { color: var(--color-primary-darker); }
-.bg-section { background: white; }
+.bg-section { background: var(--color-bg-cream); }
 
 .btn-action {
   background-color: var(--color-btn);
@@ -439,7 +439,7 @@ body::before {
 
 .maps-link {
   color: var(--color-primary) !important;
-  background-color: #ffffff !important;
+  background-color: var(--color-bg-cream) !important;
   border: 1px solid var(--color-primary);
   transition: all 0.3s ease;
 }
@@ -523,14 +523,14 @@ body::before {
 }
 /* Стили для страницы квартирника */
 .page-kvartirnik {
-    background-color: #f8f9fa;
+    background-color: var(--color-bg-warm);
 }
 
 .kvartirnik-article {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background: white;
+    background: var(--color-bg-cream);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
@@ -568,7 +568,7 @@ body::before {
 .kvartirnik-photos {
     margin: 2rem 0;
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: var(--color-bg-warm);
     border-radius: 6px;
 }
 
@@ -590,7 +590,7 @@ body::before {
 }
 
 .participant {
-    background: white;
+    background: var(--color-bg-cream);
     padding: 1rem;
     border-radius: 6px;
     border-left: 4px solid #3498db;
@@ -609,7 +609,7 @@ body::before {
 
 .song {
     padding: 0.3rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border-light);
 }
 
 .song:last-child {
@@ -763,7 +763,7 @@ body::before {
   margin: 0 auto 1rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid white;
+  border: 3px solid var(--color-bg-cream);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 .about-member-photo img {
@@ -819,7 +819,7 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.25rem;
-  background: white;
+  background: var(--color-bg-cream);
   border: 1px solid var(--color-border);
   border-radius: 999px;
   text-decoration: none;
@@ -1014,7 +1014,7 @@ body::before {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: white;
+  background: var(--color-bg-cream);
   border: 1px solid var(--color-border);
   border-radius: 50%;
   color: var(--color-primary);
@@ -1231,7 +1231,7 @@ body::before {
   top: 5px;
   width: 16px;
   height: 16px;
-  background: white;
+  background: var(--color-bg-cream);
   border: 3px solid var(--color-primary);
   border-radius: 50%;
   transform: translateX(-0.5px);
@@ -1305,7 +1305,7 @@ body::before {
 .kv-song-tag {
   display: inline-block;
   padding: 0.2rem 0.6rem;
-  background: white;
+  background: var(--color-bg-cream);
   border: 1px solid var(--color-border);
   border-radius: 999px;
   font-size: 0.8rem;
@@ -1674,11 +1674,11 @@ body::before {
 
 /* Empty state card */
 .hero-empty-card {
-  background: white;
+  background: var(--color-bg-cream);
   border-radius: 24px;
   padding: 3rem 2.5rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  border: 1px solid #ebe3d9;
+  border: 1px solid var(--color-border);
   text-align: center;
 }
 .hero-empty-card .hero-label {
@@ -1708,11 +1708,11 @@ body::before {
   font-size: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 100px;
-  background: #f5f0eb;
+  background: var(--color-bg-warm);
   transition: all 0.3s ease;
 }
 .hero-meta-item:hover {
-  background: #ebe3d9;
+  background: var(--color-border);
   color: var(--color-primary-darker);
 }
 .hero-meta-item svg {
@@ -1729,7 +1729,7 @@ body::before {
 .hero-card {
   border-radius: 24px;
   overflow: hidden;
-  background: white;
+  background: var(--color-bg-cream);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 24px rgba(0, 0, 0, 0.06), 0 24px 48px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
   margin-bottom: 2.5rem;
@@ -1820,7 +1820,7 @@ body::before {
   color: inherit;
   border-radius: 20px;
   overflow: hidden;
-  background: white;
+  background: var(--color-bg-cream);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
 }
@@ -1858,7 +1858,7 @@ body::before {
 
 /* Social section */
 .social-section {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--color-border-light);
   padding: 2rem 0 1rem;
 }
 .social-links {
@@ -1873,7 +1873,7 @@ body::before {
   gap: 0.5rem;
   padding: 0.6rem 1.2rem;
   border-radius: 100px;
-  background: #f5f0eb;
+  background: var(--color-bg-warm);
   color: var(--color-text);
   text-decoration: none;
   font-size: 0.9rem;
@@ -2660,7 +2660,7 @@ body::before {
 /* --- Enhanced hero empty card --- */
 .hero-empty-card {
   border: 1px solid var(--color-border);
-  background: linear-gradient(135deg, var(--color-bg-cream) 0%, white 100%);
+  background: var(--color-bg-cream);
 }
 
 /* --- Dark theme adjustments for new features --- */
