@@ -76,6 +76,11 @@
       <div class="site-nav-inner">
         <a href="/" class="site-nav-logo">{{ .Site.Title }}</a>
         {{ if .Site.Menus.main }}
+        <button class="burger-btn" aria-label="Меню" aria-expanded="false" onclick="this.classList.toggle('burger-open');this.setAttribute('aria-expanded',this.classList.contains('burger-open'));this.closest('.sticky-nav').querySelector('.site-nav-links').classList.toggle('nav-open')">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
         <ul class="site-nav-links">
           {{ range .Site.Menus.main }}
           <li><a href="{{ .URL }}" class="site-nav-link">{{ .Name }}</a></li>

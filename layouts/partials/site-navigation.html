@@ -8,6 +8,11 @@
       {{ end }}
     </a>
     {{ if .Site.Menus.main }}
+    <button class="burger-btn" aria-label="Меню" aria-expanded="false" onclick="this.classList.toggle('burger-open');this.setAttribute('aria-expanded',this.classList.contains('burger-open'));this.closest('.site-nav').querySelector('.site-nav-links').classList.toggle('nav-open')">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
     <ul class="site-nav-links">
       {{ range .Site.Menus.main }}
       <li>

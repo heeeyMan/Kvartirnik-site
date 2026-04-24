@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru-ru">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Регистрация на квартирник | КАМИН</title>
@@ -9,7 +9,7 @@
 
     
     
-      <meta name="robots" content="noindex, nofollow">
+      <meta name="robots" content="index, follow">
     
 
     
@@ -20,35 +20,35 @@
 
     
     
-    <link rel="preload" href="http://localhost:1313/css/custom.min.beadc62b072944911381253466ff2da2eb5369ccb4c6b6a9a7a1667de640d8e2.css" as="style">
-    <link rel="stylesheet" href="http://localhost:1313/css/custom.min.beadc62b072944911381253466ff2da2eb5369ccb4c6b6a9a7a1667de640d8e2.css" integrity="sha256-vq3GKwcpRJETgSU0Zv8toutTacy0xrapp6FmfeZA2OI=">
+    <link rel="preload" href="https://kvartirniknn.ru/css/custom.min.f3206af4ca13edc775be2585c18d09bc361480b9a17fd9e4664513718abd568d.css" as="style">
+    <link rel="stylesheet" href="https://kvartirniknn.ru/css/custom.min.f3206af4ca13edc775be2585c18d09bc361480b9a17fd9e4664513718abd568d.css" integrity="sha256-8yBq9MoT7cd1viWFwY0JvDYUgLmhf9nkZkUTcYq9Vo0=">
 
     
     <link rel="dns-prefetch" href="https://forms.yandex.ru">
 
     
-    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kvartirniknn.ru/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kvartirniknn.ru/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kvartirniknn.ru/favicon-16x16.png">
+    <link rel="manifest" href="https://kvartirniknn.ru/site.webmanifest">
     <meta name="theme-color" content="#8B4513">
 
     
-    <link rel="canonical" href="http://localhost:1313/register/">
+    <link rel="canonical" href="https://kvartirniknn.ru/register/">
 
     
     
 
-    <meta property="og:url" content="http://localhost:1313/register/">
+    <meta property="og:url" content="https://kvartirniknn.ru/register/">
   <meta property="og:site_name" content="КАМИН">
   <meta property="og:title" content="Регистрация на квартирник">
   <meta property="og:description" content="Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника.">
   <meta property="og:locale" content="ru_ru">
   <meta property="og:type" content="article">
-    <meta property="og:image" content="http://localhost:1313/images/RS-88.jpg">
+    <meta property="og:image" content="https://kvartirniknn.ru/images/RS-88.jpg">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/images/RS-88.jpg">
+  <meta name="twitter:image" content="https://kvartirniknn.ru/images/RS-88.jpg">
   <meta name="twitter:title" content="Регистрация на квартирник">
   <meta name="twitter:description" content="Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника.">
 
@@ -56,10 +56,10 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "url": "http:\/\/localhost:1313\/",
+      "url": "https:\/\/kvartirniknn.ru\/",
       "name": "КАМИН",
       "description": "Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника.",
-      "logo": "http:\/\/localhost:1313\/android-chrome-512x512.png"
+      "logo": "https:\/\/kvartirniknn.ru\/android-chrome-512x512.png"
     }
     </script>
 
@@ -82,7 +82,7 @@
 
 
 
-<header class="site-header" style="background-image: url('http://localhost:1313/images/headers/RS-141.jpg');">
+<header class="site-header" style="background-image: url('https://kvartirniknn.ru/images/headers/RS-141.jpg');">
   <div class="site-header-overlay">
     <nav class="site-nav" role="navigation">
   <div class="site-nav-inner">
@@ -92,6 +92,11 @@
       
     </a>
     
+    <button class="burger-btn" aria-label="Меню" aria-expanded="false" onclick="this.classList.toggle('burger-open');this.setAttribute('aria-expanded',this.classList.contains('burger-open'));this.closest('.site-nav').querySelector('.site-nav-links').classList.toggle('nav-open')">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
     <ul class="site-nav-links">
       
       <li>
@@ -288,6 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="site-nav-inner">
         <a href="/" class="site-nav-logo">КАМИН</a>
         
+        <button class="burger-btn" aria-label="Меню" aria-expanded="false" onclick="this.classList.toggle('burger-open');this.setAttribute('aria-expanded',this.classList.contains('burger-open'));this.closest('.sticky-nav').querySelector('.site-nav-links').classList.toggle('nav-open')">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
         <ul class="site-nav-links">
           
           <li><a href="/" class="site-nav-link">Главная</a></li>
@@ -321,6 +331,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 
     
-    <script src="http://localhost:1313/js/interactions.min.980d26a474d4deab959cf3737ee08142f38e029a50a3e1ab3de445be71e6a6ab.js" integrity="sha256-mA0mpHTU3quVnPNzfuCBQvOOAppQo&#43;GrPeRFvnHmpqs=" defer></script>
+    <script src="https://kvartirniknn.ru/js/interactions.min.980d26a474d4deab959cf3737ee08142f38e029a50a3e1ab3de445be71e6a6ab.js" integrity="sha256-mA0mpHTU3quVnPNzfuCBQvOOAppQo&#43;GrPeRFvnHmpqs=" defer></script>
   </body>
 </html>
