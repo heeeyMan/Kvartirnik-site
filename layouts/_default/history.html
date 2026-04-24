@@ -11,10 +11,10 @@
   {{ $now := now }}
 
   {{ if $kvartirniki }}
-    <div class="archive-grid">
+    <div class="archive-grid archive-grid--masonry">
       {{ range $i, $e := $kvartirniki.ByDate.Reverse }}
         {{ if .Date }}
-        <a href="{{ .RelPermalink }}" class="archive-card scroll-reveal" style="--stagger: {{ $i }}">
+        <a href="{{ .RelPermalink }}" class="archive-card tilt-card scroll-reveal" style="--stagger: {{ $i }}">
 
           <!-- Бейдж статуса -->
           {{ $status := "" }}

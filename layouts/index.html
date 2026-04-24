@@ -19,7 +19,7 @@
     {{ if $nearestFutureKvartirnik }}
       <section class="hero-section">
         <p class="hero-label anim-hero" style="--delay: 0s">Ближайший квартирник</p>
-        <h1 class="hero-title anim-hero" style="--delay: 0.15s">{{ $nearestFutureKvartirnik.Title }}</h1>
+        <h1 class="hero-title text-reveal anim-hero" style="--delay: 0.15s">{{ $nearestFutureKvartirnik.Title }}</h1>
 
         <div class="hero-meta anim-hero" style="--delay: 0.3s">
           <a href="https://calendar.google.com/calendar/r/eventedit?text={{ $nearestFutureKvartirnik.Title | urlquery }}&details=Квартирник&location={{ $nearestFutureKvartirnik.Params.location | urlquery }}"
@@ -38,7 +38,7 @@
 
         <!-- Карточка события -->
         <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="hero-card-link anim-hero" style="--delay: 0.45s">
-          <div class="hero-card parallax-card">
+          <div class="hero-card tilt-card parallax-card">
             {{ with $nearestFutureKvartirnik.Params.featured_image }}
             <div class="hero-card-image">
               <img src="{{ . }}" alt="{{ $nearestFutureKvartirnik.Title }}" loading="lazy">
@@ -71,7 +71,7 @@
       <section class="hero-section">
         <div class="hero-empty-card anim-hero" style="--delay: 0.1s">
           <p class="hero-label">Сейчас</p>
-          <h1 class="hero-title">Актуальных событий нет</h1>
+          <h1 class="hero-title text-reveal">Актуальных событий нет</h1>
           <p class="hero-subtitle">Следите за анонсами — мы скоро вернёмся</p>
         </div>
       </section>
@@ -80,10 +80,10 @@
       {{ $recentPast := first 3 ($pastKvartirniki.ByDate.Reverse) }}
       {{ if $recentPast }}
       <section class="past-events-section scroll-reveal">
-        <h2 class="section-title">Как это было</h2>
+        <h2 class="section-title text-reveal">Как это было</h2>
         <div class="past-events-grid">
           {{ range $i, $e := $recentPast }}
-          <a href="{{ .RelPermalink }}" class="past-event-card stagger-item" style="--stagger: {{ $i }}">
+          <a href="{{ .RelPermalink }}" class="past-event-card tilt-card stagger-item" style="--stagger: {{ $i }}">
             {{ with .Params.featured_image }}
             <div class="past-event-image">
               <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -103,7 +103,7 @@
   {{ else }}
     <!-- Нет квартирников вообще -->
     <section class="hero-section">
-      <h1 class="hero-title anim-hero" style="--delay: 0s">КАМИН</h1>
+      <h1 class="hero-title text-reveal anim-hero" style="--delay: 0s">КАМИН</h1>
       <p class="hero-subtitle anim-hero" style="--delay: 0.2s">Творческое пространство в Нижнем Новгороде</p>
       <p class="hero-subtitle anim-hero" style="--delay: 0.35s">Скоро здесь появится информация о мероприятиях</p>
     </section>

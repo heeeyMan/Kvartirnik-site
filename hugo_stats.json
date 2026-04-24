@@ -64,6 +64,7 @@
       "archive-card-meta-item",
       "archive-card-title",
       "archive-grid",
+      "archive-grid--masonry",
       "badge--past",
       "btn-expand",
       "footer-bottom",
@@ -154,6 +155,8 @@
       "register-social-btn",
       "register-spinner",
       "scroll-reveal",
+      "section-dark",
+      "section-number",
       "section-title",
       "site-footer",
       "site-header",
@@ -170,7 +173,9 @@
       "social-links",
       "social-section",
       "stagger-item",
-      "sticky-nav"
+      "sticky-nav",
+      "text-reveal",
+      "tilt-card"
     ],
     "ids": [
       "1-общие-положения",

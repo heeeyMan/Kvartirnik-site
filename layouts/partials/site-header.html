@@ -12,7 +12,7 @@
   <div class="site-header-overlay">
     {{ partial "site-navigation.html" . }}
     <div class="site-header-content">
-      <h1 class="site-header-title">{{ .Title | default .Site.Title }}</h1>
+      <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
       {{ with .Params.description }}
       <p class="site-header-desc">{{ . }}</p>
       {{ end }}
@@ -23,7 +23,7 @@
 <header class="site-header site-header--solid">
   {{ partial "site-navigation.html" . }}
   <div class="site-header-content">
-    <h1 class="site-header-title">{{ .Title | default .Site.Title }}</h1>
+    <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
     {{ with .Params.description }}
     <p class="site-header-desc">{{ . }}</p>
     {{ end }}
