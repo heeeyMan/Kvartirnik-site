@@ -1800,6 +1800,33 @@ body::before {
   color: var(--color-primary);
   margin: 0 0 1rem;
 }
+
+/* Hero label & meta inside full-screen header (dark background) */
+.site-header--home .hero-label {
+  display: inline-block;
+  padding: 0.45rem 1.2rem;
+  background: rgba(139, 69, 19, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 69, 19, 0.3);
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.9);
+}
+.site-header--home .hero-meta-item {
+  background: rgba(60, 30, 10, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+.site-header--home .hero-meta-item:hover {
+  background: rgba(60, 30, 10, 0.7);
+  color: #fff;
+}
+.site-header--home .hero-meta-item svg {
+  opacity: 0.85;
+  color: rgba(255, 255, 255, 0.8);
+}
 .hero-title {
   font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
   font-weight: 900;
