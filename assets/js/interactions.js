@@ -257,14 +257,23 @@
   // 5. Parallax Header Image
   // =========================================================================
   function initHeaderParallax() {
-    var header = document.querySelector('.site-header');
-    if (!header || prefersReducedMotion) return;
+    var bg = document.getElementById('headerBg');
+    if (!bg || prefersReducedMotion) return;
+
+    var header = bg.closest('.site-header');
+    var ticking = false;
 
     window.addEventListener('scroll', function() {
-      var scrollTop = window.pageYOffset;
-      var headerH = header.offsetHeight;
-      if (scrollTop < headerH) {
-        header.style.backgroundPositionY = (scrollTop * 0.4) + 'px';
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrollTop = window.pageYOffset;
+          var headerH = header.offsetHeight;
+          if (scrollTop < headerH) {
+            bg.style.transform = 'translateY(' + (scrollTop * 0.35) + 'px)';
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     }, { passive: true });
   }

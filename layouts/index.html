@@ -2,111 +2,29 @@
 <div class="homepage">
 
   {{ $kvartirniki := where site.RegularPages "Section" "kvartirniki" }}
-  {{ $now := now }}
+  {{ $pastKvartirniki := where $kvartirniki "Date" "lt" now }}
 
-  {{ if $kvartirniki }}
-    {{ $futureKvartirniki := where $kvartirniki "Date" "ge" $now }}
-    {{ $nearestFutureKvartirnik := cond (gt (len $futureKvartirniki) 0)
-        (index ($futureKvartirniki.ByDate) 0)
-        nil }}
-
-    {{ $pastKvartirniki := where $kvartirniki "Date" "lt" $now }}
-    {{ $lastPastKvartirnik := cond (gt (len $pastKvartirniki) 0)
-        (index ($pastKvartirniki.ByDate.Reverse) 0)
-        nil }}
-
-    <!-- ===== HERO: БУДУЩЕЕ СОБЫТИЕ ===== -->
-    {{ if $nearestFutureKvartirnik }}
-      <section class="hero-section">
-        <p class="hero-label anim-hero" style="--delay: 0s">Ближайший квартирник</p>
-        <h1 class="hero-title text-reveal anim-hero" style="--delay: 0.15s">{{ $nearestFutureKvartirnik.Title }}</h1>
-
-        <div class="hero-meta anim-hero" style="--delay: 0.3s">
-          <a href="https://calendar.google.com/calendar/r/eventedit?text={{ $nearestFutureKvartirnik.Title | urlquery }}&details=Квартирник&location={{ $nearestFutureKvartirnik.Params.location | urlquery }}"
-             target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-            <span>{{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}, {{ $nearestFutureKvartirnik.Params.time }}</span>
-          </a>
-          {{ if $nearestFutureKvartirnik.Params.location }}
-          <a href="{{ $nearestFutureKvartirnik.Params.yandex_maps_link | default "#" }}"
-             target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>{{ $nearestFutureKvartirnik.Params.location }}{{ with $nearestFutureKvartirnik.Params.address }}, {{ . }}{{ end }}</span>
-          </a>
-          {{ end }}
+  <!-- Последние прошедшие квартирники -->
+  {{ $recentPast := first 3 ($pastKvartirniki.ByDate.Reverse) }}
+  {{ if $recentPast }}
+  <section class="past-events-section scroll-reveal">
+    <h2 class="section-title text-reveal">Как это было</h2>
+    <div class="past-events-grid">
+      {{ range $i, $e := $recentPast }}
+      <a href="{{ .RelPermalink }}" class="past-event-card tilt-card stagger-item" style="--stagger: {{ $i }}">
+        {{ with .Params.featured_image }}
+        <div class="past-event-image">
+          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
         </div>
-
-        <!-- Карточка события -->
-        <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="hero-card-link anim-hero" style="--delay: 0.45s">
-          <div class="hero-card tilt-card parallax-card">
-            {{ with $nearestFutureKvartirnik.Params.featured_image }}
-            <div class="hero-card-image">
-              <img src="{{ . }}" alt="{{ $nearestFutureKvartirnik.Title }}" loading="lazy">
-            </div>
-            {{ end }}
-            <div class="hero-card-body">
-              <p class="hero-card-description">{{ $nearestFutureKvartirnik.Params.description | default ($nearestFutureKvartirnik.Summary | plainify | truncate 200) }}</p>
-              <span class="hero-card-more">Подробнее &rarr;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Кнопка регистрации -->
-        <div class="hero-cta anim-hero" style="--delay: 0.6s">
-          {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
-            {{ $deadline := time . }}
-            {{ if lt now $deadline }}
-              <a href="/register/" class="cta-button cta-gradient">Зарегистрироваться</a>
-            {{ else }}
-              <p class="cta-closed">Регистрация завершена</p>
-            {{ end }}
-          {{ else }}
-            <a href="/register/" class="cta-button cta-gradient">Зарегистрироваться</a>
-          {{ end }}
+        {{ end }}
+        <div class="past-event-body">
+          <h3 class="past-event-title">{{ .Title }}</h3>
+          <p class="past-event-date">{{ .Date.Format "2 January 2006" }}</p>
         </div>
-      </section>
-
-    <!-- ===== HERO: НЕТ БУДУЩИХ СОБЫТИЙ ===== -->
-    {{ else }}
-      <section class="hero-section">
-        <div class="hero-empty-card anim-hero" style="--delay: 0.1s">
-          <p class="hero-label">Сейчас</p>
-          <h1 class="hero-title text-reveal">Актуальных событий нет</h1>
-          <p class="hero-subtitle">Следите за анонсами — мы скоро вернёмся</p>
-        </div>
-      </section>
-
-      <!-- Последние прошедшие квартирники -->
-      {{ $recentPast := first 3 ($pastKvartirniki.ByDate.Reverse) }}
-      {{ if $recentPast }}
-      <section class="past-events-section scroll-reveal">
-        <h2 class="section-title text-reveal">Как это было</h2>
-        <div class="past-events-grid">
-          {{ range $i, $e := $recentPast }}
-          <a href="{{ .RelPermalink }}" class="past-event-card tilt-card stagger-item" style="--stagger: {{ $i }}">
-            {{ with .Params.featured_image }}
-            <div class="past-event-image">
-              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-            </div>
-            {{ end }}
-            <div class="past-event-body">
-              <h3 class="past-event-title">{{ .Title }}</h3>
-              <p class="past-event-date">{{ .Date.Format "2 January 2006" }}</p>
-            </div>
-          </a>
-          {{ end }}
-        </div>
-      </section>
+      </a>
       {{ end }}
-    {{ end }}
-
-  {{ else }}
-    <!-- Нет квартирников вообще -->
-    <section class="hero-section">
-      <h1 class="hero-title text-reveal anim-hero" style="--delay: 0s">КАМИН</h1>
-      <p class="hero-subtitle anim-hero" style="--delay: 0.2s">Творческое пространство в Нижнем Новгороде</p>
-      <p class="hero-subtitle anim-hero" style="--delay: 0.35s">Скоро здесь появится информация о мероприятиях</p>
-    </section>
+    </div>
+  </section>
   {{ end }}
 
   <!-- ===== ЦИФРЫ ===== -->

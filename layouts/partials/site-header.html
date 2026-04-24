@@ -7,9 +7,90 @@
   {{ end }}
 {{ end }}
 
-{{ if $featured_image }}
-<header class="site-header" style="background-image: url('{{ $featured_image }}');">
-  <div class="site-header-overlay">
+{{/* ===== HOMEPAGE HEADER: full-screen with event content ===== */}}
+{{ if .IsHome }}
+  {{ $kvartirniki := where site.RegularPages "Section" "kvartirniki" }}
+  {{ $futureKvartirniki := where $kvartirniki "Date" "ge" now }}
+  {{ $nearest := cond (gt (len $futureKvartirniki) 0) (index ($futureKvartirniki.ByDate) 0) nil }}
+
+  {{/* Use event image if available, otherwise site featured */}}
+  {{ $heroImage := $featured_image }}
+  {{ with $nearest }}
+    {{ with .Params.featured_image }}
+      {{ $heroImage = strings.Trim . "/" | urls.AbsURL }}
+    {{ end }}
+  {{ end }}
+
+  <header class="site-header site-header--home">
+    <div class="site-header-bg" id="headerBg" style="background-image: url('{{ $heroImage }}');"></div>
+    <div class="site-header-overlay">
+      {{ partial "site-navigation.html" . }}
+      <div class="site-header-content site-header-content--home">
+
+        {{ if $nearest }}
+          <p class="hero-label anim-hero" style="--delay: 0s">Ближайший квартирник</p>
+          <h1 class="site-header-title text-reveal" style="--delay: 0.15s">{{ $nearest.Title }}</h1>
+
+          <div class="hero-meta anim-hero" style="--delay: 0.3s">
+            <a href="https://calendar.google.com/calendar/r/eventedit?text={{ $nearest.Title | urlquery }}&details=Квартирник&location={{ $nearest.Params.location | urlquery }}"
+               target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+              <span>{{ $nearest.Date.Format "2 January 2006" }}{{ with $nearest.Params.time }}, {{ . }}{{ end }}</span>
+            </a>
+            {{ if $nearest.Params.location }}
+            <a href="{{ $nearest.Params.yandex_maps_link | default "#" }}"
+               target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <span>{{ $nearest.Params.location }}{{ with $nearest.Params.address }}, {{ . }}{{ end }}</span>
+            </a>
+            {{ end }}
+          </div>
+
+          {{ with $nearest.Params.description }}
+          <p class="site-header-desc anim-hero" style="--delay: 0.4s">{{ . }}</p>
+          {{ end }}
+
+          <div class="hero-cta anim-hero" style="--delay: 0.5s">
+            <a href="{{ $nearest.RelPermalink }}" class="cta-button cta-gradient">Подробнее</a>
+            {{ with $nearest.Params.deadline_reg_date }}
+              {{ $deadline := time . }}
+              {{ if lt now $deadline }}
+                <a href="/register/" class="cta-button cta-button--outline">Зарегистрироваться</a>
+              {{ end }}
+            {{ else }}
+              <a href="/register/" class="cta-button cta-button--outline">Зарегистрироваться</a>
+            {{ end }}
+          </div>
+
+        {{ else }}
+          <h1 class="site-header-title text-reveal">{{ .Site.Title }}</h1>
+          <p class="site-header-desc">Творческое пространство в Нижнем Новгороде</p>
+          <p class="hero-subtitle-badge">Следите за анонсами — мы скоро вернёмся</p>
+        {{ end }}
+
+      </div>
+    </div>
+    <div class="header-scroll-hint" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+  </header>
+
+{{/* ===== INNER PAGE HEADER ===== */}}
+{{ else if $featured_image }}
+  <header class="site-header">
+    <div class="site-header-bg" id="headerBg" style="background-image: url('{{ $featured_image }}');"></div>
+    <div class="site-header-overlay">
+      {{ partial "site-navigation.html" . }}
+      <div class="site-header-content">
+        <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
+        {{ with .Params.description }}
+        <p class="site-header-desc">{{ . }}</p>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+{{ else }}
+  <header class="site-header site-header--solid">
     {{ partial "site-navigation.html" . }}
     <div class="site-header-content">
       <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
@@ -17,16 +98,5 @@
       <p class="site-header-desc">{{ . }}</p>
       {{ end }}
     </div>
-  </div>
-</header>
-{{ else }}
-<header class="site-header site-header--solid">
-  {{ partial "site-navigation.html" . }}
-  <div class="site-header-content">
-    <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
-    {{ with .Params.description }}
-    <p class="site-header-desc">{{ . }}</p>
-    {{ end }}
-  </div>
-</header>
+  </header>
 {{ end }}
