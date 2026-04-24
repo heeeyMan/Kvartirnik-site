@@ -348,10 +348,30 @@
   }
 
   // =========================================================================
+  // 8. Lazy Image Blur Reveal
+  // =========================================================================
+  function initLazyBlur() {
+    var images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(function(img) {
+      var parent = img.parentElement;
+      if (parent) parent.classList.add('lazy-img-wrap');
+
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', function() {
+          img.classList.add('loaded');
+        });
+      }
+    });
+  }
+
+  // =========================================================================
   // Initialise everything on DOMContentLoaded
   // =========================================================================
   document.addEventListener('DOMContentLoaded', function () {
     initCustomCursor();
+    initLazyBlur();
     initTiltCards();
     initTextReveal();
     initScrollProgress();
