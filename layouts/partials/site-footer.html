@@ -1,0 +1,29 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">{{ .Site.Title }}</span>
+        <p class="footer-tagline">Творческое пространство в Нижнем Новгороде</p>
+      </div>
+      <div class="footer-nav">
+        <h4 class="footer-heading">Навигация</h4>
+        <ul class="footer-links">
+          {{ range .Site.Menus.main }}
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4 class="footer-heading">Мы в сети</h4>
+        <div class="footer-social-links">
+          <a href="https://vk.com/guitarniks_nn" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+          <a href="https://t.me/guitarniks_nn" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a href="https://t.me/mr_deprecated" target="_blank" rel="noopener noreferrer">Написать нам</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {{ .Site.Title }} {{ now.Format "2006" }}</span>
+    </div>
+  </div>
+</footer>

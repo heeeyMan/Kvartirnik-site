@@ -1,202 +1,128 @@
 {{ define "main" }}
-<div class="pa4 pa5-ns">
-  <article class="article measure-wide center">
-    <!-- Контент -->
-    <div class="f4 lh-copy">
-      {{ .Content }}
-    </div>
+<div class="about">
 
-    <!-- Блок "Что такое квартирник?" -->
-    <div class="mt5 mb5">
-      <div class="flex-l items-center">
-        <div class="w-100 w-40-l pr4-l mb4 mb0-l">
-          <div class="tc">
-            <div class="h5 w5 dib br-100 bg-white flex items-center justify-center">
-              <!-- Замена на s1.svg -->
-              <img src="/images/about/vinil.avif" alt="Музыкальная иконка" class="w-60 h-60">
-            </div>
-          </div>
-        </div>
-        <div class="w-100 w-60-l">
-          <h2 class="f2 mb3" style="color: #34495e;">Что такое квартирник?</h2>
-          <p class="f5 lh-copy measure-wide">
-            Квартирник — это камерные концерты в уютной атмосфере, где не только музыканты, 
-            но и другие деятели искусства могут погрузить нас в свой мир, а зрители становятся 
-            частью творческого процесса. Здесь стирается грань между сценой и залом.
-          </p>
-          <p class="f5 lh-copy measure-wide">
-            Это пространство, где можно насладиться проявлением творческого начала участников в непосредственной близости 
-            от исполнителей, пообщаться с ними и другими гостями, погрузиться в особую 
-            созидательную атмосферу.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Блок "Наша философия" -->
-    <div class="mt5 mb5">
-      <div class="flex-l items-center">
-        <div class="w-100 w-60-l order-2 order-1-l">
-          <h2 class="f2 mb3" style="color: #34495e;">Наша философия</h2>
-          <p class="f5 lh-copy measure-wide">
-            Мы создаем пространство, где ваше художественное видение мира может прозвучать особенно искренне 
-            и найти своих единомышленников. 
-            Без пафоса, без условностей — только творчество и душевная атмосфера.
-          </p>
-          <p class="f5 lh-copy measure-wide">
-            Мы верим, что настоящее искусство рождается в обстановке доверия и открытости. 
-            Наши мероприятия — это не просто концерты, а встречи друзей, объединенных 
-            любовью к прекрасному и созидательному.
-          </p>
-        </div>
-        <div class="w-100 w-40-l pl4-l mb4 mb0-l order-1 order-2-l">
-          <div class="tc">
-            <div class="h5 w5 dib br-100 bg-white flex items-center justify-center">
-              <!-- Замена на s2.svg -->
-              <img src="/images/about/avreli.webp" alt="Сердце иконка" class="w-60 h-60">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Блок команды -->
-    <div class="mt5">
-      <h2 class="f2 mb4 tc">Сердце проекта</h2>
-      <div class="flex flex-wrap justify-center">
-        
-        <div class="w-100 w-50-m w-33-l pa3">
-          <div class="tc">
-            <div class="organizer-photo mb3">
-              <img src="/images/team_photos/profile_alex1.jpg" alt="Ведущий и коммуникация" 
-                   class="br-100 h4 w4 dib object-cover shadow-3">
-            </div>
-            <h3 class="f4 mb1">Александр Васин</h3>
-            <p class="f6 gray mb2">Организатор, админ телеграм-канала</p>
-            <p class="f6 lh-copy gray">"Решаю вопросики с организацией"</p>
-          </div>
-        </div>
-
-        <div class="w-100 w-50-m w-33-l pa3">
-          <div class="tc">
-            <div class="organizer-photo mb3">
-              <img src="/images/team_photos/profile_natali.jpg" alt="Соцсети и контакты" 
-                   class="br-100 h4 w4 dib object-cover shadow-3">
-            </div>
-            <h3 class="f4 mb1">Наталья Китавнина</h3>
-            <p class="f6 gray mb2">Фотограф, админ ВК группы</p>
-            <p class="f6 lh-copy gray">"Рассказываю вам о нас"</p>
-          </div>
-        </div>
-
-        <div class="w-100 w-50-m w-33-l pa3">
-          <div class="tc">
-            <div class="organizer-photo mb3">
-              <img src="/images/team_photos/profile_olga_2.jpg" alt="Дизайн и оформление" 
-                   class="br-100 h4 w4 dib object-cover shadow-3">
-            </div>
-            <h3 class="f4 mb1">Ольга Калеева</h3>
-            <p class="f6 gray mb2">Дизайн и оформление</p>
-            <p class="f6 lh-copy gray">"Делаю весь контент красивым"</p>
-          </div>
-        </div>
-
-        <div class="w-100 w-50-m w-33-l pa3">
-          <div class="tc">
-            <div class="organizer-photo mb3">
-              <img src="/images/team_photos/profile_andrew.avif" alt="Звукорежиссер" 
-                   class="br-100 h4 w4 dib object-cover shadow-3">
-            </div>
-            <h3 class="f4 mb1">Андрей Китавнин</h3>
-            <p class="f6 gray mb2">Звукорежиссер</p>
-            <p class="f6 lh-copy gray">"Делаю так, чтобы вы звучали идеально"</p>
-          </div>
-        </div>
-
-        <div class="w-100 w-50-m w-33-l pa3">
-          <div class="tc">
-            <div class="organizer-photo mb3">
-              <img src="/images/team_photos/profile_olga_1.jpg" alt="Атмосфера и интерьер" 
-                   class="br-100 h4 w4 dib object-cover shadow-3">
-            </div>
-            <h3 class="f4 mb1">Ольга Чекунова</h3>
-            <p class="f6 gray mb2">Атмосфера и интерьер</p>
-            <p class="f6 lh-copy gray">"Делаю приятную обстановку"</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Соцсети и контакты -->
-<div class="tc mt5 pa4 bg-chats-brown br3">
-  <h2 class="f3 mb3">Присоединяйтесь к нашему сообществу!</h2>
-  <p class="f5 mb4">Здесь вы можете посмотреть видео с выступлений и пообщаться, узнать последние новости</p>
-  
-  <!-- Соцсети -->
-  <div class="flex justify-center mb4 flex-wrap">
-    <!-- ВКонтакте -->
-    <a href="https://vk.com/guitarniks_nn" target="_blank" 
-       class="social-link dib pa3 mh2 mb2 bg-blue white br2 no-underline f6 hover-bg-dark-blue">
-      <img src="/images/utils/vk-icon.svg" alt="ВКонтакте" class="w1 h1 mr2" style="width: 20px; height: 20px;">
-      ВКонтакте
-    </a>
-    
-    <!-- Телеграм-канал -->
-    <a href="https://t.me/guitarniks_nn" target="_blank" 
-       class="social-link dib pa3 mh2 mb2 bg-light-blue white br2 no-underline f6 hover-bg-blue">
-      <img src="/images/utils/telegram-icon.svg" alt="Телеграм" class="w1 h1 mr2" style="width: 20px; height: 20px;">
-      Телеграм канал
-    </a>
-    
-    <!-- Телеграм основателя -->
-    <p class="f5 mb3">Есть вопросы или преложения? Пишите админу 
-      <br> (он добрый)</p>
-    <a href="https://t.me/mr_deprecated" target="_blank" 
-       class="social-link dib pa3 mh2 mb2 bg-green white br2 no-underline f6 hover-bg-dark-green">
-      <img src="/images/utils/telegram-icon.svg" alt="Телеграм" class="w1 h1 mr2" style="width: 20px; height: 20px;">
-      Телеграм админа
-    </a>
+  {{ with .Content }}
+  <div class="about-intro scroll-reveal">
+    {{ . }}
   </div>
-  </article>
+  {{ end }}
+
+  <!-- Что такое квартирник? -->
+  <section class="about-block scroll-reveal">
+    <div class="about-circle-wrap">
+      <div class="about-circle">
+        <img src="/images/about/vinil.avif" alt="Музыкальная иконка" loading="lazy">
+      </div>
+    </div>
+    <div class="about-block-text">
+      <h2 class="about-heading">Что такое квартирник?</h2>
+      <p>Квартирник — это камерные концерты в уютной атмосфере, где не только музыканты, но и другие деятели искусства могут погрузить нас в свой мир, а зрители становятся частью творческого процесса. Здесь стирается грань между сценой и залом.</p>
+      <p>Это пространство, где можно насладиться проявлением творческого начала участников в непосредственной близости от исполнителей, пообщаться с ними и другими гостями, погрузиться в особую созидательную атмосферу.</p>
+    </div>
+  </section>
+
+  <!-- Наша философия -->
+  <section class="about-block about-block--reverse scroll-reveal">
+    <div class="about-circle-wrap">
+      <div class="about-circle">
+        <img src="/images/about/avreli.webp" alt="Философия" loading="lazy">
+      </div>
+    </div>
+    <div class="about-block-text">
+      <h2 class="about-heading">Наша философия</h2>
+      <p>Мы создаем пространство, где ваше художественное видение мира может прозвучать особенно искренне и найти своих единомышленников. Без пафоса, без условностей — только творчество и душевная атмосфера.</p>
+      <p>Мы верим, что настоящее искусство рождается в обстановке доверия и открытости. Наши мероприятия — это не просто концерты, а встречи друзей, объединенных любовью к прекрасному и созидательному.</p>
+    </div>
+  </section>
+
+  <!-- Команда -->
+  <section class="about-team scroll-reveal">
+    <h2 class="about-heading about-heading--center">Сердце проекта</h2>
+    <div class="about-team-grid">
+
+      <div class="about-member">
+        <div class="about-member-photo">
+          <img src="/images/team_photos/profile_alex1.jpg" alt="Александр Васин" loading="lazy">
+        </div>
+        <h3 class="about-member-name">Александр Васин</h3>
+        <p class="about-member-role">Организатор, админ телеграм-канала</p>
+        <p class="about-member-quote">"Решаю вопросики с организацией"</p>
+      </div>
+
+      <div class="about-member">
+        <div class="about-member-photo">
+          <img src="/images/team_photos/profile_natali.jpg" alt="Наталья Китавнина" loading="lazy">
+        </div>
+        <h3 class="about-member-name">Наталья Китавнина</h3>
+        <p class="about-member-role">Фотограф, админ ВК группы</p>
+        <p class="about-member-quote">"Рассказываю вам о нас"</p>
+      </div>
+
+      <div class="about-member">
+        <div class="about-member-photo">
+          <img src="/images/team_photos/profile_olga_2.jpg" alt="Ольга Калеева" loading="lazy">
+        </div>
+        <h3 class="about-member-name">Ольга Калеева</h3>
+        <p class="about-member-role">Дизайн и оформление</p>
+        <p class="about-member-quote">"Делаю весь контент красивым"</p>
+      </div>
+
+      <div class="about-member">
+        <div class="about-member-photo">
+          <img src="/images/team_photos/profile_andrew.avif" alt="Андрей Китавнин" loading="lazy">
+        </div>
+        <h3 class="about-member-name">Андрей Китавнин</h3>
+        <p class="about-member-role">Звукорежиссер</p>
+        <p class="about-member-quote">"Делаю так, чтобы вы звучали идеально"</p>
+      </div>
+
+      <div class="about-member">
+        <div class="about-member-photo">
+          <img src="/images/team_photos/profile_olga_1.jpg" alt="Ольга Чекунова" loading="lazy">
+        </div>
+        <h3 class="about-member-name">Ольга Чекунова</h3>
+        <p class="about-member-role">Атмосфера и интерьер</p>
+        <p class="about-member-quote">"Делаю приятную обстановку"</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Соцсети -->
+  <section class="about-social scroll-reveal">
+    <h2 class="about-heading about-heading--center">Присоединяйтесь!</h2>
+    <p class="about-social-desc">Смотрите видео с выступлений, общайтесь и узнавайте последние новости</p>
+    <div class="about-social-links">
+      <a href="https://vk.com/guitarniks_nn" target="_blank" rel="noopener noreferrer" class="about-social-btn">
+        <img src="/images/utils/vk-icon.svg" alt="" width="22" height="22">
+        <span>ВКонтакте</span>
+      </a>
+      <a href="https://t.me/guitarniks_nn" target="_blank" rel="noopener noreferrer" class="about-social-btn">
+        <img src="/images/utils/telegram-icon.svg" alt="" width="22" height="22">
+        <span>Telegram</span>
+      </a>
+      <a href="https://t.me/mr_deprecated" target="_blank" rel="noopener noreferrer" class="about-social-btn">
+        <img src="/images/utils/telegram-icon.svg" alt="" width="22" height="22">
+        <span>Написать нам</span>
+      </a>
+    </div>
+  </section>
+
 </div>
 
-<!-- Стили для иконок соцсетей -->
-<style>
-.social-link {
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1rem !important;
-}
-
-.social-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.bg-washed-green { background-color: #e8f5e8; }
-.bg-washed-blue { background-color: #f0f8ff; }
-.bg-light-blue { background-color: #0088cc; }
-.hover-bg-blue:hover { background-color: #006699; }
-.hover-bg-dark-blue:hover { background-color: #004466; }
-.hover-bg-dark-green:hover { background-color: #228B22; }
-
-/* Адаптивность для мобильных */
-@media (max-width: 768px) {
-  .flex-l.items-center {
-    flex-direction: column;
-  }
-  .w-40-l, .w-60-l {
-    width: 100% !important;
-  }
-  .pr4-l, .pl4-l {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-  }
-  .order-1-l, .order-2-l {
-    order: 0 !important;
-  }
-}
-</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var els = document.querySelectorAll('.scroll-reveal');
+  if (!els.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { observer.observe(el); });
+});
+</script>
 {{ end }}

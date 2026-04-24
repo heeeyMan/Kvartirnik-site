@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ with .Params.Title }}{{ . }} | {{ end }}{{ .Site.Title }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    {{ hugo.Generator }}
+
+    {{ $production := hugo.IsProduction }}
+    {{ if $production }}
+      <meta name="robots" content="index, follow">
+    {{ else }}
+      <meta name="robots" content="noindex, nofollow">
+    {{ end }}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Preload CSS -->
+    {{ $css := resources.Get "css/custom.css" | minify | fingerprint }}
+    <link rel="preload" href="{{ $css.Permalink }}" as="style">
+    <link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">
+
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="https://forms.yandex.ru">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | absURL }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | absURL }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">
+    <link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
+    <meta name="theme-color" content="#8B4513">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ .Permalink }}">
+
+    <!-- RSS -->
+    {{ with .OutputFormats.Get "RSS" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
+    {{ end }}
+
+    <!-- Open Graph / SEO -->
+    {{- template "_internal/opengraph.html" . -}}
+    {{- template "_internal/twitter_cards.html" . -}}
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "{{ .Site.BaseURL }}",
+      "name": "{{ .Site.Title }}",
+      "description": "{{ .Site.Params.description | default .Site.Title }}",
+      "logo": "{{ .Site.BaseURL }}android-chrome-512x512.png"
+    }
+    </script>
+
+    {{ partial "creative-meta.html" . }}
+  </head>
+  <body>
+    {{ partial "site-header.html" . }}
+
+    <main role="main">
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ partial "site-footer.html" . }}
+
+    <!-- Sticky navigation -->
+    <div class="sticky-nav" id="stickyNav">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-logo">{{ .Site.Title }}</a>
+        {{ if .Site.Menus.main }}
+        <ul class="site-nav-links">
+          {{ range .Site.Menus.main }}
+          <li><a href="{{ .URL }}" class="site-nav-link">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      var sticky = document.getElementById('stickyNav');
+      if (!sticky) return;
+      var lastScroll = 0;
+      var threshold = 300;
+
+      window.addEventListener('scroll', function() {
+        var currentScroll = window.pageYOffset;
+        if (currentScroll > threshold) {
+          sticky.classList.add('sticky-nav--visible');
+        } else {
+          sticky.classList.remove('sticky-nav--visible');
+        }
+        lastScroll = currentScroll;
+      }, { passive: true });
+    })();
+    </script>
+  </body>
+</html>

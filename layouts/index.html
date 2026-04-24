@@ -1,240 +1,169 @@
 {{ define "main" }}
-<div class="pa3 pa4-ns w-100 w-70-ns center">
-  
-  <!-- Блок с актуальным квартирником -->
+<div class="homepage">
+
   {{ $kvartirniki := where site.RegularPages "Section" "kvartirniki" }}
   {{ $now := now }}
-  
+
   {{ if $kvartirniki }}
-    <!-- Находим ближайший будущий квартирник -->
     {{ $futureKvartirniki := where $kvartirniki "Date" "ge" $now }}
-    {{ $nearestFutureKvartirnik := cond (gt (len $futureKvartirniki) 0) 
-        (index ($futureKvartirniki.ByDate) 0) 
+    {{ $nearestFutureKvartirnik := cond (gt (len $futureKvartirniki) 0)
+        (index ($futureKvartirniki.ByDate) 0)
         nil }}
-    
-    <!-- Находим последний прошедший квартирник -->
+
     {{ $pastKvartirniki := where $kvartirniki "Date" "lt" $now }}
     {{ $lastPastKvartirnik := cond (gt (len $pastKvartirniki) 0)
         (index ($pastKvartirniki.ByDate.Reverse) 0)
         nil }}
 
-<!-- ===== УПРОЩЕННЫЙ БЛОК: ДИНАМИЧЕСКИЙ ЗАГОЛОВОК ===== -->
-{{ if $nearestFutureKvartirnik }}
-  <!-- Заголовок с датой и временем - прямая ссылка на Google Календарь -->
-  <h1 class="f1 tc mb3" style="color: #5a1700;">
-    <a href="https://calendar.google.com/calendar/r/eventedit?text={{ $nearestFutureKvartirnik.Title | urlquery }}&details=Квартирник {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }} в {{ $nearestFutureKvartirnik.Params.time }}&location={{ $nearestFutureKvartirnik.Params.location | urlquery }}"
-       target="_blank"
-       class="no-underline hover-black-70"
-       style="color: #5a1700 !important; cursor: pointer; text-decoration: none;">
-      {{ $nearestFutureKvartirnik.Date.Format "02.01.2006" }} | {{ $nearestFutureKvartirnik.Date.Format "15:04" }}
-    </a>
-  </h1>
-  
-  <!-- Блок с локацией - кликабельный для Яндекс.Карт -->
-  {{ if $nearestFutureKvartirnik.Params.location }}
-    <h2 class="f2 tc mb3" style="color: #5a1700;">
-      {{ if $nearestFutureKvartirnik.Params.yandex_maps_link }}
-        <a href="{{ $nearestFutureKvartirnik.Params.yandex_maps_link }}" 
-           target="_blank" 
-           class="no-underline black hover-black-70 flex items-center justify-center"
-           style="color: #5a1700 !important;">
-      {{ else }}
-        <div class="flex items-center justify-center">
-      {{ end }}
-      
-          <!-- SVG иконка локации -->
-          <svg class="dib mr2" fill="currentColor" viewBox="0 0 24 24" style="width: 62px; height: 62px; vertical-align: middle;">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          
-          <!-- Адрес локации -->
-          <span style="font-family: 'Courier New', monospace; font-weight: normal;">
-            {{ $nearestFutureKvartirnik.Params.location }}
-          </span>
-      
-      {{ if $nearestFutureKvartirnik.Params.yandex_maps_link }}
-        </a>
-      {{ else }}
-        </div>
-      {{ end }}
-    </h2>
-  {{ end }}
-  
-  <!-- Кнопка регистрации / текст при закрытой регистрации -->
-  <div class="tc mb4">
-    {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
-      {{ $deadline := time . }}
-      {{ if lt now $deadline }}
-        <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
-          Зарегистрироваться
-        </a>
-      {{ else }}
-        <p class="f2 tc reg-finish fw6">Регистрация завершена</p>
-      {{ end }}
-    {{ else }}
-      <!-- Если в .Params нет deadline_reg_date, показываем кнопку по умолчанию -->
-      <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
-        Зарегистрироваться
-      </a>
-    {{ end }}
-  </div>
-{{ else }}
-  <!-- Заголовок когда нет будущих мероприятий -->
-  <h1 class="f1 tc mb4" style="color: rgb(192, 143, 6);">Актуальных событий нет</h1>
-{{ end }}
-
-    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <!-- ===== HERO: БУДУЩЕЕ СОБЫТИЕ ===== -->
     {{ if $nearestFutureKvartirnik }}
-      <section class="main-event">
+      <section class="hero-section">
+        <p class="hero-label anim-hero" style="--delay: 0s">Ближайший квартирник</p>
+        <h1 class="hero-title anim-hero" style="--delay: 0.15s">{{ $nearestFutureKvartirnik.Title }}</h1>
 
-        {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
-          {{ $deadline := time . }}
-          {{ if lt now $deadline }}
-            <div class="upcoming-message mb4">
-              <p class="f4 tc ma0">Уже скоро состоится очередной квартирник!</p>
-              <p class="f4 tc ma0">Будем очень рады вас видеть на нашем творческом вечере ✨</p>
-            </div>
-          {{ else }}
-            <!-- <div class="upcoming-message mb4">
-              <p class="f4 tc ma0">Но мы будем рады, если вы придёте!
-                <br>(даже без регистрации ... только пссс 🤫)</p>
-            </div> -->
+        <div class="hero-meta anim-hero" style="--delay: 0.3s">
+          <a href="https://calendar.google.com/calendar/r/eventedit?text={{ $nearestFutureKvartirnik.Title | urlquery }}&details=Квартирник&location={{ $nearestFutureKvartirnik.Params.location | urlquery }}"
+             target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+            <span>{{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}, {{ $nearestFutureKvartirnik.Params.time }}</span>
+          </a>
+          {{ if $nearestFutureKvartirnik.Params.location }}
+          <a href="{{ $nearestFutureKvartirnik.Params.yandex_maps_link | default "#" }}"
+             target="_blank" rel="noopener noreferrer" class="hero-meta-item meta-glow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>{{ $nearestFutureKvartirnik.Params.location }}{{ with $nearestFutureKvartirnik.Params.address }}, {{ . }}{{ end }}</span>
+          </a>
           {{ end }}
-        {{ else }}
-          <div class="upcoming-message mb4">
-            <p class="f4 tc ma0">Уже скоро состоится очередной квартирник!</p>
-            <p class="f4 tc ma0">Будем очень рады вас видеть на нашем творческом вечере ✨</p>
-          </div>
-        {{ end }}
-
-        <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="link black dim">
-          <div class="event-card">
-            <div class="event-image">
-              {{ with $nearestFutureKvartirnik.Params.featured_image }}
-                <img src="{{ . }}" alt="{{ $nearestFutureKvartirnik.Title }}" class="w-100">
-              {{ else }}
-                <div class="placeholder-image">Фото афиши</div>
-              {{ end }}
-            </div>
-            
-            <div class="event-content">
-              <h3 class="f3 ma0 mb2">{{ $nearestFutureKvartirnik.Title }}</h3>
-              <div class="event-date mb2">
-                {{ $nearestFutureKvartirnik.Date.Format "2 January 2006" }}
-                {{ with $nearestFutureKvartirnik.Params.time }}
-                  • <span class="event-time">{{ . }}</span>
-                {{ end }}
-                <span class="status-badge future">Предстоит</span>
-              </div>
-              <p class="event-excerpt ma0">
-                {{ $nearestFutureKvartirnik.Summary | plainify | truncate 120 }}
-              </p>
-            </div>
-          </div>
-        </a>
-      </section>
-
-    {{ else if $lastPastKvartirnik }}
-      <section class="main-event">
-        <div class="no-upcoming-events mb4">
-          <p class="f4 tc ma0">В ближайшее время мероприятия не запланированы :(</p>
-          <p class="f4 tc ma0">А пока посмотрите, как прошла наша крайняя встреча</p>
         </div>
-        
-        <a href="{{ $lastPastKvartirnik.RelPermalink }}" class="link black dim">
-          <div class="event-card">
-            <div class="event-image">
-              {{ with $lastPastKvartirnik.Params.featured_image }}
-                <img src="{{ . }}" alt="{{ $lastPastKvartirnik.Title }}" class="w-100">
-              {{ else }}
-                <div class="placeholder-image">Фото афиши</div>
-              {{ end }}
+
+        <!-- Карточка события -->
+        <a href="{{ $nearestFutureKvartirnik.RelPermalink }}" class="hero-card-link anim-hero" style="--delay: 0.45s">
+          <div class="hero-card parallax-card">
+            {{ with $nearestFutureKvartirnik.Params.featured_image }}
+            <div class="hero-card-image">
+              <img src="{{ . }}" alt="{{ $nearestFutureKvartirnik.Title }}" loading="lazy">
             </div>
-            
-            <div class="event-content">
-              <h3 class="f3 ma0 mb2">{{ $lastPastKvartirnik.Title }}</h3>
-              <div class="event-date mb2">
-                {{ $lastPastKvartirnik.Date.Format "2 January 2006" }}
-                {{ with $lastPastKvartirnik.Params.time }}
-                  • <span class="event-time">{{ . }}</span>
-                {{ end }}
-                <span class="status-badge past">Состоялся</span>
-              </div>
-              <p class="event-excerpt ma0">
-                {{ $lastPastKvartirnik.Summary | plainify | truncate 120 }}
-              </p>
+            {{ end }}
+            <div class="hero-card-body">
+              <p class="hero-card-description">{{ $nearestFutureKvartirnik.Params.description | default ($nearestFutureKvartirnik.Summary | plainify | truncate 200) }}</p>
+              <span class="hero-card-more">Подробнее &rarr;</span>
             </div>
           </div>
         </a>
+
+        <!-- Кнопка регистрации -->
+        <div class="hero-cta anim-hero" style="--delay: 0.6s">
+          {{ with $nearestFutureKvartirnik.Params.deadline_reg_date }}
+            {{ $deadline := time . }}
+            {{ if lt now $deadline }}
+              <a href="/register/" class="cta-button cta-gradient">Зарегистрироваться</a>
+            {{ else }}
+              <p class="cta-closed">Регистрация завершена</p>
+            {{ end }}
+          {{ else }}
+            <a href="/register/" class="cta-button cta-gradient">Зарегистрироваться</a>
+          {{ end }}
+        </div>
       </section>
+
+    <!-- ===== HERO: НЕТ БУДУЩИХ СОБЫТИЙ ===== -->
+    {{ else }}
+      <section class="hero-section">
+        <div class="hero-empty-card anim-hero" style="--delay: 0.1s">
+          <p class="hero-label">Сейчас</p>
+          <h1 class="hero-title">Актуальных событий нет</h1>
+          <p class="hero-subtitle">Следите за анонсами — мы скоро вернёмся</p>
+        </div>
+      </section>
+
+      <!-- Последние прошедшие квартирники -->
+      {{ $recentPast := first 3 ($pastKvartirniki.ByDate.Reverse) }}
+      {{ if $recentPast }}
+      <section class="past-events-section scroll-reveal">
+        <h2 class="section-title">Как это было</h2>
+        <div class="past-events-grid">
+          {{ range $i, $e := $recentPast }}
+          <a href="{{ .RelPermalink }}" class="past-event-card stagger-item" style="--stagger: {{ $i }}">
+            {{ with .Params.featured_image }}
+            <div class="past-event-image">
+              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+            </div>
+            {{ end }}
+            <div class="past-event-body">
+              <h3 class="past-event-title">{{ .Title }}</h3>
+              <p class="past-event-date">{{ .Date.Format "2 January 2006" }}</p>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
     {{ end }}
 
   {{ else }}
-    <!-- Нет никаких квартирников вообще -->
-    <h1 class="f1 tc mb4">Камин</h1>
-    
-    <div class="no-events tc pa5">
-      <h2 class="f2 mb3">В ближайшее время квартирники не запланированы</h2>
-      <p class="f4 mb4">Следите за обновлениями в наших социальных сетях</p>
-      <div class="event-placeholder">
-        <div class="placeholder-icon">🎵</div>
-        <p>Скоро здесь появится информация о новых мероприятиях</p>
-      </div>
-    </div>
+    <!-- Нет квартирников вообще -->
+    <section class="hero-section">
+      <h1 class="hero-title anim-hero" style="--delay: 0s">КАМИН</h1>
+      <p class="hero-subtitle anim-hero" style="--delay: 0.2s">Творческое пространство в Нижнем Новгороде</p>
+      <p class="hero-subtitle anim-hero" style="--delay: 0.35s">Скоро здесь появится информация о мероприятиях</p>
+    </section>
   {{ end }}
 
-  <!-- ===== КНОПКИ СОЦСЕТЕЙ ===== -->
-  <div class="social-buttons tc">
-    <h3 class="f3 mb3 social-header">Мы в социальных сетях</h3>
-    <div class="flex justify-center">
-      <!-- Кнопка ВКонтакте -->
-      <a href="https://vk.com/guitarniks_nn" target="_blank" class="social-button vk ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
-        <img src="images/utils/vk-icon.svg" alt="ВКонтакте" class="dib mr2" style="width: 24px; height: 24px;">
-        <span class="fw6">Группа ВК</span>
+  <!-- ===== СОЦСЕТИ ===== -->
+  <section class="social-section scroll-reveal">
+    <div class="social-links">
+      <a href="https://vk.com/guitarniks_nn" target="_blank" rel="noopener noreferrer" class="social-link-item stagger-item" style="--stagger: 0" aria-label="ВКонтакте">
+        <img src="images/utils/vk-icon.svg" alt="" width="28" height="28">
+        <span>ВКонтакте</span>
       </a>
-      
-      <!-- Кнопка Telegram группы -->
-      <a href="https://t.me/guitarniks_nn" target="_blank" class="social-button telegram ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
-        <img src="images/utils/telegram-icon.svg" alt="Telegram" class="dib mr2" style="width: 24px; height: 24px;">
-        <span class="fw6">Telegram группа</span>
+      <a href="https://t.me/guitarniks_nn" target="_blank" rel="noopener noreferrer" class="social-link-item stagger-item" style="--stagger: 1" aria-label="Telegram">
+        <img src="images/utils/telegram-icon.svg" alt="" width="28" height="28">
+        <span>Telegram</span>
       </a>
-      
-      <!-- Кнопка Telegram админа -->
-      <a href="https://t.me/mr_deprecated" target="_blank" class="social-button telegram-admin ma2 no-underline flex items-center justify-center ph3 pv2 br2 bg-white shadow-1 hover-bg-light-gray">
-        <img src="images/utils/telegram-icon.svg" alt="Telegram" class="dib mr2" style="width: 24px; height: 24px;">
-        <span class="fw6">Написать админу</span>
+      <a href="https://t.me/mr_deprecated" target="_blank" rel="noopener noreferrer" class="social-link-item stagger-item" style="--stagger: 2" aria-label="Написать админу">
+        <img src="images/utils/telegram-icon.svg" alt="" width="28" height="28">
+        <span>Написать нам</span>
       </a>
     </div>
-  </div>
+  </section>
 
 </div>
 
-<!-- ===== Стили ===== -->
-<style>
-.hover-black-70:hover {
-  color: #8B4513 !important;
-}
-.hover-black-70:hover svg {
-  fill: #8B4513 !important;
-}
-.reg-finish {
-  color: darkred;
-}
-.social-header {
-  color: rgb(139, 90, 0);
-}
-.social-buttons {
-  border-top: 2px solid #eee;
-}
-.social-button {
-  color: #333;
-  transition: all 0.3s ease;
-  border: 1px solid #ddd;
-}
-.social-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-</style>
-{{ end }}
+<script>
+// Scroll reveal with IntersectionObserver
+document.addEventListener('DOMContentLoaded', function() {
+  var revealElements = document.querySelectorAll('.scroll-reveal');
+  if (!revealElements.length) return;
 
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealElements.forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // Parallax on hero card image
+  var parallaxCard = document.querySelector('.parallax-card');
+  if (parallaxCard) {
+    var cardImg = parallaxCard.querySelector('.hero-card-image img');
+    if (cardImg) {
+      window.addEventListener('scroll', function() {
+        var rect = parallaxCard.getBoundingClientRect();
+        var windowH = window.innerHeight;
+        if (rect.top < windowH && rect.bottom > 0) {
+          var progress = (windowH - rect.top) / (windowH + rect.height);
+          var shift = (progress - 0.5) * 30;
+          cardImg.style.transform = 'scale(1.08) translateY(' + shift + 'px)';
+        }
+      }, { passive: true });
+    }
+  }
+});
+</script>
+{{ end }}

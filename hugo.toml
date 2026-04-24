@@ -1,7 +1,7 @@
 baseURL = "https://kvartirniknn.ru/"
 languageCode = "ru-ru"
 title = "КАМИН"
-theme = "ananke"
+# theme = "ananke"  # removed — using custom layouts
 
 # Отображать будущие страницы (для анонсов квартирников)
 buildFuture = true
@@ -15,8 +15,6 @@ buildFuture = true
   featured_image_home = "/images/RS-88.jpg"
   featured_image_class = "cover bg-center"
   cover_dimming_class = "bg-black-40"
-  current_kvartirnik = "2025-10-05"  # Дата активного квартирника
-  custom_css = ["css/custom.css"]
   twitterCard = "summary_large_image"
 
   # Главное изображение (по умолчанию для соцсетей и SEO)

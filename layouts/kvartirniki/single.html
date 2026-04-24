@@ -1,193 +1,174 @@
 {{ define "main" }}
-<div class="pa4 pa5-ns">
-  <article class="kvartirnik-article measure-wide center">
-    
+<div class="kv-detail">
+  <article class="kv-article">
+
     <!-- Кнопка Назад -->
-    <div class="mb4">
-      <button class="back-btn f6 ph3 pv2 br2 bn pointer" 
-              onclick="goBack()"
-              style="background-color: #ffffff; color: rgb(0, 0, 0); border: none;">
-        ← Назад
+    <div class="kv-back-row anim-hero" style="--delay: 0s">
+      <button class="kv-back-btn" onclick="goBack()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Назад
       </button>
     </div>
 
-    <!-- Блоки Дата и время, Место -->
-    <div class="info-sections flex flex-wrap mb5" style="gap: 2rem;">
-      <!-- Дата и время -->
+    <!-- Дата и Место — в ряд -->
+    <div class="kv-info-row anim-hero" style="--delay: 0.1s">
       {{ if .Params.date }}
-      <section class="date-time-section pa3 br3 shadow-1" style="background: white; min-width: 250px; flex: 1;">
-        <h2 class="f4 mb3 tc" style="color: #34495e;">
-          <span class="icon-calendar"></span> Дата и время
-        </h2>
-        <div class="tc">
-          <p class="f5 b mb1" style="color: #2c3e50;">{{ dateFormat "02 January 2006" .Params.date }}</p>
-          <p class="f5" style="color: #7f8c8d;">
-            {{ if .Params.time }}{{ .Params.time }}{{ else }}{{ dateFormat "15:04" .Params.date }}{{ end }}
-          </p>
+      <div class="kv-info-card">
+        <div class="kv-info-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
         </div>
-      </section>
+        <div class="kv-info-label">Дата и время</div>
+        <div class="kv-info-value">{{ dateFormat "2 January 2006" .Params.date }}</div>
+        <div class="kv-info-sub">{{ if .Params.time }}{{ .Params.time }}{{ else }}{{ dateFormat "15:04" .Params.date }}{{ end }}</div>
+      </div>
       {{ end }}
 
-      <!-- Место -->
       {{ if .Params.location }}
-      <section class="location-section pa3 br3 shadow-1" style="background: white; min-width: 250px; flex: 1;">
-        <h2 class="f4 mb3 tc" style="color: #34495e;">
-          <span class="custom-location-icon"></span> Место
-        </h2>
-        <div class="tc">
-          <p class="f5 b mb1" style="color: #2c3e50;">{{ .Params.location }}</p>
-          {{ if .Params.address }}
-          <p class="f6 mb2" style="color: #7f8c8d;">{{ .Params.address }}</p>
-          {{ end }}
-          {{ if .Params.yandex_maps_link }}
-            <a href="{{ .Params.yandex_maps_link }}" 
-              target="_blank" 
-              class="f6 ph3 pv2 dib br2 no-underline pointer"
-              style="color: #8B4513 !important; background-color: #ffffff !important; border: 1px solid #8B4513; transition: all 0.3s ease;"
-              onmouseover="this.style.backgroundColor='#8B4513'; this.style.color='white'"
-              onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#8B4513'">
-              Открыть в Яндекс.Картах
-            </a>
-          {{ end }}
+      <div class="kv-info-card">
+        <div class="kv-info-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
-      </section>
+        <div class="kv-info-label">Место</div>
+        <div class="kv-info-value">{{ .Params.location }}</div>
+        {{ if .Params.address }}
+        <div class="kv-info-sub">{{ .Params.address }}</div>
+        {{ end }}
+        {{ if .Params.yandex_maps_link }}
+        <a href="{{ .Params.yandex_maps_link }}" target="_blank" rel="noopener noreferrer" class="kv-maps-link">
+          Яндекс.Карты &rarr;
+        </a>
+        {{ end }}
+      </div>
       {{ end }}
     </div>
-    
-    <!-- Программа -->
+
+    <!-- Программа — timeline -->
     {{ if .Params.program }}
-    <section class="program-section mb5">
-      <h2 class="f3 mb3 tc" style="color: #34495e;">📅 Программа вечера</h2>
-      <div class="program-list flex flex-column items-center">
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Программа вечера</h2>
+      <div class="kv-timeline">
         {{ range .Params.program }}
-        <div class="program-item flex items-center mb2" style="max-width: 400px; width: 60%;">
-          <span class="program-time f5 b mr3" style="min-width: 60px; color: #2c3e50;">{{ .time }}</span>
-          <span class="program-title f5">{{ .title }}</span>
+        <div class="kv-timeline-item">
+          <div class="kv-timeline-dot"></div>
+          <div class="kv-timeline-time">{{ .time }}</div>
+          <div class="kv-timeline-text">{{ .title }}</div>
         </div>
         {{ end }}
       </div>
     </section>
     {{ end }}
-    
-    <!-- Участники с раскрывающимся списком -->
+
+    <!-- Участники -->
     {{ if .Params.participants }}
-    <section class="participants-section mb5">
-      <h2 class="f3 mb4 tc" style="color: #34495e;">🎤 Участники</h2>
-      <div class="participants-list">
-        <!-- Первые три участника (всегда видимые) -->
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Участники</h2>
+      <div class="kv-participants">
         {{ range first 3 .Params.participants }}
-        <div class="participant-card pa3 mb3 br3 shadow-1">
-          <div class="participant-header flex items-center justify-between">
-            <h3 class="f4 mb0" style="color: #2c3e50;">{{ .name }}</h3>
-            <span class="f6 gray">{{ .instrument }}</span>
+        <div class="kv-participant-card">
+          <div class="kv-participant-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" opacity="0.5"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </div>
-          
-          <div class="songs-container">
-            <ul class="songs-list list pl0 mt2">
-              {{ range .songs }}
-              <li class="song-item mb1 f6">🎵 {{ . }}</li>
-              {{ end }}
-            </ul>
+          <div class="kv-participant-info">
+            <div class="kv-participant-name">{{ .name }}</div>
+            {{ with .instrument }}<div class="kv-participant-instrument">{{ . }}</div>{{ end }}
           </div>
-        </div>
-        {{ end }}
-        
-        <!-- Остальные участники (скрытые) -->
-        {{ if gt (len .Params.participants) 3 }}
-        <div class="participants-collapsible" style="display: none;">
-          {{ range after 3 .Params.participants }}
-          <div class="participant-card pa3 mb3 br3 shadow-1">
-            <div class="participant-header flex items-center justify-between">
-              <h3 class="f4 mb0" style="color: #2c3e50;">{{ .name }}</h3>
-              <span class="f6 gray">{{ .instrument }}</span>
-            </div>
-            
-            <div class="songs-container">
-              <ul class="songs-list list pl0 mt2">
-                {{ range .songs }}
-                <li class="song-item mb1 f6">🎵 {{ . }}</li>
-                {{ end }}
-              </ul>
-            </div>
+          {{ if .songs }}
+          <div class="kv-participant-songs">
+            {{ range .songs }}
+            <span class="kv-song-tag">{{ . }}</span>
+            {{ end }}
           </div>
           {{ end }}
         </div>
-        
-        <!-- Кнопка показать/скрыть -->
-        <div class="tc mt2">
-          <button class="show-more-participants-btn f6 ph4 pv2 br2 bn pointer" 
+        {{ end }}
+
+        {{ if gt (len .Params.participants) 3 }}
+        <div class="participants-collapsible" style="display: none;">
+          {{ range after 3 .Params.participants }}
+          <div class="kv-participant-card">
+            <div class="kv-participant-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" opacity="0.5"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="kv-participant-info">
+              <div class="kv-participant-name">{{ .name }}</div>
+              {{ with .instrument }}<div class="kv-participant-instrument">{{ . }}</div>{{ end }}
+            </div>
+            {{ if .songs }}
+            <div class="kv-participant-songs">
+              {{ range .songs }}
+              <span class="kv-song-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+        <div class="kv-show-more-wrap">
+          <button class="kv-show-more-btn btn-expand"
                   onclick="toggleParticipants(this)"
-                  style="background-color: #854e22; color: white;"
                   data-hidden-count="{{ sub (len .Params.participants) 3 }}">
-            Показать ещё {{ sub (len .Params.participants) 3 }} участников ▼
+            Показать ещё {{ sub (len .Params.participants) 3 }} участников &#9660;
           </button>
         </div>
         {{ end }}
       </div>
     </section>
     {{ else }}
-    <!-- Сообщение, когда участников нет -->
-<section class="participants-section mb5">
-  <h2 class="f3 mb3 tc" style="color: #34495e;">📝 Идет регистрация</h2>
-  <div class="tc pa5 bg-light-gray br3">
-    <p class="f4 gray i mb4">Открыта регистрация для участников и зрителей</p>
-    <a href="/register/" class="dib ph4 pv3 bg-yellow white br2 f3 fw6 no-underline hover-bg-dark-blue">
-          Зарегистрироваться
-        </a>
-  </div>
-</section>
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Идет регистрация</h2>
+      <div class="kv-empty-state">
+        <p>Открыта регистрация для участников и зрителей</p>
+        <a href="/register/" class="cta-button cta-gradient">Зарегистрироваться</a>
+      </div>
+    </section>
     {{ end }}
 
     <!-- Формат мероприятия -->
-    <section class="event-format-section mb5">
-      <h2 class="f4 mb3 tc" style="color: #34495e;">
-        <span class="icon-format"></span> Формат мероприятия
-      </h2>
-      <div class="event-format-content pa3 br3 shadow-1" style="background: white; line-height: 1.6; color: #2c3e50;">
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Формат мероприятия</h2>
+      <div class="kv-format-card">
         {{ if .Params.eventFormat }}
           {{ .Params.eventFormat | markdownify }}
         {{ else }}
-          <p class="f4 gray i tc">Формат пока не определен</p>
+          <p class="kv-empty-text">Формат пока не определен</p>
         {{ end }}
       </div>
     </section>
 
     <!-- Фотографии -->
     {{ if .Params.photos }}
-    <section class="kvartirnik-photos mb5">
-      <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Фотографии</h2>
       <div class="photos-container">
         <div class="photos-grid" id="photosGrid" data-photos='{{ .Params.photos | jsonify }}'>
           {{ range $index, $photo := .Params.photos }}
           <div class="photo-item {{ if ge $index 9 }}photos-hidden{{ end }}">
-            <img src="{{ $photo }}" 
-                 alt="Фото с квартирника {{ $.Title }}" 
-                 class="db w-100 br3 photo-thumbnail"
+            <img src="{{ $photo }}"
+                 alt="Фото с квартирника {{ $.Title }}"
+                 class="photo-thumbnail"
+                 loading="lazy"
                  onclick="openModal({{ $index }})">
           </div>
           {{ end }}
         </div>
-        
-        <!-- Кнопка показать/скрыть для фотографий -->
+
         {{ if gt (len .Params.photos) 9 }}
-        <div class="tc mt4">
-          <button class="show-more-photos-btn f6 ph4 pv2 br2 bn pointer" 
+        <div class="kv-show-more-wrap">
+          <button class="kv-show-more-btn btn-expand"
                   onclick="togglePhotos(this)"
-                  style="background-color: #854e22; color: white;"
                   data-hidden-count="{{ sub (len .Params.photos) 9 }}"
                   data-expanded="false">
-            Показать ещё {{ sub (len .Params.photos) 9 }} фотографий ▼
+            Показать ещё {{ sub (len .Params.photos) 9 }} фотографий &#9660;
           </button>
         </div>
         {{ end }}
       </div>
     </section>
     {{ else }}
-    <!-- Сообщение, когда фотографий нет -->
-    <section class="kvartirnik-photos mb5">
-      <h2 class="f3 mb4 tc" style="color: #34495e;">📸 Фотографии с мероприятия</h2>
-      <div class="tc pa5 bg-light-gray br3">
-        <p class="f4 gray i">Фотографий пока что нет :(</p>
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Фотографии</h2>
+      <div class="kv-empty-state">
+        <p>Фотографий пока что нет :(</p>
       </div>
     </section>
     {{ end }}
@@ -196,559 +177,79 @@
 </div>
 
 <!-- Модальное окно для фотографий -->
-<div id="photoModal" class="modal" style="display: none;">
-  <span class="modal-close" onclick="closeModal()">&times;</span>
-  <img class="modal-content" id="modalImage">
-  <div class="modal-caption" id="modalCaption"></div>
-  
-  <!-- Навигация -->
-  <a class="modal-prev" onclick="changePhoto(-1)">&#10094;</a>
-  <a class="modal-next" onclick="changePhoto(1)">&#10095;</a>
+<div id="photoModal" class="modal" role="dialog" aria-modal="true" aria-label="Просмотр фотографий" tabindex="-1" aria-hidden="true">
+  <div class="modal-overlay"></div>
+  <div class="modal-topbar">
+    <div class="modal-counter" id="modalCaption" aria-live="polite"></div>
+    <button class="modal-close-btn" onclick="closeModal()" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+  <div class="modal-image-wrap" id="modalImageWrap">
+    <img class="modal-image" id="modalImage" alt="">
+  </div>
+  <button class="modal-nav modal-nav--prev" onclick="changePhoto(-1)" aria-label="Предыдущее фото">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+  </button>
+  <button class="modal-nav modal-nav--next" onclick="changePhoto(1)" aria-label="Следующее фото">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
 </div>
 
-<!-- Стили для участников и фотогалереи -->
-<style>
-/* Стили для кнопки Назад */
-.back-btn {
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+<!-- JSON-LD Event schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "{{ .Title }}",
+  "startDate": "{{ .Date.Format "2006-01-02T15:04:05+03:00" }}",
+  "description": "{{ .Params.description | default .Summary | plainify | truncate 200 }}",
+  {{ if .Params.location }}
+  "location": {
+    "@type": "Place",
+    "name": "{{ .Params.location }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ .Params.address }}",
+      "addressLocality": "Нижний Новгород",
+      "addressCountry": "RU"
+    }
+  },
+  {{ end }}
+  {{ if .Params.featured_image }}
+  "image": "{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Params.featured_image }}",
+  {{ end }}
+  "organizer": {
+    "@type": "Organization",
+    "name": "КАМИН",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  {{ if eq .Params.price "0" }}
+  "isAccessibleForFree": true,
+  {{ end }}
+  "inLanguage": "ru"
 }
+</script>
 
-.back-btn:hover {
-  background-color: #5a6268 !important;
-  transform: translateX(-2px);
-}
+{{ $galleryJS := resources.Get "js/gallery.js" | minify | fingerprint }}
+<script src="{{ $galleryJS.Permalink }}" integrity="{{ $galleryJS.Data.Integrity }}"></script>
 
-/* Стиль для иконки формата мероприятия */
-.icon-format {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  margin-right: 8px;
-  vertical-align: middle;
-  background: linear-gradient(135deg, #b68a12, #694f03);
-  border-radius: 4px;
-}
-
-.icon-format::before {
-  content: '📖';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
-  color: white;
-}
-
-/* Стили для списка в формате мероприятия */
-.event-format-content ul {
-  list-style: none;      /* убираем стандартные кружки */
-  padding-left: 0;       /* убираем отступ */
-  margin: 0;
-}
-
-.event-format-content li {
-  margin-bottom: 0.75rem;
-  padding-left: 2rem;
-  position: relative;
-  font-size: 1rem;
-}
-
-.event-format-content li::before {
-  content: "🎵";         /* иконка вместо буллета */
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 1.2rem;
-}
-
-
-/* Стили для блоков Дата и Место */
-.info-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.date-time-section, .location-section {
-  background: white;
-  transition: all 0.3s ease;
-  border: 1px solid #e1e8ed;
-}
-
-.date-time-section:hover, .location-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
-}
-
-.location-section a:hover {
-  background-color: #b76111 !important;
-  transform: translateY(-1px);
-}
-
-/* Красивый значок локации */
-.custom-location-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.custom-location-icon::before {
-  content: '';
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #dea30e, #654000);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  top: 0;
-  left: 0;
-  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
-}
-
-.custom-location-icon::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  top: 5px;
-  left: 5px;
-  transform: rotate(45deg);
-  z-index: 2;
-}
-
-/* Значок календаря */
-.icon-calendar {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  margin-right: 8px;
-  vertical-align: middle;
-  background: linear-gradient(135deg, #fa9b0c, #795100);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.icon-calendar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: #ec8600;
-}
-
-.icon-calendar::after {
-  content: '32';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 10px;
-  font-weight: bold;
-}
-
-/* СТАРЫЕ СТИЛИ ДЛЯ КАРТОЧЕК УЧАСТНИКОВ */
-.participant-card {
-  background: white;
-  border-left: 4px solid #e17800;
-  transition: all 0.3s ease;
-}
-
-.participant-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-.participant-header {
-  border-bottom: 1px solid #f1f1f1;
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.song-item {
-  padding: 0.3rem 0;
-  border-bottom: 1px solid #f8f9fa;
-  transition: background-color 0.2s ease;
-}
-
-.song-item:hover {
-  background-color: #f8f9fa;
-  border-radius: 4px;
-}
-
-.song-item:last-child {
-  border-bottom: none;
-}
-
-.show-more-participants-btn {
-  transition: all 0.3s ease;
-}
-
-.show-more-participants-btn:hover {
-  background-color: #936c23 !important;
-  transform: translateY(-2px);
-}
-
-.participants-collapsible {
-  transition: all 0.3s ease;
-}
-
-/* Стили для сообщения о наборе участников */
-.bg-light-gray {
-  background-color: #f8f9fa;
-}
-
-/* НОВЫЕ СТИЛИ ДЛЯ ФОТОГАЛЕРЕИ */
-.photos-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.photos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.photo-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  aspect-ratio: 4/3;
-}
-
-.photo-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: all 0.3s ease;
-}
-
-.photo-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.photo-item:hover .photo-thumbnail {
-  transform: scale(1.1);
-}
-
-/* Скрытые фотографии */
-.photos-hidden {
-  display: none;
-}
-
-.photos-grid.expanded .photos-hidden {
-  display: block;
-  animation: fadeIn 0.5s ease;
-}
-
-/* Кнопка показать/скрыть фотографии */
-.show-more-photos-btn {
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.show-more-photos-btn:hover {
-  background-color: #936c23 !important;
-  transform: translateY(-2px);
-}
-
-/* Стили для модального окна */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  padding-top: 50px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-  display: block;
-  margin: 0 auto;
-  max-width: 90%;
-  max-height: 80vh;
-  object-fit: contain;
-}
-
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #fff;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.modal-close:hover {
-  color: #ccc;
-}
-
-.modal-caption {
-  text-align: center;
-  color: #fff;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.modal-prev,
-.modal-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  padding: 16px;
-  cursor: pointer;
-  user-select: none;
-  transition: 0.3s;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-}
-
-.modal-prev:hover,
-.modal-next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.modal-prev {
-  left: 20px;
-}
-
-.modal-next {
-  right: 20px;
-}
-
-/* Анимации */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { 
-    opacity: 0;
-    max-height: 0;
-    transform: translateY(-10px);
-  }
-  to { 
-    opacity: 1;
-    max-height: 2000px;
-    transform: translateY(0);
-  }
-}
-
-.participants-collapsible.show {
-  display: block !important;
-  animation: slideDown 0.5s ease;
-}
-
-/* Адаптивность */
-@media (max-width: 1024px) {
-  .photos-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .info-sections {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .date-time-section, .location-section {
-    min-width: auto;
-  }
-  
-  .photos-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  
-  .modal-content {
-    max-width: 95%;
-  }
-  
-  .modal-prev,
-  .modal-next {
-    font-size: 24px;
-    padding: 12px;
-  }
-  
-  .modal-close {
-    font-size: 30px;
-    right: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .photos-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-  
-  .photo-item {
-    aspect-ratio: 3/2;
-  }
-}
-</style>
-
-<!-- JavaScript -->
 <script>
-// Функция для кнопки Назад
-function goBack() {
-  window.history.back();
-}
-
-// Для участников
-function toggleParticipants(button) {
-  const container = button.parentElement.previousElementSibling;
-  const isExpanded = container.classList.contains('show');
-  const hiddenCount = button.getAttribute('data-hidden-count');
-  
-  if (isExpanded) {
-    container.classList.remove('show');
-    button.textContent = 'Показать ещё ' + hiddenCount + ' участников ▼';
-    button.style.backgroundColor = '#3498db';
-  } else {
-    container.classList.add('show');
-    button.textContent = 'Скрыть ▲';
-    button.style.backgroundColor = '#e74c3c';
-  }
-}
-
-// Для фотогалереи - показать/скрыть дополнительные фото
-function togglePhotos(button) {
-  const photosGrid = document.getElementById('photosGrid');
-  const isExpanded = photosGrid.classList.contains('expanded');
-  const hiddenCount = button.getAttribute('data-hidden-count');
-  
-  if (isExpanded) {
-    photosGrid.classList.remove('expanded');
-    button.textContent = 'Показать ещё ' + hiddenCount + ' фотографий ▼';
-    button.style.backgroundColor = '#3498db';
-    button.setAttribute('data-expanded', 'false');
-    
-    // Плавная прокрутка к началу галереи
-    photosGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    photosGrid.classList.add('expanded');
-    button.textContent = 'Скрыть фотографии ▲';
-    button.style.backgroundColor = '#e74c3c';
-    button.setAttribute('data-expanded', 'true');
-  }
-}
-
-// Для модального окна фотогалереи
-let currentPhotoIndex = 0;
-let photos = [];
-
-function openModal(index) {
-  const photosContainer = document.getElementById('photosGrid');
-  photos = JSON.parse(photosContainer.getAttribute('data-photos'));
-  
-  currentPhotoIndex = index;
-  const modal = document.getElementById('photoModal');
-  const modalImg = document.getElementById('modalImage');
-  const modalCaption = document.getElementById('modalCaption');
-  
-  modal.style.display = 'block';
-  modalImg.src = photos[currentPhotoIndex];
-  modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
-  
-  // Блокируем прокрутку страницы
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  const modal = document.getElementById('photoModal');
-  modal.style.display = 'none';
-  
-  // Восстанавливаем прокрутку
-  document.body.style.overflow = 'auto';
-}
-
-function changePhoto(direction) {
-  if (!photos.length) {
-    const photosContainer = document.getElementById('photosGrid');
-    photos = JSON.parse(photosContainer.getAttribute('data-photos'));
-  }
-  
-  currentPhotoIndex += direction;
-  
-  // Зацикливаем навигацию
-  if (currentPhotoIndex >= photos.length) {
-    currentPhotoIndex = 0;
-  } else if (currentPhotoIndex < 0) {
-    currentPhotoIndex = photos.length - 1;
-  }
-  
-  const modalImg = document.getElementById('modalImage');
-  const modalCaption = document.getElementById('modalCaption');
-  
-  modalImg.src = photos[currentPhotoIndex];
-  modalCaption.textContent = `Фото ${currentPhotoIndex + 1} из ${photos.length}`;
-}
-
-// Закрытие модального окна по клику вне изображения
-document.getElementById('photoModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeModal();
-  }
-});
-
-// Закрытие по клавише ESC
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
-  if (e.key === 'ArrowLeft') {
-    changePhoto(-1);
-  }
-  if (e.key === 'ArrowRight') {
-    changePhoto(1);
-  }
-});
-
-// Предзагрузка изображений для плавной работы
-function preloadImages() {
-  const photosContainer = document.getElementById('photosGrid');
-  if (photosContainer) {
-    const photos = JSON.parse(photosContainer.getAttribute('data-photos'));
-    photos.forEach(photo => {
-      const img = new Image();
-      img.src = photo;
+// Scroll reveal for detail page
+document.addEventListener('DOMContentLoaded', function() {
+  var els = document.querySelectorAll('.scroll-reveal');
+  if (!els.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
     });
-  }
-}
-
-// Запускаем предзагрузку после загрузки страницы
-window.addEventListener('load', preloadImages);
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { observer.observe(el); });
+});
 </script>
 {{ end }}

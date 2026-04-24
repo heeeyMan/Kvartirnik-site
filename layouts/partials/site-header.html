@@ -1,0 +1,32 @@
+{{ $featured_image := "" }}
+{{ with .Params.featured_image }}
+  {{ $featured_image = strings.Trim . "/" | urls.AbsURL }}
+{{ else }}
+  {{ with site.Params.featured_image }}
+    {{ $featured_image = strings.Trim . "/" | urls.AbsURL }}
+  {{ end }}
+{{ end }}
+
+{{ if $featured_image }}
+<header class="site-header" style="background-image: url('{{ $featured_image }}');">
+  <div class="site-header-overlay">
+    {{ partial "site-navigation.html" . }}
+    <div class="site-header-content">
+      <h1 class="site-header-title">{{ .Title | default .Site.Title }}</h1>
+      {{ with .Params.description }}
+      <p class="site-header-desc">{{ . }}</p>
+      {{ end }}
+    </div>
+  </div>
+</header>
+{{ else }}
+<header class="site-header site-header--solid">
+  {{ partial "site-navigation.html" . }}
+  <div class="site-header-content">
+    <h1 class="site-header-title">{{ .Title | default .Site.Title }}</h1>
+    {{ with .Params.description }}
+    <p class="site-header-desc">{{ . }}</p>
+    {{ end }}
+  </div>
+</header>
+{{ end }}
