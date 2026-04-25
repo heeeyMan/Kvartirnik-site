@@ -1,0 +1,15 @@
+{{- $kvartirniki := where site.RegularPages "Section" "kvartirniki" -}}
+{{- $futureKvartirniki := where $kvartirniki "Date" "ge" now -}}
+{{- $hasOpenReg := false -}}
+{{- range $futureKvartirniki -}}
+  {{- with .Params.deadline_reg_date -}}
+    {{- if lt now (time .) -}}
+      {{- $hasOpenReg = true -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $hasOpenReg = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if $hasOpenReg -}}
+<li><a href="/register/" class="site-nav-link site-nav-link--cta">Регистрация</a></li>
+{{- end -}}

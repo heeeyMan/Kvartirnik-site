@@ -120,6 +120,7 @@
           {{ range .Site.Menus.main }}
           <li><a href="{{ .URL }}" class="site-nav-link">{{ .Name }}</a></li>
           {{ end }}
+          {{ partial "register-menu-item.html" . }}
         </ul>
         {{ end }}
       </div>

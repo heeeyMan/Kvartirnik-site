@@ -444,6 +444,14 @@ body::before {
   color: white;
   border-color: rgba(255, 255, 255, 0.2);
 }
+.site-nav-link--cta {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.site-nav-link--cta:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+}
 
 /* Sticky nav — fixed bar that appears on scroll */
 .sticky-nav {
