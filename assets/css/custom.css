@@ -655,63 +655,6 @@ body::before {
   color: white !important;
 }
 
-/* ========================
-   Photo Gallery (base)
-   ======================== */
-/* Стили для фотогалереи */
-.photos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.photo-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-}
-
-.photo-item img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.photo-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.photo-item:hover img {
-  transform: scale(1.05);
-}
-
-/* Адаптивность для фотогалереи */
-@media (max-width: 768px) {
-  .photos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-  
-  .photo-item img {
-    height: 150px;
-  }
-}
-
-@media (max-width: 480px) {
-  .photos-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-  
-  .photo-item img {
-    height: 120px;
-  }
-}
 
 /* Дополнительные стили для красоты */
 .kvartirnik-article {
@@ -2733,25 +2676,6 @@ body::before {
   }
 }
 
-/* --- More interesting photo grid (varied sizes) --- */
-.photos-grid .photo-item:nth-child(5n+1) {
-  grid-column: span 2;
-  aspect-ratio: 16/9;
-}
-.photos-grid .photo-item:nth-child(7n+4) {
-  grid-row: span 2;
-  aspect-ratio: auto;
-}
-.photos-grid .photo-item:nth-child(7n+4) .photo-thumbnail {
-  height: 100%;
-}
-@media (max-width: 768px) {
-  .photos-grid .photo-item:nth-child(n) {
-    grid-column: span 1;
-    grid-row: span 1;
-    aspect-ratio: 4/3;
-  }
-}
 
 /* --- Full-bleed photo divider --- */
 .full-bleed {
@@ -2974,19 +2898,6 @@ body::before {
   letter-spacing: 0.05em;
 }
 
-/* --- Clip-path reveal for photos --- */
-.photo-item {
-  clip-path: inset(8% round 16px);
-  transition: clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s ease, box-shadow 0.3s ease;
-}
-.photo-item.revealed,
-.scroll-reveal.revealed .photo-item,
-.photos-grid .photo-item {
-  clip-path: inset(0% round 16px);
-}
-.photo-item:hover {
-  clip-path: inset(0% round 16px);
-}
 
 /* --- Social icons hover bounce & rotate --- */
 .social-link-item:hover img,
@@ -3034,9 +2945,6 @@ body::before {
   .cursor-dot,
   .cursor-ring {
     display: none;
-  }
-  .photo-item {
-    clip-path: inset(0% round 16px);
   }
   .scroll-progress {
     display: none;
