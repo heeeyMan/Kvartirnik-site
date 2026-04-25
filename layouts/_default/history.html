@@ -29,7 +29,7 @@
 
           <div class="archive-card-image">
             {{ if .Params.featured_image }}
-            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy">
+            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy" width="600" height="400">
             {{ else }}
             <div class="archive-card-placeholder">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -78,19 +78,4 @@
 
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var els = document.querySelectorAll('.scroll-reveal');
-  if (!els.length) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  els.forEach(function(el) { observer.observe(el); });
-});
-</script>
 {{ end }}

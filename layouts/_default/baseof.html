@@ -14,11 +14,11 @@
       <meta name="robots" content="noindex, nofollow">
     {{ end }}
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (async load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap"></noscript>
 
     <!-- Preload CSS -->
     {{ $css := resources.Get "css/custom.css" | minify | fingerprint }}
@@ -35,6 +35,10 @@
     <link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
     <meta name="theme-color" content="#8B4513">
 
+    <!-- Search engine verification -->
+    {{ with .Site.Params.yandex_verification }}<meta name="yandex-verification" content="{{ . }}">{{ end }}
+    {{ with .Site.Params.google_verification }}<meta name="google-site-verification" content="{{ . }}">{{ end }}
+
     <!-- Canonical -->
     <link rel="canonical" href="{{ .Permalink }}">
 
@@ -42,6 +46,11 @@
     {{ with .OutputFormats.Get "RSS" }}
     <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
     {{ end }}
+
+    <!-- Keywords & regional -->
+    {{ with .Site.Params.meta.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
+    <meta name="geo.region" content="RU-NIZ">
+    <meta name="geo.placename" content="Нижний Новгород">
 
     <!-- Open Graph / SEO -->
     {{- template "_internal/opengraph.html" . -}}
@@ -55,11 +64,37 @@
       "url": "{{ .Site.BaseURL }}",
       "name": "{{ .Site.Title }}",
       "description": "{{ .Site.Params.description | default .Site.Title }}",
-      "logo": "{{ .Site.BaseURL }}android-chrome-512x512.png"
+      "publisher": {
+        "@type": "Organization",
+        "name": "КАМИН",
+        "url": "{{ .Site.BaseURL }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ .Site.BaseURL }}android-chrome-512x512.png"
+        },
+        "sameAs": [
+          "https://vk.com/guitarniks_nn",
+          "https://t.me/guitarniks_nn"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Нижний Новгород",
+          "addressCountry": "RU"
+        }
+      }
     }
     </script>
 
     {{ partial "creative-meta.html" . }}
+
+    <!-- Yandex.Metrika -->
+    {{ if hugo.IsProduction }}
+    <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=108755174','ym');
+      ym(108755174,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/108755174" style="position:absolute;left:-9999px" alt=""></div></noscript>
+    {{ end }}
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>

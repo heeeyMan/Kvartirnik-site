@@ -367,6 +367,23 @@
   }
 
   // =========================================================================
+  // 9. Scroll Reveal (centralised)
+  // =========================================================================
+  function initScrollReveal() {
+    var els = document.querySelectorAll('.scroll-reveal');
+    if (!els.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { observer.observe(el); });
+  }
+
+  // =========================================================================
   // Initialise everything on DOMContentLoaded
   // =========================================================================
   document.addEventListener('DOMContentLoaded', function () {
@@ -378,5 +395,6 @@
     initHeaderParallax();
     initBackToTop();
     initCounters();
+    initScrollReveal();
   });
 })();

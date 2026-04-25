@@ -11,14 +11,18 @@ buildFuture = true
 # ==========================
 [params]
   description = "Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника."
-  featured_image = "/images/RS-88.jpg"
-  featured_image_home = "/images/RS-88.jpg"
+  featured_image = "/images/headers/RS-141.webp"
+  featured_image_home = "/images/headers/RS-141.webp"
   featured_image_class = "cover bg-center"
   cover_dimming_class = "bg-black-40"
   twitterCard = "summary_large_image"
 
   # Главное изображение (по умолчанию для соцсетей и SEO)
-  images = ["/images/RS-88.jpg"]
+  images = ["/images/headers/RS-141.webp"]
+
+  # Верификация поисковых систем
+  yandex_verification = "65534d22aa1d363e"
+  google_verification = "google7c99ec830ba81ff2"
 
   # Метаданные
   [params.meta]

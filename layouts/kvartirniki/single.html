@@ -147,6 +147,7 @@
                  alt="Фото с квартирника {{ $.Title }}"
                  class="photo-thumbnail"
                  loading="lazy"
+                 width="400" height="300"
                  onclick="openModal({{ $index }})">
           </div>
           {{ end }}
@@ -236,20 +237,4 @@
 {{ $galleryJS := resources.Get "js/gallery.js" | minify | fingerprint }}
 <script src="{{ $galleryJS.Permalink }}" integrity="{{ $galleryJS.Data.Integrity }}"></script>
 
-<script>
-// Scroll reveal for detail page
-document.addEventListener('DOMContentLoaded', function() {
-  var els = document.querySelectorAll('.scroll-reveal');
-  if (!els.length) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  els.forEach(function(el) { observer.observe(el); });
-});
-</script>
 {{ end }}

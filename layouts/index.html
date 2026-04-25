@@ -14,7 +14,7 @@
       <a href="{{ .RelPermalink }}" class="past-event-card tilt-card stagger-item" style="--stagger: {{ $i }}">
         {{ with .Params.featured_image }}
         <div class="past-event-image">
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" width="600" height="400">
         </div>
         {{ end }}
         <div class="past-event-body">
@@ -28,19 +28,33 @@
   {{ end }}
 
   <!-- ===== ЦИФРЫ ===== -->
+  {{ $eventCount := len $pastKvartirniki }}
+  {{ $participantCount := 0 }}
+  {{ range $pastKvartirniki }}
+    {{ with .Params.participants }}
+      {{ range . }}
+        {{ if and .name (ne .name "Все вместе") }}
+          {{ $participantCount = add $participantCount 1 }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $firstEvent := (index ($pastKvartirniki.ByDate) 0).Date }}
+  {{ $yearsTogether := math.Floor (div (sub now.Unix $firstEvent.Unix) 31536000) }}
+  {{ if lt $yearsTogether 1 }}{{ $yearsTogether = 1 }}{{ end }}
   <section class="counters-section scroll-reveal">
     <div class="counters-grid">
       <div class="counter-item stagger-item" style="--stagger: 0">
-        <span class="counter-value" data-target="7">0</span>
+        <span class="counter-value" data-target="{{ $eventCount }}">0</span>
         <span class="counter-label">мероприятий</span>
       </div>
       <div class="counter-item stagger-item" style="--stagger: 1">
-        <span class="counter-value" data-target="50">0</span>
+        <span class="counter-value" data-target="{{ $participantCount }}">0</span>
         <span class="counter-label">участников</span>
       </div>
       <div class="counter-item stagger-item" style="--stagger: 2">
-        <span class="counter-value" data-target="1">0</span>
-        <span class="counter-label">год вместе</span>
+        <span class="counter-value" data-target="{{ $yearsTogether }}">0</span>
+        <span class="counter-label">{{ if ge $yearsTogether 5 }}лет{{ else if ge $yearsTogether 2 }}года{{ else }}год{{ end }} вместе</span>
       </div>
     </div>
   </section>
@@ -65,41 +79,4 @@
 
 </div>
 
-<script>
-// Scroll reveal with IntersectionObserver
-document.addEventListener('DOMContentLoaded', function() {
-  var revealElements = document.querySelectorAll('.scroll-reveal');
-  if (!revealElements.length) return;
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  revealElements.forEach(function(el) {
-    observer.observe(el);
-  });
-
-  // Parallax on hero card image
-  var parallaxCard = document.querySelector('.parallax-card');
-  if (parallaxCard) {
-    var cardImg = parallaxCard.querySelector('.hero-card-image img');
-    if (cardImg) {
-      window.addEventListener('scroll', function() {
-        var rect = parallaxCard.getBoundingClientRect();
-        var windowH = window.innerHeight;
-        if (rect.top < windowH && rect.bottom > 0) {
-          var progress = (windowH - rect.top) / (windowH + rect.height);
-          var shift = (progress - 0.5) * 30;
-          cardImg.style.transform = 'scale(1.08) translateY(' + shift + 'px)';
-        }
-      }, { passive: true });
-    }
-  }
-});
-</script>
 {{ end }}
