@@ -14,7 +14,8 @@
       <a href="{{ .RelPermalink }}" class="past-event-card tilt-card stagger-item" style="--stagger: {{ $i }}">
         {{ with .Params.featured_image }}
         <div class="past-event-image">
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" width="600" height="400">
+          {{ $thumb := replace . (printf "/%s" (path.Base .)) (printf "/thumbs/%s" (path.Base .)) }}
+          <img src="{{ $thumb }}" srcset="{{ $thumb }} 480w, {{ . }} 2560w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{ $.Title }}" loading="lazy" width="600" height="400">
         </div>
         {{ end }}
         <div class="past-event-body">

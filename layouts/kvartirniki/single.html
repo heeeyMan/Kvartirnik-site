@@ -179,7 +179,10 @@
         <div class="photos-grid" id="photosGrid" data-photos='{{ .Params.photos | jsonify }}'>
           {{ range $index, $photo := .Params.photos }}
           <div class="photo-item {{ if ge $index 9 }}photos-hidden{{ end }}">
-            <img src="{{ $photo }}"
+            {{ $thumbPath := replace $photo (printf "/%s" (path.Base $photo)) (printf "/thumbs/%s" (path.Base $photo)) }}
+            <img src="{{ $thumbPath }}"
+                 srcset="{{ $thumbPath }} 480w, {{ $photo }} 2560w"
+                 sizes="(max-width: 768px) 100vw, 33vw"
                  alt="Фото с квартирника {{ $.Title }}"
                  class="photo-thumbnail"
                  loading="lazy"

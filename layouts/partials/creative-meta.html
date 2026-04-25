@@ -1,9 +1,20 @@
 {{/* Event-specific OG meta */}}
 {{ if eq .Type "kvartirniki" }}
   <meta property="og:type" content="article">
+  {{ with .Params.featured_image }}
+  <meta property="og:image" content="{{ . | absURL }}">
+  <meta property="og:image:width" content="2560">
+  <meta property="og:image:height" content="1707">
+  <meta name="twitter:image" content="{{ . | absURL }}">
+  {{ end }}
   {{ with .Date }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
   <meta property="article:section" content="Мероприятия">
   <meta property="article:tag" content="квартирник">
   <meta property="article:tag" content="живая музыка">
   <meta property="article:tag" content="Нижний Новгород">
+{{ else }}
+  {{ with .Params.featured_image }}
+  <meta property="og:image" content="{{ . | absURL }}">
+  <meta name="twitter:image" content="{{ . | absURL }}">
+  {{ end }}
 {{ end }}
