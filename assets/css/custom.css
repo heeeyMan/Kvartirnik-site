@@ -156,7 +156,7 @@ body::before {
 
 /* Glass card */
 .hero-glass-card {
-  background: linear-gradient(135deg, rgba(90, 23, 0, 0.7), rgba(50, 10, 0, 0.75));
+  background: linear-gradient(135deg, rgba(90, 23, 0, 0.55), rgba(50, 10, 0, 0.6));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(232, 150, 60, 0.4);
