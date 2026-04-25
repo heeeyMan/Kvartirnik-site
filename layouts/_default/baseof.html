@@ -20,10 +20,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&subset=cyrillic,latin&display=swap"></noscript>
 
-    <!-- Preload CSS -->
+    <!-- Critical CSS (inline) -->
+    {{ partial "critical-css.html" . }}
+
+    <!-- Full CSS -->
     {{ $css := resources.Get "css/custom.css" | minify | fingerprint }}
     <link rel="preload" href="{{ $css.Permalink }}" as="style">
     <link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">
+
+    <!-- Preload hero image -->
+    {{ $heroImg := "" }}
+    {{ with .Params.featured_image }}{{ $heroImg = . }}{{ else }}{{ with site.Params.featured_image }}{{ $heroImg = . }}{{ end }}{{ end }}
+    {{ with $heroImg }}<link rel="preload" href="{{ . }}" as="image">{{ end }}
 
     <!-- DNS prefetch -->
     <link rel="dns-prefetch" href="https://forms.yandex.ru">
@@ -147,5 +155,24 @@
 
     {{ $interactionsJS := resources.Get "js/interactions.js" | minify | fingerprint }}
     <script src="{{ $interactionsJS.Permalink }}" integrity="{{ $interactionsJS.Data.Integrity }}" defer></script>
+
+    <!-- Metrika goals -->
+    {{ if hugo.IsProduction }}
+    <script>
+    document.addEventListener('click', function(e) {
+      if (typeof ym === 'undefined') return;
+      var t = e.target.closest('a, button');
+      if (!t) return;
+      var href = t.getAttribute('href') || '';
+      if (href.indexOf('/register') !== -1 || t.textContent.indexOf('Зарегистрироваться') !== -1) {
+        ym(108755174, 'reachGoal', 'click_register');
+      } else if (href.indexOf('/kvartirniki/') !== -1) {
+        ym(108755174, 'reachGoal', 'view_event');
+      } else if (href.indexOf('vk.com') !== -1 || href.indexOf('t.me') !== -1) {
+        ym(108755174, 'reachGoal', 'click_social');
+      }
+    });
+    </script>
+    {{ end }}
   </body>
 </html>

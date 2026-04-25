@@ -42,6 +42,23 @@
       {{ end }}
     </div>
 
+    <!-- Карта -->
+    {{ if .Params.address }}
+    <section class="kv-section kv-map-section scroll-reveal">
+      <div class="kv-map-wrap">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?text={{ .Params.address | urlquery }}&z=16&l=map"
+          width="100%"
+          height="300"
+          frameborder="0"
+          allowfullscreen
+          loading="lazy"
+          title="Карта: {{ .Params.location }}">
+        </iframe>
+      </div>
+    </section>
+    {{ end }}
+
     <!-- Программа — timeline -->
     {{ if .Params.program }}
     <section class="kv-section scroll-reveal">
@@ -132,6 +149,25 @@
         {{ else }}
           <p class="kv-empty-text">Формат пока не определен</p>
         {{ end }}
+      </div>
+    </section>
+
+    <!-- Поделиться -->
+    <section class="kv-section scroll-reveal">
+      <h2 class="kv-section-title">Поделиться</h2>
+      <div class="kv-share-buttons">
+        <a href="https://vk.com/share.php?url={{ .Permalink }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" class="kv-share-btn kv-share-btn--vk">
+          <img src="/images/utils/vk-icon.svg" alt="" width="20" height="20">
+          <span>ВКонтакте</span>
+        </a>
+        <a href="https://t.me/share/url?url={{ .Permalink }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" class="kv-share-btn kv-share-btn--tg">
+          <img src="/images/utils/telegram-icon.svg" alt="" width="20" height="20">
+          <span>Telegram</span>
+        </a>
+        <button class="kv-share-btn kv-share-btn--copy" onclick="navigator.clipboard.writeText('{{ .Permalink }}').then(function(){var s=this.querySelector('span');s.textContent='\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043E!';var b=this;setTimeout(function(){b.querySelector('span').textContent='\u041A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0441\u0441\u044B\u043B\u043A\u0443'}, 2000)}.bind(this))">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span>Копировать ссылку</span>
+        </button>
       </div>
     </section>
 

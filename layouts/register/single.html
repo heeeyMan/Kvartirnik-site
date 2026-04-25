@@ -36,6 +36,11 @@
     </div>
   </div>
 
+  <!-- VPN warning -->
+  <div id="vpnWarning" class="register-vpn-warning" style="display:none;">
+    <p>Яндекс Формы могут не загружаться при включённом VPN. Попробуйте отключить VPN и обновить страницу.</p>
+  </div>
+
   <p id="formMessage" class="register-message" style="display:none;"></p>
 
   <!-- Fallback link -->
@@ -105,7 +110,45 @@ window.addEventListener('message', function(event) {
   }
 });
 
-setTimeout(hideLoadingIndicator, 15000);
+// VPN / form load detection
+(function() {
+  var formLoaded = false;
+
+  window.addEventListener('message', function(event) {
+    if (event.origin === 'https://forms.yandex.ru') formLoaded = true;
+  });
+
+  function showVpnWarning() {
+    var formCard = document.querySelector('.register-form-card');
+    if (formCard) formCard.style.display = 'none';
+    var warning = document.getElementById('vpnWarning');
+    if (warning) warning.style.display = 'block';
+  }
+
+  // After 5 seconds check if the form loaded
+  setTimeout(function() {
+    if (formLoaded) return;
+    hideLoadingIndicator();
+    // Try to reach Yandex Forms
+    var controller = new AbortController();
+    var timeout = setTimeout(function() { controller.abort(); }, 3000);
+    fetch('https://forms.yandex.ru/_static/embed.js', {
+      mode: 'no-cors',
+      signal: controller.signal
+    }).then(function() {
+      clearTimeout(timeout);
+      // Reachable but form still not loaded — could be slow, wait more
+    }).catch(function() {
+      clearTimeout(timeout);
+      showVpnWarning();
+    });
+  }, 5000);
+
+  // Hard cutoff: if after 12 seconds form still not loaded, show warning
+  setTimeout(function() {
+    if (!formLoaded) showVpnWarning();
+  }, 12000);
+})();
 window.addEventListener('resize', adjustIframeHeight);
 
 document.addEventListener('DOMContentLoaded', function() {
