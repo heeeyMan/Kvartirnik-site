@@ -154,6 +154,34 @@ body::before {
   font-size: 1.2rem;
 }
 
+/* Glass card */
+.hero-glass-card {
+  background: linear-gradient(135deg, rgba(90, 23, 0, 0.7), rgba(50, 10, 0, 0.75));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 150, 60, 0.4);
+  border-radius: 20px;
+  padding: 2.25rem 3rem;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 180, 100, 0.15);
+}
+.hero-glass-card .site-header-desc {
+  margin: 0;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.hero-glass-card .hero-cta {
+  margin: 0;
+}
+
 /* CTA buttons in header */
 .hero-cta {
   display: flex;
@@ -162,6 +190,45 @@ body::before {
   justify-content: center;
   margin-top: 0.5rem;
 }
+
+/* Glass buttons inside glass card */
+.hero-glass-card .cta-button,
+.hero-glass-card .cta-button--outline {
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  padding: 1.1rem 2.8rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+.hero-glass-card .cta-gradient {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: none;
+}
+.hero-glass-card .cta-gradient:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+.hero-glass-card .cta-button--outline {
+  background: linear-gradient(135deg, #c24e00, #9a3d00);
+  box-shadow: 0 4px 20px rgba(194, 78, 0, 0.4);
+  border: none;
+}
+.hero-glass-card .cta-button--outline:hover {
+  background: linear-gradient(135deg, #d45600, #b04500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(194, 78, 0, 0.55);
+  color: #fff;
+}
+
 .cta-button--outline {
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.7);

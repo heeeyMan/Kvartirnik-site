@@ -46,11 +46,12 @@
             {{ end }}
           </div>
 
+          <div class="hero-glass-card anim-hero" style="--delay: 0.4s">
           {{ with $nearest.Params.description }}
-          <p class="site-header-desc anim-hero" style="--delay: 0.4s">{{ . }}</p>
+          <p class="site-header-desc">{{ . }}</p>
           {{ end }}
 
-          <div class="hero-cta anim-hero" style="--delay: 0.5s">
+          <div class="hero-cta" style="--delay: 0.5s">
             <a href="{{ $nearest.RelPermalink }}" class="cta-button cta-gradient">Подробнее</a>
             {{ with $nearest.Params.deadline_reg_date }}
               {{ $deadline := time . }}
@@ -60,6 +61,7 @@
             {{ else }}
               <a href="/register/" class="cta-button cta-button--outline">Зарегистрироваться</a>
             {{ end }}
+          </div>
           </div>
 
         {{ else }}
