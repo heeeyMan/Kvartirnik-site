@@ -2756,6 +2756,7 @@ body::before {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
+  padding-bottom: 0.1em;
 }
 .text-reveal .word-inner {
   display: inline-block;
