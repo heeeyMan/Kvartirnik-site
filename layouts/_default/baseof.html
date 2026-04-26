@@ -28,10 +28,14 @@
     <link rel="preload" href="{{ $css.Permalink }}" as="style">
     <link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">
 
-    <!-- Preload hero image -->
+    <!-- Preload hero image / video -->
+    {{ if .IsHome }}
+    <link rel="preload" href="/video/hero.mp4" as="video" type="video/mp4">
+    {{ else }}
     {{ $heroImg := "" }}
     {{ with .Params.featured_image }}{{ $heroImg = . }}{{ else }}{{ with site.Params.featured_image }}{{ $heroImg = . }}{{ end }}{{ end }}
     {{ with $heroImg }}<link rel="preload" href="{{ . }}" as="image">{{ end }}
+    {{ end }}
 
     <!-- DNS prefetch -->
     <link rel="dns-prefetch" href="https://forms.yandex.ru">

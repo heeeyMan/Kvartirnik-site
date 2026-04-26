@@ -22,7 +22,13 @@
   {{ end }}
 
   <header class="site-header site-header--home">
-    <div class="site-header-bg" id="headerBg" style="background-image: url('{{ $heroImage }}');"></div>
+    <div class="site-header-bg" id="headerBg" style="background-image: url('{{ $heroImage }}');">
+      <video class="hero-video" autoplay muted loop playsinline poster="/video/hero-poster.jpg"
+             onplaying="this.classList.add('is-playing')">
+        <source src="/video/hero.webm" type="video/webm">
+        <source src="/video/hero.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="site-header-overlay">
       {{ partial "site-navigation.html" . }}
       <div class="site-header-content site-header-content--home">
