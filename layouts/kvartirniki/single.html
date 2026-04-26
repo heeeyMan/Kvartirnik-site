@@ -53,7 +53,8 @@
           frameborder="0"
           allowfullscreen
           loading="lazy"
-          title="Карта: {{ .Params.location }}">
+          title="Карта: {{ .Params.location }}"
+          onload="this.parentElement.classList.add('map-loaded')">
         </iframe>
       </div>
     </section>
