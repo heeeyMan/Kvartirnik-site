@@ -7,16 +7,16 @@ Hugo-based website for "KAMIN" (КАМИН) — a creative space in Nizhny Novgo
 ## Quick Start
 
 ```bash
-hugo server -D          # Dev server
+hugo server -D                       # Dev server
 hugo --minify --cleanDestinationDir  # Build
-hugo new kvartirniki/YYYY-MM-DD.md   # Create new event
+./scripts/new-event.sh               # Create new event (interactive)
 ```
 
 ## Tech Stack
 
 - **SSG:** Hugo (v0.147.9 extended)
 - **Theme:** Ananke (git submodule, NOT actively used — all layouts are custom overrides)
-- **CSS:** Custom (`assets/css/custom.css`, ~2900 lines), brown palette (#5a1700, #8B4513)
+- **CSS:** Custom (`assets/css/custom.css`, ~2950 lines), brown palette (#5a1700, #8B4513)
 - **JS:** `assets/js/interactions.js` (cursor, tilt, counters, scroll-reveal) + `assets/js/gallery.js` (modal lightbox)
 - **Forms:** Yandex Forms (iframe embed, form ID: 69eb9f8a95add51d5d7d08d2)
 - **Analytics:** Yandex Metrika (counter 108755174, production only)
@@ -27,6 +27,10 @@ hugo new kvartirniki/YYYY-MM-DD.md   # Create new event
 
 ```
 ├── hugo.toml                       # Main config
+├── scripts/
+│   └── new-event.sh                # Interactive script to create new events
+├── docs/
+│   └── creating-events.md          # Event creation guide and rules
 ├── content/
 │   ├── _index.html                 # Homepage content
 │   ├── kvartirniki/                # Events (YYYY-MM-DD.md)
@@ -51,7 +55,7 @@ hugo new kvartirniki/YYYY-MM-DD.md   # Create new event
 │       ├── creative-meta.html      # OG meta for events
 │       └── critical-css.html       # Inline critical CSS
 ├── assets/
-│   ├── css/custom.css              # All styles (~2900 lines)
+│   ├── css/custom.css              # All styles (~2950 lines)
 │   └── js/
 │       ├── interactions.js         # UI interactions (cursor, tilt, counters, scroll)
 │       └── gallery.js              # Photo gallery + modal lightbox
