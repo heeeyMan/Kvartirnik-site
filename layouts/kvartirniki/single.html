@@ -270,6 +270,14 @@
   {{ if eq .Params.price "0" }}
   "isAccessibleForFree": true,
   {{ end }}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ .Permalink }}",
+    "price": "{{ .Params.price | default "0" }}",
+    "priceCurrency": "RUB",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{{ .Date.Format "2006-01-02" }}"
+  },
   "inLanguage": "ru"
 }
 </script>
