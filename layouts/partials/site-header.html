@@ -71,7 +71,7 @@
           </div>
 
         {{ else }}
-          <h1 class="site-header-title text-reveal">{{ .Site.Title }}</h1>
+          <h1 class="site-header-title text-reveal">{{ .Site.Params.short_title }}</h1>
           <p class="site-header-desc">Творческое пространство в Нижнем Новгороде</p>
           <p class="hero-subtitle-badge">Следите за анонсами — мы скоро вернёмся</p>
         {{ end }}
@@ -90,7 +90,7 @@
     <div class="site-header-overlay">
       {{ partial "site-navigation.html" . }}
       <div class="site-header-content">
-        <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
+        <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Params.short_title }}</h1>
         {{ with .Params.description }}
         <p class="site-header-desc">{{ . }}</p>
         {{ end }}
@@ -101,7 +101,7 @@
   <header class="site-header site-header--solid">
     {{ partial "site-navigation.html" . }}
     <div class="site-header-content">
-      <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Title }}</h1>
+      <h1 class="site-header-title text-reveal">{{ .Title | default .Site.Params.short_title }}</h1>
       {{ with .Params.description }}
       <p class="site-header-desc">{{ . }}</p>
       {{ end }}

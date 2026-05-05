@@ -2,7 +2,7 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="footer-logo">{{ .Site.Title }}</span>
+        <span class="footer-logo">{{ .Site.Params.short_title }}</span>
         <p class="footer-tagline">Творческое пространство в Нижнем Новгороде</p>
       </div>
       <div class="footer-nav">
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; {{ .Site.Title }} {{ now.Format "2006" }}</span>
+      <span>&copy; {{ .Site.Params.short_title }} {{ now.Format "2006" }}</span>
     </div>
   </div>
 </footer>

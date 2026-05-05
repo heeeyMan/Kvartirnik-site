@@ -1,6 +1,6 @@
 baseURL = "https://kvartirniknn.ru/"
 languageCode = "ru-ru"
-title = "КАМИН"
+title = "КАМИН — квартирники и живая музыка в Нижнем Новгороде"
 # theme = "ananke"  # removed — using custom layouts
 
 # Отображать будущие страницы (для анонсов квартирников)
@@ -10,6 +10,7 @@ buildFuture = true
 #   ПАРАМЕТРЫ САЙТА
 # ==========================
 [params]
+  short_title = "КАМИН"
   description = "Камин — творческое пространство в Нижнем Новгороде. Живая музыка, поэзия, театр и искусство в камерной атмосфере квартирника."
   featured_image = "/images/headers/RS-141.webp"
   featured_image_home = "/images/headers/RS-141.webp"

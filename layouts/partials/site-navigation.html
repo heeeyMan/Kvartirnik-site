@@ -2,9 +2,9 @@
   <div class="site-nav-inner">
     <a href="{{ .Site.Home.RelPermalink }}" class="site-nav-logo">
       {{ with .Site.Params.site_logo }}
-        <img src="{{ urls.RelURL . }}" alt="{{ $.Site.Title }}">
+        <img src="{{ urls.RelURL . }}" alt="{{ $.Site.Params.short_title }}">
       {{ else }}
-        {{ .Site.Title }}
+        {{ .Site.Params.short_title }}
       {{ end }}
     </a>
     {{ if .Site.Menus.main }}
