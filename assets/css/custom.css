@@ -2474,36 +2474,6 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Набор участников завершён */
-.register-closed {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-  border: 2px solid #ffd351;
-  border-radius: 16px;
-  padding: 1.5rem 2rem;
-  margin: 0 auto 1.5rem;
-  max-width: 600px;
-  text-align: center;
-}
-.register-closed-title {
-  margin: 0 0 0.5rem;
-  color: #856404;
-  font-size: 1.4rem;
-  line-height: 1.3;
-}
-.register-closed-text {
-  margin: 0;
-  color: #856404;
-  font-size: 1rem;
-  line-height: 1.6;
-  font-weight: 500;
-}
-.register-closed-free {
-  margin: 0.75rem 0 0;
-  color: var(--color-primary);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
 /* Fallback */
 .register-fallback {
   text-align: center;
