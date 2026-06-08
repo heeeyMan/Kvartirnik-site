@@ -101,6 +101,7 @@ window.addEventListener('message', function(event) {
         showMessage('Ошибка при отправке формы. Попробуйте еще раз.', 'error');
         break;
       case 'formHeightChange':
+        hideLoadingIndicator();
         var iframe = document.querySelector('.register-form-wrap iframe');
         if (iframe && event.data.height) {
           iframe.style.height = Math.max(event.data.height, 800) + 'px';
@@ -115,7 +116,10 @@ window.addEventListener('message', function(event) {
   var formLoaded = false;
 
   window.addEventListener('message', function(event) {
-    if (event.origin === 'https://forms.yandex.ru') formLoaded = true;
+    if (event.origin === 'https://forms.yandex.ru') {
+      formLoaded = true;
+      hideLoadingIndicator();
+    }
   });
 
   function showVpnWarning() {

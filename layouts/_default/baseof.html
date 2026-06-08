@@ -45,7 +45,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | absURL }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">
     <link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
-    <meta name="theme-color" content="#8B4513">
+    <meta name="theme-color" content="#1a120c">
 
     <!-- Search engine verification -->
     {{ with .Site.Params.yandex_verification }}<meta name="yandex-verification" content="{{ . }}">{{ end }}
@@ -142,7 +142,8 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/108755174" style="position:absolute;left:-9999px" alt=""></div></noscript>
     {{ end }}
   </head>
-  <body>
+  <body{{ if .IsHome }} class="page-home"{{ else if eq .Type "register" }} class="page-register"{{ end }}>
+    <div class="ember-ambience" aria-hidden="true"></div>
     <div class="scroll-progress" aria-hidden="true"></div>
     {{ partial "site-header.html" . }}
 

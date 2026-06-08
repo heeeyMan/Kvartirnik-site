@@ -73,7 +73,20 @@
         {{ else }}
           <h1 class="site-header-title text-reveal">{{ .Site.Params.short_title }}</h1>
           <p class="site-header-desc">Творческое пространство в Нижнем Новгороде</p>
-          <p class="hero-subtitle-badge">Следите за анонсами — мы скоро вернёмся</p>
+
+          {{ $past := where $kvartirniki "Date" "lt" now }}
+          {{ $lastPast := cond (gt (len $past) 0) (index ($past.ByDate.Reverse) 0) nil }}
+
+          <div class="hero-announce-card anim-hero" style="--delay: 0.3s">
+            <p class="hero-announce-title">Сейчас нет ближайших квартирников</p>
+            <p class="hero-announce-text">Следите за анонсами — мы скоро вернёмся с новым вечером живой музыки.</p>
+            <div class="hero-cta" style="--delay: 0.45s">
+              {{ with $lastPast }}
+              <a href="{{ .RelPermalink }}" class="cta-button cta-gradient">Последний квартирник</a>
+              {{ end }}
+              <a href="/history/" class="cta-button--outline">Все квартирники</a>
+            </div>
+          </div>
         {{ end }}
 
       </div>

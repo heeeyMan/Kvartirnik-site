@@ -2,21 +2,36 @@
    CSS Variables
    ======================== */
 :root {
-  --color-primary: #8B4513;
-  --color-primary-dark: #654321;
-  --color-primary-darker: #5a1700;
-  --color-primary-accent: #50280b;
-  --color-heading: #34495e;
-  --color-text: #2c3e50;
-  --color-muted: #7f8c8d;
-  --color-btn: #854e22;
-  --color-btn-hover: #936c23;
+  /* === Ember & Ink — DARK "night by the fireplace" theme === */
+  /* Accents */
+  --color-primary: #ff7a18;          /* bright ember — links & accents on dark */
+  --color-primary-dark: #c2510f;
+  --color-primary-darker: #fbeede;   /* NB: now LIGHT — primary heading text on dark */
+  --color-primary-accent: #e8651a;
+  --color-heading: #fdf6ee;          /* warm cream headings */
+  --color-text: #ece1d4;             /* warm light body text */
+  --color-muted: #b6a290;            /* warm muted light */
+  --color-btn: #b5470f;
+  --color-btn-hover: #d4560f;
   --color-accent: #e85d04;
   --color-neon: #ff6b35;
-  --color-bg-warm: #f9f5e9;
-  --color-bg-cream: #fffdfb;
-  --color-border: #e1e8ed;
-  --color-border-light: #f1f1f1;
+  --color-ember: #ff7a18;            /* glowing ember highlight */
+  --color-gold: #f6a623;             /* warm gold spark */
+  /* Surfaces (warm dark) */
+  --color-bg-warm: #1c130d;          /* subtle dark surface */
+  --color-bg-cream: #241811;         /* elevated card surface */
+  --color-bg-deep: #1a120c;          /* footer / dark panels */
+  --color-bg-deeper: #120c07;
+  --color-canvas: #160f09;           /* page backdrop */
+  /* Borders (faint warm light) */
+  --color-border: rgba(255, 208, 168, 0.13);
+  --color-border-light: rgba(255, 208, 168, 0.07);
+  /* Ember gradients & glows */
+  --grad-ember: linear-gradient(135deg, #b5410a 0%, #e85d04 45%, #ff8c2b 100%);
+  --grad-ember-soft: linear-gradient(135deg, #c2510f, #ff7a18);
+  --shadow-ember: 0 8px 30px rgba(232, 93, 4, 0.32);
+  --shadow-ember-lg: 0 14px 44px rgba(232, 93, 4, 0.45);
+  --shadow-warm: 0 6px 18px rgba(0, 0, 0, 0.35), 0 16px 40px rgba(0, 0, 0, 0.42);
 }
 
 /* ========================
@@ -27,13 +42,14 @@
 }
 html {
   scroll-behavior: smooth;
-  color-scheme: light only;
+  color-scheme: dark;
+  background-color: var(--color-canvas);
 }
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   letter-spacing: -0.01em;
-  background-color: #f5f5f5;
+  background: transparent;
   color: var(--color-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -48,8 +64,8 @@ p {
   line-height: 1.7;
 }
 ::selection {
-  background: rgba(139, 69, 19, 0.2);
-  color: inherit;
+  background: rgba(255, 122, 24, 0.25);
+  color: var(--color-primary-darker);
 }
 a {
   color: var(--color-primary);
@@ -123,7 +139,7 @@ body::before {
   z-index: 1;
 }
 .site-header--solid {
-  background: #1a1a1a;
+  background: var(--color-bg-deep);
 }
 .site-header--solid .site-header-overlay {
   background: none;
@@ -225,6 +241,108 @@ body::before {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 0.5rem;
+}
+
+/* "No upcoming events" announce card (homepage hero) — clean frosted glass */
+.hero-announce-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.35rem;
+  max-width: 500px;
+  padding: 2.5rem 2.75rem 2.75rem;
+  border-radius: 24px;
+  background: rgba(18, 12, 8, 0.30);
+  border: 1px solid rgba(255, 236, 218, 0.16);
+  -webkit-backdrop-filter: blur(26px) saturate(115%);
+  backdrop-filter: blur(26px) saturate(115%);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.hero-announce-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.45rem, 2.8vw, 1.95rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+.hero-announce-text {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 400px;
+}
+.hero-announce-card .hero-cta {
+  margin-top: 0.35rem;
+}
+/* Less rounding on the announce buttons */
+.hero-announce-card .cta-button,
+.hero-announce-card .cta-button--outline {
+  border-radius: 12px;
+}
+/* "Последний квартирник" → glowing ember coal: white-hot centre, burning rim */
+.hero-announce-card .cta-gradient {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 2px solid transparent;
+  background:
+    radial-gradient(115% 135% at 50% 50%,
+      #ffffff 0%,
+      #fff1da 32%,
+      #ffc079 60%,
+      #f07d20 85%,
+      #e0560a 100%) padding-box,
+    var(--grad-ember) border-box;
+  color: #2a1810;
+  animation: btnEmberBurn 2.6s ease-in-out infinite;
+}
+.hero-announce-card .cta-gradient::after {
+  content: "→";
+  font-size: 1.15em;
+  line-height: 1;
+  color: var(--color-accent);
+  font-weight: 700;
+  transition: transform 0.3s ease;
+}
+.hero-announce-card .cta-gradient:hover {
+  transform: none;            /* avoid backdrop-filter clipping artifact */
+  background:
+    radial-gradient(115% 135% at 50% 50%,
+      #ffffff 0%,
+      #fff6e6 34%,
+      #ffca85 62%,
+      #f4862a 86%,
+      #e85d04 100%) padding-box,
+    var(--grad-ember) border-box;
+}
+.hero-announce-card .cta-gradient:hover::after {
+  transform: translateX(5px);
+}
+@keyframes btnEmberBurn {
+  0%, 100% {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26),
+                0 0 16px rgba(232, 93, 4, 0.30),
+                0 0 5px rgba(255, 150, 50, 0.35);
+  }
+  50% {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26),
+                0 0 32px rgba(255, 120, 24, 0.55),
+                0 0 12px rgba(255, 170, 70, 0.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-announce-card .cta-gradient {
+    animation: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26), 0 0 18px rgba(232, 93, 4, 0.35);
+  }
+}
+/* "Все квартирники" ghost button — match the squarer radius */
+.hero-announce-card .cta-button--outline:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 /* Glass buttons inside glass card */
@@ -341,7 +459,7 @@ body::before {
    Site Footer
    ======================== */
 .site-footer {
-  background: #1a1a1a;
+  background: var(--color-bg-deep);
   color: rgba(255, 255, 255, 0.6);
   padding: 3rem 1.5rem 1.5rem;
 }
@@ -501,7 +619,7 @@ body::before {
   right: 0;
   z-index: 1000;
   padding: 0.6rem 1.5rem;
-  background: rgba(26, 26, 26, 0.85);
+  background: rgba(26, 18, 12, 0.86);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -593,7 +711,7 @@ body::before {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(26, 26, 26, 0.6);
+    background: rgba(26, 18, 12, 0.62);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     padding: 5rem 1rem 1rem;
@@ -646,7 +764,7 @@ body::before {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(26, 26, 26, 0.6);
+    background: rgba(26, 18, 12, 0.62);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     padding: 1rem;
@@ -2819,7 +2937,7 @@ body::before {
 
 /* --- Dark Sections (alternating) --- */
 .section-dark {
-  background: #1a1a1a;
+  background: var(--color-bg-deep);
   color: rgba(255, 255, 255, 0.85);
   padding: 2.5rem 2rem;
   border-radius: 24px;
@@ -2853,7 +2971,7 @@ body::before {
   color: white;
 }
 .about-social.section-dark {
-  background: #1a1a1a;
+  background: var(--color-bg-deep);
   border-color: transparent;
 }
 
@@ -3156,4 +3274,531 @@ body::before {
   .scroll-progress {
     display: none;
   }
+}
+
+/* ============================================================
+   ╔══════════════════════════════════════════════════════╗
+   ║  EMBER & INK — BOLD REDESIGN LAYER (2026)              ║
+   ║  Warm fireplace identity · editorial type · ember glow ║
+   ╚══════════════════════════════════════════════════════╝
+   ============================================================ */
+
+/* --- Global: prevent horizontal overflow & smooth focus --- */
+html, body {
+  overflow-x: clip;
+}
+a, button, input, textarea, select, [tabindex] {
+  outline: none;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ===== Editorial display typography ===== */
+.site-header-title {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.site-header--home .site-header-title {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45), 0 0 1px rgba(0, 0, 0, 0.3);
+}
+.hero-title {
+  letter-spacing: -0.035em;
+}
+
+/* Kicker / eyebrow — used as section label */
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.hero-section .hero-label::before {
+  content: "";
+  width: 1.75rem;
+  height: 2px;
+  background: var(--grad-ember);
+  border-radius: 2px;
+}
+
+/* Section titles — ember underline accent */
+.section-title {
+  color: var(--color-heading);
+  position: relative;
+  padding-bottom: 0.85rem;
+}
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--grad-ember);
+  box-shadow: 0 2px 12px rgba(232, 93, 4, 0.35);
+}
+
+/* Sub-section titles (event page, about) — leading ember tick */
+.kv-section-title,
+.about-heading:not(.about-heading--center) {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.kv-section-title::before,
+.about-heading:not(.about-heading--center)::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 5px;
+  height: 1.05em;
+  border-radius: 3px;
+  background: var(--grad-ember);
+}
+
+/* ===== Ember-glow CTAs ===== */
+.cta-button,
+.hero-glass-card .cta-button--outline {
+  background: var(--grad-ember);
+  box-shadow: var(--shadow-ember);
+  letter-spacing: 0.01em;
+}
+.cta-button:hover,
+.hero-glass-card .cta-button--outline:hover {
+  background: var(--grad-ember);
+  filter: brightness(1.06) saturate(1.05);
+  box-shadow: var(--shadow-ember-lg);
+  transform: translateY(-2px) scale(1.015);
+}
+.cta-gradient {
+  background-image: linear-gradient(135deg, #b5410a 0%, #e85d04 30%, #ff8c2b 55%, #e85d04 80%, #b5410a 100%);
+}
+
+/* ===== Warmer cards + ember-tinted lift ===== */
+.hero-card,
+.archive-card,
+.past-event-card,
+.kv-info-card,
+.kv-participant-card,
+.about-member,
+.about-social,
+.register-form-card,
+.kv-format-card,
+.hero-empty-card,
+.archive-empty,
+.kv-empty-state,
+.page-404-card {
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(74, 21, 3, 0.04), 0 6px 18px rgba(74, 21, 3, 0.05);
+}
+.hero-card:hover,
+.archive-card:hover,
+.past-event-card:hover,
+.kv-info-card:hover,
+.kv-participant-card:hover,
+.about-member:hover {
+  box-shadow: 0 8px 18px rgba(154, 61, 15, 0.10), 0 22px 48px rgba(74, 21, 3, 0.14);
+}
+
+/* Card images get a warm gradient sheen on hover */
+.hero-card-image,
+.past-event-image,
+.archive-card-image {
+  position: relative;
+}
+.hero-card-image::after,
+.past-event-image::after,
+.archive-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(74, 21, 3, 0.28), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-card:hover .hero-card-image::after,
+.past-event-card:hover .past-event-image::after,
+.archive-card:hover .archive-card-image::after {
+  opacity: 1;
+}
+
+/* Upcoming badge — ember instead of green for brand cohesion */
+.badge--upcoming {
+  background: var(--grad-ember);
+  box-shadow: 0 2px 10px rgba(232, 93, 4, 0.4);
+}
+
+/* Info-card / participant icons — richer ember gradient + glow */
+.kv-info-icon,
+.kv-participant-avatar {
+  background: var(--grad-ember);
+  box-shadow: 0 4px 14px rgba(232, 93, 4, 0.32);
+}
+
+/* Counters & gradient text — ember → gold */
+.counter-value,
+.gradient-text {
+  background: linear-gradient(135deg, #b5410a, #ff7a18 55%, #f6a623);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== Atmospheric warm-dark surfaces (footer / dark sections) ===== */
+.site-footer,
+.section-dark,
+.about-social.section-dark {
+  background-color: var(--color-bg-deep);
+  background-image: radial-gradient(130% 120% at 50% -10%, rgba(255, 122, 24, 0.12), transparent 55%);
+}
+.site-footer .footer-logo {
+  background: linear-gradient(135deg, #ffae6a, #ff7a18);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #ff7a18;
+}
+
+/* ===== Hero glass card — warmer ember rim ===== */
+.hero-glass-card {
+  border-color: rgba(255, 138, 43, 0.45);
+}
+
+/* ===== Pills / meta / social — warm hover ===== */
+.social-link-item:hover,
+.hero-meta-item:hover {
+  box-shadow: 0 6px 18px rgba(154, 61, 15, 0.18);
+}
+
+/* ===== Mobile hardening — 44px touch targets, comfortable type ===== */
+@media (max-width: 768px) {
+  /* Larger, easier-to-tap nav */
+  .burger-btn {
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+  }
+  .site-nav-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  /* Comfortable tap targets for pill buttons */
+  .social-link-item,
+  .about-social-btn,
+  .register-social-btn,
+  .kv-share-btn,
+  .kv-show-more-btn,
+  .kv-back-btn,
+  .register-fallback-btn {
+    min-height: 46px;
+    align-items: center;
+  }
+  /* Punchier full-width primary CTA on phones */
+  .cta-button,
+  .cta-button--outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .hero-cta .cta-button,
+  .hero-cta .cta-button--outline,
+  .hero-glass-card .cta-button,
+  .hero-glass-card .cta-button--outline {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-cta {
+    width: 100%;
+  }
+  /* Slightly larger body type for readability */
+  .hero-card-description,
+  .about-text,
+  .kv-format-card {
+    font-size: 1.02rem;
+  }
+  /* Tighter dark-section bleed already handled; keep glow subtle */
+  .section-title {
+    padding-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Stack share buttons full width for thumb reach */
+  .kv-share-buttons {
+    flex-direction: column;
+  }
+  .kv-share-btn {
+    justify-content: center;
+    width: 100%;
+  }
+  /* Keep hero title from overflowing on tiny screens */
+  .site-header--home .site-header-title {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .hero-glass-card {
+    padding: 1.75rem 1.5rem;
+  }
+}
+
+/* ===== Reduced motion — keep new transforms calm ===== */
+@media (prefers-reduced-motion: reduce) {
+  .cta-button:hover,
+  .hero-glass-card .cta-button--outline:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   ╔══════════════════════════════════════════════════════╗
+   ║  NIGHT BY THE FIREPLACE — DARK HOMEPAGE THEME         ║
+   ║  Applies only to <body class="page-home"> (the home).  ║
+   ║  Hero → content → footer become one warm-dark scene.   ║
+   ╚══════════════════════════════════════════════════════╝
+   ============================================================ */
+
+/* Canvas + living ember glow are now global (see EMBER AMBIENCE below);
+   the homepage just keeps its tuned component overrides. */
+
+/* Section dividers → faint warm light instead of dark border */
+.page-home .counters-section,
+.page-home .about-section,
+.page-home .social-section {
+  border-color: rgba(255, 200, 150, 0.12);
+}
+
+/* Section titles glow light on the dark canvas */
+.page-home .section-title {
+  color: #fdf6ee;
+}
+
+/* ===== Past-event cards → elevated warm-dark with ember rim ===== */
+.page-home .past-event-card {
+  background: #221610;
+  border: 1px solid rgba(255, 200, 150, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+.page-home .past-event-card:hover {
+  border-color: rgba(255, 138, 43, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 138, 43, 0.25),
+              0 10px 24px rgba(0, 0, 0, 0.5),
+              0 22px 60px rgba(232, 93, 4, 0.22);
+}
+.page-home .past-event-title {
+  color: rgba(255, 255, 255, 0.94);
+}
+.page-home .past-event-date {
+  color: var(--color-ember);
+  font-weight: 600;
+}
+
+/* ===== Counters — labels light, values keep ember→gold glow ===== */
+.page-home .counter-label {
+  color: rgba(255, 235, 215, 0.6);
+}
+.page-home .counter-value {
+  filter: drop-shadow(0 2px 14px rgba(255, 122, 24, 0.35));
+}
+
+/* ===== About copy → warm light text ===== */
+.page-home .about-text,
+.page-home .about-text p {
+  color: rgba(255, 240, 228, 0.74);
+}
+.page-home .about-text a {
+  color: var(--color-ember);
+}
+.page-home .about-text a:hover {
+  color: var(--color-gold);
+}
+
+/* ===== Social pills → dark glass that ignites on hover ===== */
+.page-home .social-link-item {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 200, 150, 0.14);
+  color: rgba(255, 240, 228, 0.88);
+}
+.page-home .social-link-item img {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.page-home .social-link-item:hover {
+  background: var(--grad-ember);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 26px rgba(232, 93, 4, 0.4);
+}
+.page-home .social-link-item:hover img {
+  opacity: 1;
+}
+
+/* ============================================================
+   ╔══════════════════════════════════════════════════════╗
+   ║  EMBER AMBIENCE — living fireplace glow (whole site)   ║
+   ║  Fixed layer behind all content; breathes & flickers.  ║
+   ╚══════════════════════════════════════════════════════╝
+   ============================================================ */
+.ember-ambience {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 12% 6%, rgba(255, 122, 24, 0.13), transparent 62%),
+    radial-gradient(50% 42% at 90% 16%, rgba(246, 166, 35, 0.08), transparent 60%),
+    radial-gradient(95% 55% at 50% 112%, rgba(255, 96, 16, 0.14), transparent 55%);
+  animation: emberBreathe 8s ease-in-out infinite;
+  will-change: opacity;
+}
+/* Second, faster layer of drifting embers for a living feel */
+.ember-ambience::after {
+  content: "";
+  position: absolute;
+  inset: -5%;
+  background:
+    radial-gradient(38% 32% at 78% 66%, rgba(255, 140, 43, 0.07), transparent 60%),
+    radial-gradient(42% 38% at 20% 82%, rgba(229, 93, 4, 0.07), transparent 60%);
+  animation: emberFlicker 5.5s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+@keyframes emberBreathe {
+  0%, 100% { opacity: 0.62; }
+  30%      { opacity: 0.95; }
+  55%      { opacity: 0.5; }
+  80%      { opacity: 0.85; }
+}
+@keyframes emberFlicker {
+  0%, 100% { opacity: 0.5;  transform: translateY(0); }
+  40%      { opacity: 0.85; transform: translateY(-1.5%); }
+  70%      { opacity: 0.42; transform: translateY(1%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ember-ambience,
+  .ember-ambience::after {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+/* ===== Dark-theme fixes for previously light-assuming bits ===== */
+
+/* Photo dividers fade into the dark canvas, not a light haze */
+.full-bleed::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 15, 9, 0.55) 0%,
+    transparent 22%,
+    transparent 78%,
+    rgba(22, 15, 9, 0.55) 100%
+  );
+}
+
+/* About-page watermarks → thin amber line-art icons drawn for the dark theme */
+.about-circle-wrap {
+  display: block;
+  opacity: 0.2;
+}
+.section-dark .about-circle-wrap {
+  opacity: 0.16;
+}
+.about-icon {
+  width: 230px;
+  height: 230px;
+  color: var(--color-ember);
+  filter: drop-shadow(0 0 14px rgba(255, 122, 24, 0.28));
+}
+@media (max-width: 768px) {
+  .about-icon {
+    width: 150px;
+    height: 150px;
+  }
+}
+/* "Наша философия" was a dark panel (a light-theme device) — on the all-dark
+   theme it only draws an odd frame and its overflow clips the watermark.
+   Flatten it so it matches the other text block and the note isn't cut. */
+.about-block.section-dark {
+  background: transparent;
+  background-image: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+
+/* VPN warning → dark-amber alert that fits the night theme */
+.register-vpn-warning {
+  background: rgba(246, 166, 35, 0.12);
+  border-color: rgba(246, 166, 35, 0.45);
+}
+.register-vpn-warning p {
+  color: #ffd98a;
+}
+
+/* Yandex form iframe sits in its own light box — give it a soft frame
+   so the white embed doesn't clash hard with the dark card */
+.register-form-wrap iframe {
+  border-radius: 12px;
+}
+
+/* ============================================================
+   ╔══════════════════════════════════════════════════════╗
+   ║  REGISTER PAGE — LIGHT theme                          ║
+   ║  Dark photo-hero + dark footer bracket a clean warm    ║
+   ║  light page, so the white Yandex form blends in.       ║
+   ╚══════════════════════════════════════════════════════╝
+   ============================================================ */
+
+/* Re-light the palette tokens for this page only — every var-driven
+   component flips back to the warm light theme automatically. */
+body.page-register {
+  --color-primary: #9a3d0f;
+  --color-primary-dark: #6b3410;
+  --color-primary-darker: #2a1810;
+  --color-primary-accent: #50280b;
+  --color-heading: #1f1812;
+  --color-text: #2e2a26;
+  --color-muted: #6f6b66;
+  --color-btn: #9a3d0f;
+  --color-btn-hover: #b5470f;
+  --color-bg-warm: #f4f4f3;
+  --color-bg-cream: #ffffff;
+  --color-border: #e4e0d9;
+  --color-border-light: #efece6;
+  color-scheme: light;
+  background: #ffffff;
+}
+
+/* No fireplace ambience on the light page */
+body.page-register .ember-ambience {
+  display: none;
+}
+
+/* Subtle floating card so the white form reads on the white page */
+body.page-register .register-form-card {
+  border: 1px solid #ebe7e0;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.06);
+}
+
+/* Keep the VPN warning as a normal light alert here */
+body.page-register .register-vpn-warning {
+  background: #fff3cd;
+  border-color: #ffc107;
+}
+body.page-register .register-vpn-warning p {
+  color: #664d03;
 }
