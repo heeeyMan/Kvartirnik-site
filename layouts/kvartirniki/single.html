@@ -207,7 +207,9 @@
         <div class="photos-grid" id="photosGrid" data-photos='{{ $photos | jsonify }}'>
           {{ range $index, $photo := $photos }}
           <div class="photo-item {{ if ge $index 9 }}photos-hidden{{ end }}">
-            {{ $thumbPath := replace $photo (printf "/%s" (path.Base $photo)) (printf "/thumbs/%s" (path.Base $photo)) }}
+            {{/* Превью генерируется Hugo (Resize). Фолбэк — полное фото. */}}
+            {{ $thumbPath := $photo }}
+            {{ with (resources.Get (strings.TrimPrefix "/" $photo)) }}{{ $thumbPath = (.Resize "480x webp q82").RelPermalink }}{{ end }}
             <img src="{{ $thumbPath }}"
                  srcset="{{ $thumbPath }} 480w, {{ $photo }} 2560w"
                  sizes="(max-width: 768px) 100vw, 33vw"

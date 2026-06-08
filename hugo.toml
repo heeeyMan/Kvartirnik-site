@@ -46,6 +46,38 @@ buildFuture = true
   writeStats = true
 
 # ==========================
+#   МОНТИРОВАНИЯ (mounts)
+#   Картинки из static/images дублируем в assets/images, чтобы Hugo мог
+#   генерировать превью (Resize). Оригиналы по-прежнему отдаются из static.
+#   ВНИМАНИЕ: объявление mounts заменяет дефолтные — поэтому перечисляем все.
+# ==========================
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "static/images"
+    target = "assets/images"
+
+# ==========================
 #   МЕНЮ
 # ==========================
 [menu]

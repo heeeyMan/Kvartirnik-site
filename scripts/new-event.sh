@@ -64,12 +64,10 @@ CONTACTS="+7 (910) 387-27-47"
 read -p "Контакты [$CONTACTS]: " CONTACTS_INPUT
 CONTACTS="${CONTACTS_INPUT:-$CONTACTS}"
 
-# Создание папки для фото
+# Создание папки для фото (превью генерируются Hugo автоматически — thumbs/ не нужна)
 PHOTOS_DIR="$IMAGES_DIR/$EVENT_DATE"
 mkdir -p "$PHOTOS_DIR"
-mkdir -p "$PHOTOS_DIR/thumbs"
 echo "Создана папка для фото: static/images/kv_list/$EVENT_DATE/"
-echo "Создана папка для превью: static/images/kv_list/$EVENT_DATE/thumbs/"
 
 # Создание markdown-файла
 cat > "$CONTENT_DIR/$EVENT_DATE.md" << EOF
@@ -123,7 +121,7 @@ echo ""
 echo "Следующие шаги:"
 echo "  1. Положите фото (1.webp, 2.webp, …) в static/images/kv_list/$EVENT_DATE/"
 echo "     — в галерею подтянутся автоматически (обложки title_/banner_/preview_ игнорируются)"
-echo "     — превью кладите в подпапку thumbs/ с теми же именами"
+echo "     — превью Hugo сгенерирует сам, вручную ничего делать не нужно"
 echo "  2. Отредактируйте участников и описание"
 echo "  3. Установите draft: false когда всё готово"
 echo "  4. hugo server -D — для предпросмотра"
