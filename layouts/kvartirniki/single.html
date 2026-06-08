@@ -44,8 +44,8 @@
 
     <!-- Карта -->
     {{ if .Params.address }}
-    <section class="kv-section kv-map-section scroll-reveal">
-      <div class="kv-map-wrap" id="kvMapWrap">
+    <section class="kv-section kv-map-section scroll-reveal" id="kvMapSection">
+      <div class="kv-map-wrap">
         <iframe
           src="https://yandex.ru/map-widget/v1/?text={{ .Params.address | urlquery }}&z=16&l=map"
           width="100%"
@@ -54,33 +54,28 @@
           allowfullscreen
           loading="lazy"
           title="Карта: {{ .Params.location }}"
-          onload="var w=this.closest('.kv-map-wrap');w.classList.add('map-loaded');w.classList.remove('map-failed')">
+          onload="var w=this.closest('.kv-map-wrap');w.classList.add('map-loaded');this.closest('.kv-map-section').classList.remove('map-failed')">
         </iframe>
-        <div class="kv-map-fallback">
-          <svg class="kv-map-fallback-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <p class="kv-map-fallback-title">Карта не загрузилась</p>
-          <p class="kv-map-fallback-text">{{ .Params.address }}</p>
-          <a href="{{ with .Params.yandex_maps_link }}{{ . }}{{ else }}https://yandex.ru/maps/?text={{ $.Params.address | urlquery }}{{ end }}" target="_blank" rel="noopener noreferrer" class="kv-map-fallback-btn">Открыть в Яндекс.Картах &rarr;</a>
-        </div>
       </div>
     </section>
     <script>
     (function () {
-      var wrap = document.getElementById('kvMapWrap');
-      if (!wrap) return;
+      var section = document.getElementById('kvMapSection');
+      if (!section) return;
+      var wrap = section.querySelector('.kv-map-wrap');
       var armed = false;
       function arm() {
         if (armed) return;
         armed = true;
         setTimeout(function () {
-          if (!wrap.classList.contains('map-loaded')) wrap.classList.add('map-failed');
+          if (!wrap.classList.contains('map-loaded')) section.classList.add('map-failed');
         }, 4500);
       }
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) { if (e.isIntersecting) { arm(); io.disconnect(); } });
         }, { threshold: 0.1 });
-        io.observe(wrap);
+        io.observe(section);
       } else {
         arm();
       }
