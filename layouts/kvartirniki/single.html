@@ -173,12 +173,39 @@
     </section>
 
     <!-- Фотографии -->
-    {{ if .Params.photos }}
+    {{/* Источник фото:
+         1) если в .md задан photos: — берём его (ручная курация / порядок);
+         2) иначе автоматически читаем папку static/images/kv_list/<дата>/.
+         Папка названа по дате (= имя .md). Подпапку thumbs/ и обложки
+         (title/preview/banner/cover/header/logo) пропускаем, сортируем по
+         числу в конце имени (1,2,…,10; m_1,m_2,…). */}}
+    {{ $photos := .Params.photos }}
+    {{ if not $photos }}
+      {{ $date := .File.ContentBaseName }}
+      {{ $dir := printf "static/images/kv_list/%s" $date }}
+      {{ if os.FileExists $dir }}
+        {{ $items := slice }}
+        {{ range (os.ReadDir $dir) }}
+          {{ if and (not .IsDir) (findRE `(?i)\.(webp|avif|jpe?g|png)$` .Name) (not (findRE `(?i)(title|preview|banner|cover|header|logo)` .Name)) }}
+            {{ $base := replaceRE `\.[^.]+$` "" .Name }}
+            {{ $numStr := replaceRE `^.*?([0-9]+)$` "$1" $base }}
+            {{ $num := 100000 }}
+            {{ if findRE `^[0-9]+$` $numStr }}{{ $num = int $numStr }}{{ end }}
+            {{ $items = $items | append (dict "n" $num "name" .Name) }}
+          {{ end }}
+        {{ end }}
+        {{ $list := slice }}
+        {{ range (sort $items "n") }}{{ $list = $list | append (printf "/images/kv_list/%s/%s" $date .name) }}{{ end }}
+        {{ $photos = $list }}
+      {{ end }}
+    {{ end }}
+
+    {{ if $photos }}
     <section class="kv-section scroll-reveal">
       <h2 class="kv-section-title">Фотографии</h2>
       <div class="photos-container">
-        <div class="photos-grid" id="photosGrid" data-photos='{{ .Params.photos | jsonify }}'>
-          {{ range $index, $photo := .Params.photos }}
+        <div class="photos-grid" id="photosGrid" data-photos='{{ $photos | jsonify }}'>
+          {{ range $index, $photo := $photos }}
           <div class="photo-item {{ if ge $index 9 }}photos-hidden{{ end }}">
             {{ $thumbPath := replace $photo (printf "/%s" (path.Base $photo)) (printf "/thumbs/%s" (path.Base $photo)) }}
             <img src="{{ $thumbPath }}"
@@ -193,13 +220,13 @@
           {{ end }}
         </div>
 
-        {{ if gt (len .Params.photos) 9 }}
+        {{ if gt (len $photos) 9 }}
         <div class="kv-show-more-wrap">
           <button class="kv-show-more-btn btn-expand"
                   onclick="togglePhotos(this)"
-                  data-hidden-count="{{ sub (len .Params.photos) 9 }}"
+                  data-hidden-count="{{ sub (len $photos) 9 }}"
                   data-expanded="false">
-            Показать ещё {{ sub (len .Params.photos) 9 }} фотографий &#9660;
+            Показать ещё {{ sub (len $photos) 9 }} фотографий &#9660;
           </button>
         </div>
         {{ end }}

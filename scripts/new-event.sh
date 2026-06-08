@@ -97,6 +97,8 @@ eventFormat: |
 
 participants:
 
+# Фото галереи подтягиваются АВТОМАТИЧЕСКИ из static/images/kv_list/<дата>/.
+# Список ниже нужен только для ручной курации/порядка (иначе оставьте пустым):
 photos:
 
 program:
@@ -119,7 +121,9 @@ echo "Контент:  content/kvartirniki/$EVENT_DATE.md"
 echo "Фото:    static/images/kv_list/$EVENT_DATE/"
 echo ""
 echo "Следующие шаги:"
-echo "  1. Добавьте фото в static/images/kv_list/$EVENT_DATE/"
+echo "  1. Положите фото (1.webp, 2.webp, …) в static/images/kv_list/$EVENT_DATE/"
+echo "     — в галерею подтянутся автоматически (обложки title_/banner_/preview_ игнорируются)"
+echo "     — превью кладите в подпапку thumbs/ с теми же именами"
 echo "  2. Отредактируйте участников и описание"
 echo "  3. Установите draft: false когда всё готово"
 echo "  4. hugo server -D — для предпросмотра"
