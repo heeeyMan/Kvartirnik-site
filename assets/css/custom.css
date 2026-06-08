@@ -3633,8 +3633,10 @@ select:focus-visible,
   color: rgba(255, 240, 228, 0.88);
 }
 .page-home .social-link-item img {
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
+  /* Иконки многоцветные (синий кружок + белый символ) — НЕ инвертируем,
+     иначе превращаются в белый круг. Показываем как есть, ярче на тёмном. */
+  filter: none;
+  opacity: 1;
 }
 .page-home .social-link-item:hover {
   background: var(--grad-ember);
@@ -3643,6 +3645,7 @@ select:focus-visible,
   box-shadow: 0 8px 26px rgba(232, 93, 4, 0.4);
 }
 .page-home .social-link-item:hover img {
+  filter: none;
   opacity: 1;
 }
 
