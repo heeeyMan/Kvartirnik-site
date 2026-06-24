@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div class="faq-page">
+
+  {{ with .Content }}
+  <div class="faq-intro scroll-reveal">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{ with .Params.faq }}
+  <div class="faq-list">
+    {{ range $i, $item := . }}
+    <details class="faq-item scroll-reveal" {{ if eq $i 0 }}open{{ end }}>
+      <summary class="faq-q">
+        <span class="faq-q-text">{{ $item.q }}</span>
+        <span class="faq-q-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        </span>
+      </summary>
+      <div class="faq-a">{{ $item.a | markdownify }}</div>
+    </details>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <section class="faq-cta scroll-reveal">
+    <h2 class="faq-cta-title">Остались вопросы?</h2>
+    <p class="faq-cta-text">Напишите нам — расскажем всё о ближайшем квартирнике.</p>
+    <div class="faq-cta-buttons">
+      <a href="https://t.me/mr_deprecated" target="_blank" rel="noopener noreferrer" class="cta-button cta-gradient">Написать нам</a>
+      <a href="/history/" class="cta-button cta-button--outline">Смотреть архив</a>
+    </div>
+  </section>
+
+</div>
+
+{{ with .Params.faq }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $i, $item := . }}{{ if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": "{{ $item.q }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $item.a }}"
+      }
+    }{{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ end }}

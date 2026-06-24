@@ -290,12 +290,15 @@
 </div>
 
 <!-- JSON-LD Event schema -->
+{{ $endDate := .Date.Add (time.ParseDuration "3h") }}
+{{ $validFrom := .Date.AddDate 0 -1 0 }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "{{ .Title }}",
-  "startDate": "{{ .Date.Format "2006-01-02T15:04:05+03:00" }}",
+  "startDate": "{{ .Date.Format "2006-01-02T15:04:05-07:00" }}",
+  "endDate": "{{ $endDate.Format "2006-01-02T15:04:05-07:00" }}",
   "description": "{{ .Params.description | default .Summary | plainify | truncate 200 }}",
   {{ if .Params.location }}
   "location": {
@@ -305,21 +308,42 @@
       "@type": "PostalAddress",
       "streetAddress": "{{ .Params.address }}",
       "addressLocality": "Нижний Новгород",
+      "addressRegion": "Нижегородская область",
       "addressCountry": "RU"
-    }
+    }{{ with .Params.yandex_maps_link }},
+    "hasMap": "{{ . }}"{{ end }}
   },
   {{ end }}
   {{ if .Params.featured_image }}
-  "image": "{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Params.featured_image }}",
+  "image": ["{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Params.featured_image }}"],
+  {{ end }}
+  {{ with .Params.participants }}
+  "performer": [
+    {{ $first := true }}
+    {{ range . }}
+    {{ if and .name (ne .name "Все вместе") }}
+    {{ if not $first }},{{ end }}{{ $first = false }}
+    {
+      "@type": {{ if findRE `(?i)групп` .name }}"MusicGroup"{{ else }}"Person"{{ end }},
+      "name": "{{ .name }}"
+    }
+    {{ end }}
+    {{ end }}
+  ],
   {{ end }}
   "organizer": {
     "@type": "Organization",
     "name": "КАМИН",
-    "url": "{{ .Site.BaseURL }}"
+    "url": "{{ .Site.BaseURL }}",
+    {{ with .Params.contacts }}"telephone": "{{ . }}",{{ end }}
+    "sameAs": [
+      "https://vk.com/guitarniks_nn",
+      "https://t.me/guitarniks_nn"
+    ]
   },
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  {{ if eq .Params.price "0" }}
+  {{ if eq (.Params.price | default "0") "0" }}
   "isAccessibleForFree": true,
   {{ end }}
   "offers": {
@@ -328,7 +352,7 @@
     "price": "{{ .Params.price | default "0" }}",
     "priceCurrency": "RUB",
     "availability": "https://schema.org/InStock",
-    "validFrom": "{{ .Date.Format "2006-01-02" }}"
+    "validFrom": "{{ $validFrom.Format "2006-01-02" }}"
   },
   "inLanguage": "ru"
 }

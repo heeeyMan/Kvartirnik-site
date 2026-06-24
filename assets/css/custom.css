@@ -3809,3 +3809,91 @@ body.page-register .register-vpn-warning {
 body.page-register .register-vpn-warning p {
   color: #664d03;
 }
+/* ========================
+   FAQ Page
+   ======================== */
+.faq-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+.faq-intro {
+  text-align: center;
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.faq-item {
+  background: var(--color-bg-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.faq-item[open] {
+  border-color: rgba(255, 122, 24, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.4rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover { color: var(--color-ember); }
+.faq-q-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  color: var(--color-ember);
+  transition: transform 0.3s ease;
+}
+.faq-item[open] .faq-q-icon { transform: rotate(180deg); }
+.faq-a {
+  padding: 0 1.4rem 1.3rem;
+  color: var(--color-text);
+  line-height: 1.7;
+}
+.faq-a p { margin: 0; }
+.faq-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2.5rem 1.5rem;
+  background: var(--color-bg-warm);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+}
+.faq-cta-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--color-heading);
+  margin: 0 0 0.6rem;
+}
+.faq-cta-text {
+  color: var(--color-muted);
+  margin: 0 0 1.5rem;
+}
+.faq-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .faq-q { font-size: 1.02rem; padding: 1rem 1.1rem; }
+  .faq-a { padding: 0 1.1rem 1.1rem; }
+}

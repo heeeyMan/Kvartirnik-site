@@ -96,3 +96,8 @@ buildFuture = true
     name = "О нас"
     url = "/about/"
     weight = 3
+
+  [[menu.main]]
+    name = "Вопросы"
+    url = "/faq/"
+    weight = 4
