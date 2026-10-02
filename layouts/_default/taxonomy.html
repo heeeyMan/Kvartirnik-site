@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="archive journal-list">
+  <div class="archive-intro">
+    <h1 class="journal-term-title">{{ if eq .Data.Plural "rubrics" }}Рубрики блога{{ else }}Все метки{{ end }}</h1>
+  </div>
+
+  <nav class="journal-rubrics journal-rubrics--page" aria-label="{{ .Title }}">
+    {{ range $name, $pages := .Data.Terms }}
+    <a href="{{ (site.GetPage (printf "/%s/%s" $.Data.Plural $name)).RelPermalink }}" class="journal-rubric-chip">{{ $name }} <span class="journal-rubric-count">{{ len $pages }}</span></a>
+    {{ end }}
+  </nav>
+
+  <div class="journal-term-back">
+    <a href="/blog/" class="cta-button cta-button--outline">← В блог</a>
+  </div>
+</div>
+{{ end }}

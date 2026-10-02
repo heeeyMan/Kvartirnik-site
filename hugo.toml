@@ -1,5 +1,6 @@
 baseURL = "https://kvartirniknn.ru/"
 languageCode = "ru-ru"
+defaultContentLanguage = "ru"
 title = "КАМИН — квартирники и живая музыка в Нижнем Новгороде"
 # theme = "ananke"  # removed — using custom layouts
 
@@ -32,6 +33,15 @@ buildFuture = true
     og_type = "website"
     og_site_name = "КАМИН"
     og_locale = "ru_RU"
+
+# ==========================
+#   ТАКСОНОМИИ
+#   rubrics — тематические рубрики блога (музыка, поэзия, выставки…)
+#   tags    — свободные метки (имена, площадки, форматы)
+# ==========================
+[taxonomies]
+  rubric = "rubrics"
+  tag = "tags"
 
 # ==========================
 #   ФРОНТМАТТЕР
@@ -88,16 +98,26 @@ buildFuture = true
     weight = 1
 
   [[menu.main]]
+    name = "Блог"
+    url = "/blog/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Бары"
+    url = "/bars/"
+    weight = 3
+
+  [[menu.main]]
     name = "Архив"
     url = "/history/"
-    weight = 2
+    weight = 4
 
   [[menu.main]]
     name = "О нас"
     url = "/about/"
-    weight = 3
+    weight = 5
 
   [[menu.main]]
     name = "Вопросы"
     url = "/faq/"
-    weight = 4
+    weight = 6

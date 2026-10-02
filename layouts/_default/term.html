@@ -1,0 +1,28 @@
+{{ define "main" }}
+<div class="archive journal-list">
+
+  <div class="archive-intro">
+    <p class="journal-term-kicker">{{ if eq .Data.Plural "rubrics" }}Рубрика{{ else }}Метка{{ end }}</p>
+    <h1 class="journal-term-title">{{ .Title }}</h1>
+    <p class="journal-term-count">{{ len .Pages }} {{ cond (eq (len .Pages) 1) "материал" "материалов" }}</p>
+  </div>
+
+  {{ $articles := .Pages }}
+  {{ if $articles }}
+    <div class="archive-grid archive-grid--masonry">
+      {{ range $i, $e := $articles.ByDate.Reverse }}
+        {{ partial "journal-card.html" (dict "page" . "stagger" $i) }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="archive-empty scroll-reveal">
+      <p class="archive-empty-title">Здесь пока пусто</p>
+    </div>
+  {{ end }}
+
+  <div class="journal-term-back">
+    <a href="/blog/" class="cta-button cta-button--outline">← Все материалы блога</a>
+  </div>
+
+</div>
+{{ end }}

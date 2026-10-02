@@ -21,6 +21,30 @@
       "position": 3,
       "name": "{{ .Title }}",
       "item": "{{ .Permalink }}"
+    }{{ else if and (eq .Type "blog") .IsPage }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Блог",
+      "item": "{{ .Site.BaseURL }}blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }{{ else if and (eq .Type "bars") .IsPage }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Бары",
+      "item": "{{ .Site.BaseURL }}bars/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
     }{{ else }},
     {
       "@type": "ListItem",

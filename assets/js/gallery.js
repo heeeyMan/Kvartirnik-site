@@ -1,13 +1,6 @@
 /* Gallery & Kvartirniki page interactions */
 
-// Back button with fallback to homepage
-function goBack() {
-  if (window.history.length > 1) {
-    window.history.back();
-  } else {
-    window.location.href = '/';
-  }
-}
+// goBack() определён глобально в interactions.js (грузится на всех страницах).
 
 // Toggle participants visibility
 function toggleParticipants(button) {

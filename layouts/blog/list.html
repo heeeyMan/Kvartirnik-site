@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="archive journal-list">
+
+  {{ with .Content }}
+  <div class="archive-intro">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{/* Фильтр по рубрикам */}}
+  {{ $rubrics := .Site.Taxonomies.rubrics }}
+  {{ if $rubrics }}
+  <nav class="journal-rubrics" aria-label="Рубрики">
+    <a href="{{ .RelPermalink }}" class="journal-rubric-chip journal-rubric-chip--active">Все</a>
+    {{ range $name, $pages := $rubrics }}
+    <a href="{{ (site.GetPage (printf "/rubrics/%s" $name)).RelPermalink }}" class="journal-rubric-chip">{{ $name }} <span class="journal-rubric-count">{{ len $pages }}</span></a>
+    {{ end }}
+  </nav>
+  {{ end }}
+
+  {{ $articles := .Pages }}
+  {{ if $articles }}
+    <div class="archive-grid archive-grid--masonry">
+      {{ range $i, $e := $articles.ByDate.Reverse }}
+        {{ partial "journal-card.html" (dict "page" . "stagger" $i) }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="archive-empty scroll-reveal">
+      <p class="archive-empty-title">Скоро здесь появятся материалы</p>
+      <p class="archive-empty-text">Готовим первые истории о творческой жизни Нижнего Новгорода.</p>
+    </div>
+  {{ end }}
+
+</div>
+{{ end }}

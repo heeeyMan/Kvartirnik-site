@@ -1,0 +1,47 @@
+{{/* Карточка материала журнала.
+     Вход: dict "page" <Page> "stagger" <int> */}}
+{{ $p := .page }}
+{{ $i := .stagger | default 0 }}
+{{ $isAnnounce := $p.Params.announce }}
+<a href="{{ $p.RelPermalink }}" class="archive-card journal-card tilt-card scroll-reveal" style="--stagger: {{ $i }}">
+
+  <div class="archive-card-image">
+    {{ with $p.Params.featured_image }}
+    {{ $fi := . }}
+    {{ $thumb := $fi }}
+    {{ with (resources.Get (strings.TrimPrefix "/" $fi)) }}{{ $thumb = (.Resize "600x webp q82").RelPermalink }}{{ end }}
+    <img src="{{ $thumb }}" srcset="{{ $thumb }} 600w, {{ $fi }} 1600w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{ $p.Title }}" loading="lazy" width="600" height="400">
+    {{ else }}
+    <div class="archive-card-placeholder">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </div>
+    {{ end }}
+    {{ with $p.Params.rubrics }}<span class="journal-rubric-badge">{{ index . 0 }}</span>{{ end }}
+    {{ if $isAnnounce }}<span class="archive-badge badge--upcoming">Анонс</span>{{ end }}
+  </div>
+
+  <div class="archive-card-body">
+    <h3 class="archive-card-title">{{ $p.Title }}</h3>
+
+    <div class="archive-card-meta">
+      <div class="archive-card-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+        {{ if ne ($p.Lastmod.Format "2006-01-02") ($p.Date.Format "2006-01-02") }}
+        <time datetime="{{ $p.Lastmod.Format "2006-01-02" }}">Обновлено {{ dateFormat "2 January 2006" $p.Lastmod }}</time>
+        {{ else }}
+        <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ dateFormat "2 January 2006" $p.Date }}</time>
+        {{ end }}
+      </div>
+    </div>
+
+    {{ if $p.Params.description }}
+    <p class="archive-card-desc">{{ $p.Params.description | truncate 120 }}</p>
+    {{ else }}
+    <p class="archive-card-desc">{{ $p.Summary | plainify | truncate 120 }}</p>
+    {{ end }}
+
+    <span class="archive-card-arrow">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </span>
+  </div>
+</a>

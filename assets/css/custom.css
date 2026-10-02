@@ -3897,3 +3897,246 @@ body.page-register .register-vpn-warning p {
   .faq-q { font-size: 1.02rem; padding: 1rem 1.1rem; }
   .faq-a { padding: 0 1.1rem 1.1rem; }
 }
+
+/* ==========================================================================
+   ЖУРНАЛ (Journal)
+   ========================================================================== */
+
+/* Фильтр рубрик */
+.journal-rubrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 2.25rem;
+  max-width: 760px;
+}
+.journal-rubrics--page { margin-top: 1.5rem; }
+.journal-rubric-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-cream);
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  text-transform: capitalize;
+}
+.journal-rubric-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+.journal-rubric-chip--active {
+  background: var(--grad-ember);
+  border-color: transparent;
+  color: #fff;
+}
+.journal-rubric-count {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+/* Бейдж рубрики на карточке (верх-лево); анонс уводим вправо */
+.journal-rubric-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  background: var(--grad-ember-soft);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.journal-card .archive-badge { left: auto; right: 0.75rem; }
+
+/* Заголовок страницы рубрики/метки */
+.journal-term-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  color: var(--color-primary);
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+}
+.journal-term-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--color-heading);
+  margin: 0 0 0.4rem;
+  text-transform: capitalize;
+}
+.journal-term-count { color: var(--color-muted); margin: 0; }
+.journal-term-back { text-align: center; margin-top: 2.5rem; }
+
+/* ── Статья ─────────────────────────────────────────────── */
+.journal-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+.journal-meta-row .journal-rubric-badge {
+  position: static;
+  padding: 0.3rem 0.85rem;
+}
+.journal-rubric-badge--link { text-decoration: none; transition: opacity 0.2s ease; }
+.journal-rubric-badge--link:hover { opacity: 0.85; }
+.journal-meta-author, .journal-meta-reading { color: var(--color-muted); }
+
+/* Тело материала — читаемая типографика */
+.journal-body {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  max-width: 720px;
+}
+.journal-body h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--color-heading);
+  margin: 2.2rem 0 0.9rem;
+}
+.journal-body h3 {
+  font-size: 1.25rem;
+  color: var(--color-heading);
+  margin: 1.8rem 0 0.7rem;
+}
+.journal-body p { margin: 0 0 1.2rem; }
+.journal-body a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.journal-body a:hover { color: var(--color-primary-accent); }
+.journal-body img { max-width: 100%; height: auto; border-radius: 16px; margin: 1.5rem 0; }
+.journal-body blockquote {
+  border-left: 3px solid var(--color-primary);
+  margin: 1.5rem 0;
+  padding: 0.4rem 0 0.4rem 1.3rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+.journal-body ul, .journal-body ol { margin: 0 0 1.2rem; padding-left: 1.4rem; }
+.journal-body li { margin-bottom: 0.5rem; }
+.journal-body figure { margin: 1.5rem 0; }
+.journal-body figcaption { font-size: 0.85rem; color: var(--color-muted); text-align: center; margin-top: 0.5rem; }
+
+/* Карточка анонса стороннего события */
+.journal-announce {
+  border: 1px solid var(--color-primary);
+  border-radius: 20px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(232,93,4,0.08), rgba(232,93,4,0.02));
+}
+.journal-announce-head { margin-bottom: 1rem; }
+.journal-announce-label {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.journal-announce-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.journal-announce-org { color: var(--color-muted); font-size: 0.9rem; }
+
+/* Метки */
+.journal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.journal-tag {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+.journal-tag:hover { color: var(--color-primary); border-color: var(--color-primary); }
+
+.journal-related-grid { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 768px) {
+  .journal-related-grid { grid-template-columns: 1fr; }
+  .journal-body { font-size: 1.02rem; }
+  .journal-announce-foot { flex-direction: column; align-items: flex-start; }
+}
+
+/* ==========================================================================
+   БАРЫ (Bars)
+   ========================================================================== */
+.bar-badge-rec {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--grad-ember);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.bar-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.6rem;
+}
+.bar-genre {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-warm);
+  text-transform: lowercase;
+}
+.bar-genres--lg { margin-top: 0.9rem; }
+.bar-genres--lg .bar-genre { font-size: 0.85rem; padding: 0.3rem 0.8rem; }
+
+.bar-about .journal-body { max-width: 720px; }
+
+.bar-kvartirnik-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 18px;
+  border: 1px solid var(--color-primary);
+  background: linear-gradient(135deg, rgba(232,93,4,0.10), rgba(232,93,4,0.02));
+}
+.bar-kvartirnik-note p { margin: 0; font-weight: 600; color: var(--color-heading); }
+
+@media (max-width: 600px) {
+  .bar-kvartirnik-note { flex-direction: column; align-items: flex-start; }
+}
+
+/* Дата выпуска/обновления на странице бара */
+.bar-date {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin: -0.5rem 0 1.2rem;
+}

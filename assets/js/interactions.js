@@ -1,6 +1,20 @@
 (function () {
   'use strict';
 
+  // Кнопка «Назад»: если пришли с этого же сайта — реальный history.back(),
+  // иначе (прямой заход / из поиска / нет истории) уводим на осмысленный
+  // раздел сайта, а не наружу. fallback можно передать в разметке.
+  window.goBack = function (fallback) {
+    fallback = fallback || '/';
+    var ref = document.referrer || '';
+    var sameSite = ref.indexOf(window.location.origin) === 0;
+    if (window.history.length > 1 && sameSite) {
+      window.history.back();
+    } else {
+      window.location.assign(fallback);
+    }
+  };
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // =========================================================================
@@ -302,53 +316,7 @@
   }
 
   // =========================================================================
-  // 7. Animated Counters
-  // =========================================================================
-  function initCounters() {
-    var counters = document.querySelectorAll('.counter-value');
-    if (!counters.length) return;
-
-    var animated = false;
-
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting && !animated) {
-          animated = true;
-          counters.forEach(function(counter) {
-            var target = parseInt(counter.getAttribute('data-target'), 10);
-            var duration = 2000;
-            var start = 0;
-            var startTime = null;
-
-            function step(timestamp) {
-              if (!startTime) startTime = timestamp;
-              var progress = Math.min((timestamp - startTime) / duration, 1);
-              var eased = 1 - Math.pow(1 - progress, 3);
-              counter.textContent = Math.floor(eased * target);
-              if (progress < 1) {
-                requestAnimationFrame(step);
-              } else {
-                counter.textContent = target + '+';
-              }
-            }
-
-            if (prefersReducedMotion) {
-              counter.textContent = target + '+';
-            } else {
-              requestAnimationFrame(step);
-            }
-          });
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-
-    var section = document.querySelector('.counters-section');
-    if (section) observer.observe(section);
-  }
-
-  // =========================================================================
-  // 8. Lazy Image Blur Reveal
+  // 7. Lazy Image Blur Reveal
   // =========================================================================
   function initLazyBlur() {
     var images = document.querySelectorAll('img[loading="lazy"]');
@@ -367,7 +335,7 @@
   }
 
   // =========================================================================
-  // 9. Scroll Reveal (centralised)
+  // 8. Scroll Reveal (centralised)
   // =========================================================================
   function initScrollReveal() {
     var els = document.querySelectorAll('.scroll-reveal');
@@ -394,7 +362,6 @@
     initScrollProgress();
     initHeaderParallax();
     initBackToTop();
-    initCounters();
     initScrollReveal();
   });
 })();

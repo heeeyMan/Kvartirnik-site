@@ -21,7 +21,7 @@
         {{ end }}
         <div class="past-event-body">
           <h3 class="past-event-title">{{ .Title }}</h3>
-          <p class="past-event-date">{{ .Date.Format "2 January 2006" }}</p>
+          <p class="past-event-date">{{ dateFormat "2 January 2006" .Date }}</p>
         </div>
       </a>
       {{ end }}
@@ -47,15 +47,15 @@
   <section class="counters-section scroll-reveal">
     <div class="counters-grid">
       <div class="counter-item stagger-item" style="--stagger: 0">
-        <span class="counter-value" data-target="{{ $eventCount }}">0</span>
+        <span class="counter-value">{{ $eventCount }}+</span>
         <span class="counter-label">мероприятий</span>
       </div>
       <div class="counter-item stagger-item" style="--stagger: 1">
-        <span class="counter-value" data-target="{{ $participantCount }}">0</span>
+        <span class="counter-value">{{ $participantCount }}+</span>
         <span class="counter-label">участников</span>
       </div>
       <div class="counter-item stagger-item" style="--stagger: 2">
-        <span class="counter-value" data-target="{{ $yearsTogether }}">0</span>
+        <span class="counter-value">{{ $yearsTogether }}+</span>
         <span class="counter-label">{{ if ge $yearsTogether 5 }}лет{{ else if ge $yearsTogether 2 }}года{{ else }}год{{ end }} вместе</span>
       </div>
     </div>

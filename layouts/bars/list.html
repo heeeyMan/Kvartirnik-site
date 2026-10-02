@@ -1,0 +1,86 @@
+{{ define "main" }}
+<div class="archive bars-list">
+
+  {{ with .Content }}
+  <div class="archive-intro">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{ $bars := .Pages }}
+  {{ if $bars }}
+    <div class="archive-grid archive-grid--masonry">
+      {{ range $i, $e := $bars }}
+      <a href="{{ .RelPermalink }}" class="archive-card bar-card tilt-card scroll-reveal" style="--stagger: {{ $i }}">
+        <div class="archive-card-image">
+          {{ with .Params.featured_image }}
+          {{ $fi := . }}{{ $thumb := $fi }}
+          {{ with (resources.Get (strings.TrimPrefix "/" $fi)) }}{{ $thumb = (.Resize "600x webp q82").RelPermalink }}{{ end }}
+          <img src="{{ $thumb }}" srcset="{{ $thumb }} 600w, {{ $fi }} 1600w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{ $e.Title }}" loading="lazy" width="600" height="400">
+          {{ else }}
+          <div class="archive-card-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M3 3h18l-2 11H5L3 3zm2.4 2l1.3 7h10.6l1.3-7H5.4zM4 16h16v2H4v-2z"/></svg>
+          </div>
+          {{ end }}
+          {{ if .Params.recommended }}<span class="bar-badge-rec">Рекомендуем</span>{{ end }}
+        </div>
+        <div class="archive-card-body">
+          <h3 class="archive-card-title">{{ .Title }}</h3>
+          {{ with .Params.genres }}
+          <div class="bar-genres">
+            {{ range . }}<span class="bar-genre">{{ . }}</span>{{ end }}
+          </div>
+          {{ end }}
+          <div class="archive-card-meta">
+            <div class="archive-card-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+              {{ if ne ($e.Lastmod.Format "2006-01-02") ($e.Date.Format "2006-01-02") }}
+              <time datetime="{{ $e.Lastmod.Format "2006-01-02" }}">Обновлено {{ dateFormat "2 January 2006" $e.Lastmod }}</time>
+              {{ else }}
+              <time datetime="{{ $e.Date.Format "2006-01-02" }}">{{ dateFormat "2 January 2006" $e.Date }}</time>
+              {{ end }}
+            </div>
+            {{ with .Params.address }}
+            <div class="archive-card-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <span>{{ . }}</span>
+            </div>
+            {{ end }}
+          </div>
+          {{ with .Params.music }}<p class="archive-card-desc">{{ . }}</p>{{ end }}
+          <span class="archive-card-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </span>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="archive-empty scroll-reveal">
+      <p class="archive-empty-title">Скоро добавим первые места</p>
+      <p class="archive-empty-text">Готовим подборку баров Нижнего Новгорода с живой музыкой.</p>
+    </div>
+  {{ end }}
+
+</div>
+
+{{/* ItemList для коллекции мест */}}
+{{ if $bars }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ .Title | jsonify }},
+  "itemListElement": [
+    {{ range $i, $e := $bars }}{{ if $i }},{{ end }}
+    {
+      "@type": "ListItem",
+      "position": {{ add $i 1 }},
+      "url": "{{ .Permalink }}",
+      "name": {{ .Title | jsonify }}
+    }{{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ end }}
